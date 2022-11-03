@@ -1,10 +1,83 @@
-<html>
-    <body>
-        <form class = "grid" action = "/result" method = "POST">
+<html> 
+    <head> 
+      <title>Test </title> 
+      <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <body> 
+      <h1>Test</h1> 
+      <!-- create W,A,S,D buttons-->
+      <button type="button" onclick="forward()">W</button>
+      <button type="button" onclick="left()">A</button>
+      <button type="button" onclick="backward()">S</button>
+      <button type="button" onclick="right()">D</button>
+      <!-- run the "print_test.py" file when "w" is clicked -->
+      <script>
+        function forward() {
+          $.ajax({
+            url: '/forward',
+            type: 'POST',
+            success: function(response) {
+              console.log(response);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+        }
+        function left() {
+          $.ajax({
+            url: '/left',
+            type: 'POST',
+            success: function(response) {
+              console.log(response);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+        }
+        function backward() {
+          $.ajax({
+            url: '/backward',
+            type: 'POST',
+            success: function(response) {
+              console.log(response);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+        }
+        function right() {
+          $.ajax({
+            url: '/right',
+            type: 'POST',
+            success: function(response) {
+              console.log(response);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+        }
+      </script>
+      <script>
+        window.addEventListener('keydown', (event) => {
+          console.log(event)
+          var name = event.key;
+          if (name === 'w') {
+            forward()
+          }
+          else if (name === 'a') {
+            left()
+          }
+          else if (name === 's') {
+            backward()
+          }
+          else if (name === 'd') {
+            backward()
+          }
+        });
+      </script>
+    </body>
+</html> 
 
-            <label for = "Name">Enter your name: </label>
-            <input type = "text" name = "Name" id = "Name">
-
-            <input type ="Submit" class = "file_submit">
-        </form>
-</html>
