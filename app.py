@@ -15,7 +15,9 @@ GPIO.setup(DIG2, GPIO.OUT)		# set pin as output
 GPIO.setup(DIG1, GPIO.OUT)		# set pin as output
 sleep(1)				   # delay for 1 seconds
 p1 = GPIO.PWM(AN1, 100)			# set pwm for M1
-p2 = GPIO.PWM(AN2, 100)	
+p2 = GPIO.PWM(AN2, 100)
+global current_speed
+current_speed = 0
 
 app = Flask(__name__) 
 

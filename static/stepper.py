@@ -1,4 +1,3 @@
-current_speed = 0
 def stepper (speed):
    speedlist = []
    if -100 > speed > 100:
