@@ -38,14 +38,9 @@ def forward():
    for i in range(len(speedlist)):
       p1.start(speedlist[i])
       p2.start(speedlist[i])
+      print("Speed is at ",i,"%")
       sleep(0.25)
    sleep(1)
-   while 0<=i<=100:
-      p1.start(i)
-      p2.start(i)
-      print("Speed is at ",i,"%")
-      i-=10
-      sleep(0.25)
    return render_template('home.html')
 
 @app.route('/left', methods=['GET', 'POST'])
