@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
-
 def index(): 
    if request.method == 'POST':
       GPIO.setmode(GPIO.BCM)			# GPIO numbering
