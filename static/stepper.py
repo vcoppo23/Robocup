@@ -1,3 +1,5 @@
+global curret_speed
+
 def stepper (speed):
    speedlist = []
    if -100 > speed > 100:
