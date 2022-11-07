@@ -2,7 +2,7 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 import RPi.GPIO as GPIO
-global current_speed
+
 app = Flask(__name__) 
 current_speed = 0
 @app.route('/')
