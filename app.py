@@ -42,8 +42,7 @@ def index():
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
-   speedlist = stepper(50)
-   revdown = stepper(0)
+   speedlist = stepper.stepper(50)
    GPIO.output(DIG1, GPIO.LOW)
    GPIO.output(DIG2, GPIO.LOW)
    for i in len(speedlist):
