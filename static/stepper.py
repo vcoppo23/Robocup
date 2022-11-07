@@ -1,6 +1,6 @@
-global curret_speed
 
-def stepper (speed):
+
+def stepper (speed,current_speed):
    speedlist = []
    if -100 > speed > 100:
       return
