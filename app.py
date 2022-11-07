@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 from static import stepper
 
 app = Flask(__name__) 
-current_speed = 0
+
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
 
