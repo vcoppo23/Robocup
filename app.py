@@ -38,7 +38,7 @@ def forward():
    for i in range(len(speedlist)):
       p1.start(speedlist[i])
       p2.start(speedlist[i])
-      print("Speed is at ",i,"%")
+      print("Speed is at ",speedlist[i],"%")
       sleep(0.25)
    sleep(1)
    return render_template('home.html')
