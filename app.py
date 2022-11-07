@@ -43,21 +43,6 @@ def index():
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
-   def stepper (speed):
-   speedlist = []
-   if -100 > speed > 100:
-      print ("don't fry the motors")
-      return
-   print ('speed at: ' + str(current_speed) + '%')
-   if current_speed < speed:
-      for i in range(current_speed, speed+1, (speed-current_speed)//5):
-         speedlist.append(i)
-         print ('speed: ' +str(i)+ '%')
-   elif speed < current_speed:
-      for i in reversed(range(speed, current_speed+1, (current_speed-speed)//5)):    
-         speedlist.append(i)
-         print ('speed: ' +str(i)+ '%')
-   return speedlist
    speedlist = stepper(50)
    revdown = stepper(0)
    GPIO.output(DIG1, GPIO.LOW)
@@ -73,8 +58,6 @@ def forward():
       print("Speed is at ",i,"%")
       i-=10
       sleep(0.25)
-
-   
    return render_template('home.html')
 
 @app.route('/left', methods=['GET', 'POST'])
