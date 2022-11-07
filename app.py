@@ -2,6 +2,7 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 import RPi.GPIO as GPIO
+from static import stepper
 
 app = Flask(__name__) 
 
@@ -67,7 +68,7 @@ def forward():
 def left():
    i = 10
    GPIO.output(DIG1, GPIO.LOW)
-   GPIO.output(DIG2, GPIO.LOW)
+   GPIO.output(DIG2, GPIO.HIGH)
    while i<100:
       p1.start(i)
       p2.start(i)
@@ -90,8 +91,8 @@ def left():
 @app.route('/backward', methods=['GET', 'POST'])
 def backward():
    i = 10
-   GPIO.output(DIG1, GPIO.LOW)
-   GPIO.output(DIG2, GPIO.LOW)
+   GPIO.output(DIG1, GPIO.HIGH)
+   GPIO.output(DIG2, GPIO.HIGH)
    while i<100:
       p1.start(i)
       p2.start(i)
@@ -114,7 +115,7 @@ def backward():
 @app.route('/right', methods=['GET', 'POST'])
 def right():
    i = 10
-   GPIO.output(DIG1, GPIO.LOW)
+   GPIO.output(DIG1, GPIO.HIGH)
    GPIO.output(DIG2, GPIO.LOW)
    while i<100:
       p1.start(i)
