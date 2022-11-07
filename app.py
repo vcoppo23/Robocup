@@ -2,12 +2,12 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 import RPi.GPIO as GPIO
-from static import stepper
 
 app = Flask(__name__) 
-
+current_speed = 0
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
+
 def index(): 
    if request.method == 'POST':
       GPIO.setmode(GPIO.BCM)			# GPIO numbering
@@ -42,33 +42,45 @@ def index():
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
-   i = 10
+   def stepper (speed):
+   speedlist = []
+   if -100 > speed > 100:
+      print ("don't fry the motors")
+      return
+   print ('speed at: ' + str(current_speed) + '%')
+   if current_speed < speed:
+      for i in range(current_speed, speed+1, (speed-current_speed)//5):
+         speedlist.append(i)
+         print ('speed: ' +str(i)+ '%')
+   elif speed < current_speed:
+      for i in reversed(range(speed, current_speed+1, (current_speed-speed)//5)):    
+         speedlist.append(i)
+         print ('speed: ' +str(i)+ '%')
+   return speedlist
+   speedlist = stepper(50)
+   revdown = stepper(0)
    GPIO.output(DIG1, GPIO.LOW)
    GPIO.output(DIG2, GPIO.LOW)
-   while i<100:
+   for i in len(speedlist):
+      p1.start(speedlist[i])
+      p2.start(speedlist[i])
+      sleep(0.25)
+   sleep(1)
+   while 0<=i<=100:
       p1.start(i)
       p2.start(i)
-      print("Speed is at ",i, "%")
-      i+=10
+      print("Speed is at ",i,"%")
+      i-=10
       sleep(0.25)
-   if i==100:
-      print("Holding for 3 seconds")
-      sleep(3)
-      while 0<=i<=100:
-         p1.start(i)
-         p2.start(i)
-         print("Speed is at ",i,"%")
-         i-=10
-         sleep(0.25)
-   else:
-      print("It's Val's fault")
+
+   
    return render_template('home.html')
 
 @app.route('/left', methods=['GET', 'POST'])
 def left():
    i = 10
    GPIO.output(DIG1, GPIO.LOW)
-   GPIO.output(DIG2, GPIO.HIGH)
+   GPIO.output(DIG2, GPIO.LOW)
    while i<100:
       p1.start(i)
       p2.start(i)
@@ -91,8 +103,8 @@ def left():
 @app.route('/backward', methods=['GET', 'POST'])
 def backward():
    i = 10
-   GPIO.output(DIG1, GPIO.HIGH)
-   GPIO.output(DIG2, GPIO.HIGH)
+   GPIO.output(DIG1, GPIO.LOW)
+   GPIO.output(DIG2, GPIO.LOW)
    while i<100:
       p1.start(i)
       p2.start(i)
@@ -115,7 +127,7 @@ def backward():
 @app.route('/right', methods=['GET', 'POST'])
 def right():
    i = 10
-   GPIO.output(DIG1, GPIO.HIGH)
+   GPIO.output(DIG1, GPIO.LOW)
    GPIO.output(DIG2, GPIO.LOW)
    while i<100:
       p1.start(i)
@@ -135,6 +147,7 @@ def right():
    else:
       print("It's Val's fault")
    return render_template('home.html')
+
 
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
