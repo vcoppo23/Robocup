@@ -2,6 +2,7 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 import RPi.GPIO as GPIO
+from static import stepper
 
 app = Flask(__name__) 
 
