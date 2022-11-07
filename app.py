@@ -35,7 +35,7 @@ def forward():
    speedlist = stepper.stepper(50,current_speed)
    GPIO.output(DIG1, GPIO.LOW)
    GPIO.output(DIG2, GPIO.LOW)
-   for i in len(speedlist):
+   for i in range(len(speedlist)):
       p1.start(speedlist[i])
       p2.start(speedlist[i])
       sleep(0.25)
