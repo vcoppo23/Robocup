@@ -86,9 +86,9 @@
         var interval = setInterval(function() {
           gamepad = navigator.getGamepads()[0];
           if (gamepad) {
-            if (gamepad.buttons[7].touched) {
+            if (gamepad.buttons[7].pressed) {
               forward();
-              while (gamepad.buttons[7].touched) {
+              while (gamepad.buttons[7].pressed) {
                 console.log("button is held")
               }
               console.log("button released")
