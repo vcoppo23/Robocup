@@ -11,6 +11,18 @@
       <button type="button" onclick="right()">D</button>
       <!-- run the "print_test.py" file when "w" is clicked -->
       <script>
+        function revdown() {
+          $.ajax({
+            url: '/revdown',
+            type: 'POST',
+            success: function(response) {
+              console.log(response);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+        }
         function forward() {
           $.ajax({
             url: '/forward',
@@ -76,6 +88,9 @@
           if (gamepad) {
             if (gamepad.buttons[7].pressed) {
               forward();
+              if (!gamepad.buttons[7].touched) {
+                revdown();
+              }
             }
             if (gamepad.buttons[5].pressed) {
               left();
