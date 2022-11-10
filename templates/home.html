@@ -88,9 +88,11 @@
           if (gamepad) {
             if (gamepad.buttons[7].pressed) {
               forward();
-              if (!gamepad.buttons[7].touched) {
-                revdown();
+              while (gamepad.buttons[7].touched) {
+                console.log("button is held")
               }
+              console.log("button released")
+              revdown()
             }
             if (gamepad.buttons[5].pressed) {
               left();
