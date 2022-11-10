@@ -16,8 +16,7 @@ GPIO.setup(DIG1, GPIO.OUT)		# set pin as output
 sleep(1)				   # delay for 1 seconds
 p1 = GPIO.PWM(AN1, 100)			# set pwm for M1
 p2 = GPIO.PWM(AN2, 100)
-global current_speed
-current_speed = 0
+
 
 app = Flask(__name__) 
 
@@ -29,10 +28,24 @@ def index():
    else:
       return render_template('home.html')
 
+@app.route('/revdown', methods=['GET', 'POST'])
+def revdown():
+   speedlist=[]
+   speedlist = stepper.stepper(50,0)
+   GPIO.output(DIG1, GPIO.LOW)
+   GPIO.output(DIG2, GPIO.LOW)
+   for i in range(len(speedlist)):
+      p1.start(speedlist[i])
+      p2.start(speedlist[i])
+      print("Speed is at ",speedlist[i],"%")
+      sleep(0.25)
+   
+   return render_template('home.html')
+
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
    speedlist=[]
-   speedlist = stepper.stepper(50,current_speed)
+   speedlist = stepper.stepper(0,50)
    GPIO.output(DIG1, GPIO.LOW)
    GPIO.output(DIG2, GPIO.LOW)
    for i in range(len(speedlist)):
