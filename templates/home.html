@@ -70,24 +70,34 @@
           console.log("Gamepad disconnected from index %d: %s",
             e.gamepad.index, e.gamepad.id);
         });
-        var gamepad = navigator.getGamepads()[0];
-        var interval = setInterval(function() {
-          gamepad = navigator.getGamepads()[0];
-          if (gamepad) {
-            if (gamepad.buttons[7].pressed) {
-              forward();
-            }
-            if (gamepad.buttons[5].pressed) {
-              left();
-            }
-            if (gamepad.buttons[8].pressed) {
-              backward();
-            }
-            if (gamepad.buttons[6].pressed) {
-              right();
-            }
+        //If the left joystick is moved forward or backward, the robot will move forward or backward
+        function leftJoystick() {
+          var gamepad = navigator.getGamepads()[0];
+          var leftJoystick = gamepad.axes[1];
+          if (leftJoystick < -0.5) {
+            forward();
+          } else if (leftJoystick > 0.5) {
+            backward();
           }
-        }, 100);
+        }
+        //If the right joystick is moved left or right, the robot will turn left or right
+        function rightJoystick() {
+          var gamepad = navigator.getGamepads()[0];
+          var rightJoystick = gamepad.axes[3];
+          if (rightJoystick < -0.5) {
+            left();
+          } else if (rightJoystick > 0.5) {
+            right();
+          }
+        }
+        // add window event listener to check for gamepad input
+        window.addEventListener("gamepadconnected", function(e) {
+          console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+            e.gamepad.index, e.gamepad.id,
+            e.gamepad.buttons.length, e.gamepad.axes.length);
+        });
+        rightJoystick();
+        leftJoystick();
       </script>
       <script>
         window.addEventListener('keydown', (event) => {
