@@ -41,11 +41,15 @@ def forward():
       if joystick1 < 0:
          joystick1 = -joystick1
          GPIO.output(DIG1, GPIO.HIGH)
+         GPIO.output(DIG2, GPIO.LOW)
          p1.start(joystick1)
+         p2.start(joystick1)
       else:
          GPIO.output(DIG1, GPIO.LOW)
+         GPIO.output(DIG2, GPIO.HIGH)
          p1.start(joystick1)
-         
+         p2.start(joystick1)
+      """  
       if joystick2 < 0:
          joystick2 = -joystick2
          GPIO.output(DIG2, GPIO.HIGH)
@@ -53,7 +57,7 @@ def forward():
       else:
          GPIO.output(DIG2, GPIO.LOW)
          p2.start(joystick2)
-         
+      """
    return render_template('gamepad.html')
 
 if __name__ == '__main__': 
