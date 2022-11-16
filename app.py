@@ -2,7 +2,7 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 from static import stepper
-"""
+
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -15,11 +15,8 @@ GPIO.setup(AN1, GPIO.OUT)
 GPIO.setup(DIG2, GPIO.OUT)
 GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
-p2 = GPIO.PWM(AN2, 100
-"""
+p2 = GPIO.PWM(AN2, 100)
 
-global current_speed
-current_speed = 0
 
 app = Flask(__name__) 
 
@@ -43,15 +40,20 @@ def forward():
       print("Right % power",joystick2)
       if joystick1 < 0:
          joystick1 = -joystick1
+         GPIO.output(DIG1, GPIO.HIGH)
          p1.start(joystick1)
       else:
+         GPIO.output(DIG1, GPIO.LOW)
          p1.start(joystick1)
+         
       if joystick2 < 0:
          joystick2 = -joystick2
+         GPIO.output(DIG2, GPIO.HIGH)
          p2.start(joystick2)
       else:
+         GPIO.output(DIG2, GPIO.LOW)
          p2.start(joystick2)
-
+         
    return render_template('gamepad.html')
 
 if __name__ == '__main__': 
