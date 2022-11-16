@@ -1,0 +1,58 @@
+<html> 
+    <head> 
+      <title>Test </title> 
+      <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <body> 
+      <h1>Test</h1> 
+    </body>
+    <script>
+        //connect gamepad from window
+        window.addEventListener("gamepadconnected", function(e) {
+          console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+            e.gamepad.index, e.gamepad.id,
+            e.gamepad.buttons.length, e.gamepad.axes.length);
+        });
+        //set controller as gp
+        var gp = navigator.getGamepads()[0];
+        //disconnect gamepad from window
+        window.addEventListener("gamepaddisconnected", function(e) {
+          console.log("Gamepad disconnected from index %d: %s",
+            e.gamepad.index, e.gamepad.id);
+        });
+        //apply Deadzone so no motor running when at rest
+        var applyDeadzone = function(number, threshold){
+          percentage = (Math.abs(number) - threshold) / (1 - threshold);
+          if(percentage < 0)
+            percentage = 0;
+          return percentage * (number > 0 ? 1 : -1);
+        }
+        //var xaxis = applyDeadzone(gp.axes[0], 0.25);
+        //var yaxis = applyDeadzone(gp.axes[1], 0.25);
+        //console log controller axis positions
+        function logController() {
+          gp = navigator.getGamepads()[0];
+          console.log(gp.axes[1]);
+          console.log(gp.axes[3]);
+        }
+        //setInterval(logController, 100)
+        //runs python script in app.py
+        function joystick() {
+          gp = navigator.getGamepads()[0];
+          joystick1 = applyDeadzone(gp.axes[1], 0.25);
+          joystick2 = applyDeadzone(gp.axes[3], 0.25);
+          $.ajax({
+            url: "{{ url_for('forward') }}",
+            type: 'POST',
+            data: {'joystick1': joystick1, 'joystick2': joystick2},
+            success: function(response) {
+              console.log("Data Sent");
+            }
+          });
+        }
+        setInterval(joystick, 100);
+    </script>
+    <body>
+      <button onclick="joystick()">Forward</button>
+    </body>
+    </head>
+</html>

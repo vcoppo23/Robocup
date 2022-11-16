@@ -23,10 +23,11 @@
             }
           });
         }
-        function forward() {
+        function forward(xaxis, yaxis) {
           $.ajax({
             url: '/forward',
             type: 'POST',
+            data: {xaxis: gp.axes[0], yaxis: gp.axes[1]},
             success: function(response) {
               console.log(response);
             },
