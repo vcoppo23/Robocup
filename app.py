@@ -6,6 +6,7 @@ from static import stepper
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+#Setup for one tank tread
 AN2 = 23
 AN1 = 22
 DIG2 = 18
@@ -16,6 +17,17 @@ GPIO.setup(DIG2, GPIO.OUT)
 GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
 p2 = GPIO.PWM(AN2, 100)
+#Setup for second tank tread
+AN4 = 
+AN3 = 
+DIG4 =
+DIG3 =
+GPIO.setup(AN4, GPIO.OUT)
+GPIO.setup(AN3, GPIO.OUT)
+GPIO.setup(DIG4, GPIO.OUT)
+GPIO.setup(DIG3, GPIO.OUT)
+p3 = GPIO.PWM(AN3, 100)
+p4 = GPIO.PWM(AN4, 100)
 
 
 app = Flask(__name__) 
@@ -38,6 +50,7 @@ def forward():
       joystick2 = int(float(joystick2)*100)
       print("Left % power",joystick1)
       print("Right % power",joystick2)
+      #Left tread
       if joystick1 < 0:
          joystick1 = -joystick1
          GPIO.output(DIG1, GPIO.HIGH)
@@ -49,15 +62,20 @@ def forward():
          GPIO.output(DIG2, GPIO.HIGH)
          p1.start(joystick1)
          p2.start(joystick1)
-      """  
+      #Right tread 
       if joystick2 < 0:
          joystick2 = -joystick2
-         GPIO.output(DIG2, GPIO.HIGH)
-         p2.start(joystick2)
+         GPIO.output(DIG3, GPIO.HIGH)
+         GPIO.output(DIG4, GPIO.LOW)
+         p3.start(joystick2)
+         p4.start(joystick2)
       else:
-         GPIO.output(DIG2, GPIO.LOW)
-         p2.start(joystick2)
-      """
+         GPIO.output(DIG3, GPIO.LOW)
+         GPIO.output(DIG4, GPIO.HIGH)
+         p3.start(joystick2)
+         p4.start(joystick2)
+         
+      
    return render_template('gamepad.html')
 
 if __name__ == '__main__': 
