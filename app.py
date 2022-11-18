@@ -16,7 +16,7 @@ GPIO.setup(AN1, GPIO.OUT)
 GPIO.setup(DIG2, GPIO.OUT)
 GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
-p2 = GPIO.PWM(AN2, 100)
+#p2 = GPIO.PWM(AN2, 100)
 #Setup for second tank tread
 AN4 = 9
 AN3 = 11
@@ -26,7 +26,7 @@ GPIO.setup(AN4, GPIO.OUT)
 GPIO.setup(AN3, GPIO.OUT)
 GPIO.setup(DIG4, GPIO.OUT)
 GPIO.setup(DIG3, GPIO.OUT)
-p3 = GPIO.PWM(AN3, 100)
+p2 = GPIO.PWM(AN3, 100)
 p4 = GPIO.PWM(AN4, 100)
 
 
@@ -56,23 +56,23 @@ def forward():
          GPIO.output(DIG1, GPIO.HIGH)
          GPIO.output(DIG2, GPIO.LOW)
          p1.start(joystick1)
-         p2.start(joystick1)
+         #p2.start(joystick1)
       else:
          GPIO.output(DIG1, GPIO.LOW)
          GPIO.output(DIG2, GPIO.HIGH)
          p1.start(joystick1)
-         p2.start(joystick1)
+         #p2.start(joystick1)
       #Right tread 
       if joystick2 < 0:
          joystick2 = -joystick2
          GPIO.output(DIG3, GPIO.HIGH)
          GPIO.output(DIG4, GPIO.LOW)
-         p3.start(joystick2)
+         p2.start(joystick2)
          p4.start(joystick2)
       else:
          GPIO.output(DIG3, GPIO.LOW)
          GPIO.output(DIG4, GPIO.HIGH)
-         p3.start(joystick2)
+         p2.start(joystick2)
          p4.start(joystick2)
          
       
