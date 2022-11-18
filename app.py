@@ -56,25 +56,25 @@ def forward():
          GPIO.output(DIG1, GPIO.HIGH)
          GPIO.output(DIG2, GPIO.HIGH)
          p1.start(joystick1)
-         #p2.start(joystick1)
+         p2.start(joystick1)
       else:
          GPIO.output(DIG1, GPIO.LOW)
          GPIO.output(DIG2, GPIO.LOW)
          p1.start(joystick1)
-         #p2.start(joystick1)
+         p2.start(joystick1)
       #Right tread 
       if joystick2 < 0:
          joystick2 = -joystick2
          GPIO.output(DIG2, GPIO.HIGH)
          GPIO.output(DIG3, GPIO.HIGH)
          GPIO.output(DIG4, GPIO.HIGH)
-         p2.start(joystick2)
+         p3.start(joystick2)
          p4.start(joystick2)
       else:
          GPIO.output(DIG2, GPIO.LOW)
          GPIO.output(DIG3, GPIO.LOW)
          GPIO.output(DIG4, GPIO.LOW)
-         p2.start(joystick2)
+         p3.start(joystick2)
          p4.start(joystick2)
          
       
