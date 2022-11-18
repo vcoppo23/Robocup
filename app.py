@@ -18,10 +18,10 @@ GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
 p2 = GPIO.PWM(AN2, 100)
 #Setup for second tank tread
-AN4 = 
-AN3 = 
-DIG4 =
-DIG3 =
+AN4 = 9
+AN3 = 11
+DIG4 =25
+DIG3 =8
 GPIO.setup(AN4, GPIO.OUT)
 GPIO.setup(AN3, GPIO.OUT)
 GPIO.setup(DIG4, GPIO.OUT)
@@ -46,8 +46,8 @@ def forward():
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
-      joystick1 = int(float(joystick1)*100)
-      joystick2 = int(float(joystick2)*100)
+      joystick1 = (int(float(joystick1)*100))//3
+      joystick2 = (int(float(joystick2)*100))//3
       print("Left % power",joystick1)
       print("Right % power",joystick2)
       #Left tread
