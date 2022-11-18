@@ -46,8 +46,8 @@ def forward():
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
-      joystick1 = (int(float(joystick1)*100))//3
-      joystick2 = (int(float(joystick2)*100))//3
+      joystick1 = int((float(joystick1)*100)/3)
+      joystick2 = int((float(joystick2)*100)/3)
       print("Left % power",joystick1)
       print("Right % power",joystick2)
       #Left tread
