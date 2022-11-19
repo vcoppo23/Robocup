@@ -6,7 +6,8 @@ from static import stepper
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-#Setup for one tank tread
+
+#Setup for Right tank tread
 AN2 = 23
 AN1 = 22
 DIG2 = 18
@@ -17,7 +18,8 @@ GPIO.setup(DIG2, GPIO.OUT)
 GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
 p2 = GPIO.PWM(AN2, 100)
-#Setup for second tank tread
+
+#Setup for Left tank tread
 AN4 = 9
 AN3 = 11
 DIG4 =25
@@ -28,6 +30,13 @@ GPIO.setup(DIG4, GPIO.OUT)
 GPIO.setup(DIG3, GPIO.OUT)
 p3 = GPIO.PWM(AN3, 100)
 p4 = GPIO.PWM(AN4, 100)
+
+#Setup for Turret
+AN5 = 26
+DIG5 = 20
+GPIO.setup(AN5, GPIO.OUT)
+GPIO.setup(DIG5, GPIO.OUT)
+p5 = GPIO.PWM(AN5, 100)
 
 
 app = Flask(__name__) 
@@ -46,37 +55,52 @@ def forward():
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
-      joystick1 = int((float(joystick1)*100)/3)
-      joystick2 = int((float(joystick2)*100)/3)
+      turretClockwise = request.form['turretClockwise']
+      turretCounterClockwise = request.form['turretCounterClockwise']
+      joystick1 = int((float(joystick1)*100))
+      joystick2 = int((float(joystick2)*100))
       print("Left % power",joystick1)
       print("Right % power",joystick2)
+      print("Turret Clockwise",turretClockwise)
+      print("Turret Counter Clockwise",turretCounterClockwise)
+
       #Left tread
       if joystick1 < 0:
          joystick1 = -joystick1
          GPIO.output(DIG1, GPIO.HIGH)
-         GPIO.output(DIG2, GPIO.HIGH)
+         GPIO.output(DIG2, GPIO.LOW)
          p1.start(joystick1)
          p2.start(joystick1)
       else:
          GPIO.output(DIG1, GPIO.LOW)
-         GPIO.output(DIG2, GPIO.LOW)
+         GPIO.output(DIG2, GPIO.HIGH)
          p1.start(joystick1)
          p2.start(joystick1)
+
       #Right tread 
       if joystick2 < 0:
          joystick2 = -joystick2
-         GPIO.output(DIG2, GPIO.HIGH)
-         GPIO.output(DIG3, GPIO.HIGH)
+         GPIO.output(DIG3, GPIO.LOW)
          GPIO.output(DIG4, GPIO.HIGH)
          p3.start(joystick2)
          p4.start(joystick2)
       else:
-         GPIO.output(DIG2, GPIO.LOW)
-         GPIO.output(DIG3, GPIO.LOW)
+         GPIO.output(DIG3, GPIO.HIGH)
          GPIO.output(DIG4, GPIO.LOW)
          p3.start(joystick2)
          p4.start(joystick2)
-         
+      
+      #Turret
+      if turretClockwise == 1:
+         GPIO.output(DIG5, GPIO.HIGH)
+         p5.start(30)
+         sleep(0.2)
+         p5.start(60)
+      elif turretCounterClockwise == 1:
+         GPIO.output(DIG5, GPIO.LOW)
+         p5.start(30)
+         sleep(0.2)
+         p5.start(60)
       
    return render_template('gamepad.html')
 

@@ -40,13 +40,16 @@
           gp = navigator.getGamepads()[0];
           joystick1 = applyDeadzone(gp.axes[1], 0.25);
           joystick2 = applyDeadzone(gp.axes[3], 0.25);
+          turretClockwise = gp.buttons[5];
+          turretCounterClockwise = gp.buttons[4];
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',
-            data: {'joystick1': joystick1, 'joystick2': joystick2},
+            data: {'joystick1': joystick1, 'joystick2': joystick2, 'turretClockwise': turretClockwise, 'turretCounterClockwise': turretCounterClockwise},
             success: function(response) {
               console.log("Data Sent");
             }
+          
           });
         }
         setInterval(joystick, 100);
