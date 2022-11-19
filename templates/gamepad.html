@@ -36,12 +36,14 @@
         }
         //setInterval(logController, 100)
         //runs python script in app.py
+
+        
         function joystick() {
           gp = navigator.getGamepads()[0];
           joystick1 = applyDeadzone(gp.axes[1], 0.25);
           joystick2 = applyDeadzone(gp.axes[3], 0.25);
-          turretClockwise = gp.buttons[5];
-          turretCounterClockwise = gp.buttons[4];
+          turretClockwise = gp.buttons[5].pressed;
+          turretCounterClockwise = gp.buttons[4].pressed;
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',
