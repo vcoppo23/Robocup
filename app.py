@@ -45,9 +45,9 @@ DIG6 =
 GPIO.setup(AN6, GPIO.OUT)
 GPIO.setup(DIG6, GPIO.OUT)
 p6 = GPIO.PWM(AN6, 100)
-An7 = 
+AN7 = 
 DIG7 = 
-GPIO.setup(An7, GPIO.OUT)
+GPIO.setup(AN7, GPIO.OUT)
 GPIO.setup(DIG7, GPIO.OUT)
 p7 = GPIO.PWM(An7, 100)
 """
