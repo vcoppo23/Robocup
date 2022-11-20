@@ -56,8 +56,7 @@ GPIO.setup(An7, GPIO.OUT)
 GPIO.setup(DIG7, GPIO.OUT)
 p7 = GPIO.PWM(An7, 100)
 """
-global wristmode
-wristmode = False
+
 app = Flask(__name__) 
 
 @app.route('/')
@@ -71,6 +70,7 @@ def index():
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
+   wristmode = False
    if request.method == 'POST':
 
       joystick1 = request.form['joystick1']
