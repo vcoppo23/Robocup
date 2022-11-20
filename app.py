@@ -56,6 +56,7 @@ GPIO.setup(An7, GPIO.OUT)
 GPIO.setup(DIG7, GPIO.OUT)
 p7 = GPIO.PWM(An7, 100)
 """
+global wristmode
 wristmode = False
 app = Flask(__name__) 
 
