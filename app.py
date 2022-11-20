@@ -6,7 +6,7 @@ from camera import Camera
 import os
 
 
-pi_camera = Camera(flip=False) # flip pi camera if upside down.
+
 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
