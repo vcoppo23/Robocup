@@ -2,7 +2,7 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 from static import stepper
-from Picamera import Camera
+from camera import Camera
 import os
 
 
