@@ -38,6 +38,19 @@ GPIO.setup(AN5, GPIO.OUT)
 GPIO.setup(DIG5, GPIO.OUT)
 p5 = GPIO.PWM(AN5, 100)
 
+#Setup for Shoulder & Elbow respectively
+"""
+AN6 = 
+DIG6 = 
+GPIO.setup(AN6, GPIO.OUT)
+GPIO.setup(DIG6, GPIO.OUT)
+p6 = GPIO.PWM(AN6, 100)
+An7 = 
+DIG7 = 
+GPIO.setup(An7, GPIO.OUT)
+GPIO.setup(DIG7, GPIO.OUT)
+p7 = GPIO.PWM(An7, 100)
+"""
 
 app = Flask(__name__) 
 
@@ -57,12 +70,21 @@ def forward():
       joystick2 = request.form['joystick2']
       turretClockwise = request.form['turretClockwise']
       turretCounterClockwise = request.form['turretCounterClockwise']
+      elbowUp = request.form['elbowUp']
+      elbowDown = request.form['elbowDown']
+      shoulderUp = request.form['shoulderUp']
+      shoulderDown = request.form['shoulderDown']
       joystick1 = int((float(joystick1)*100))
       joystick2 = int((float(joystick2)*100))
       print("Left % power",joystick1)
       print("Right % power",joystick2)
       print("Turret Clockwise",turretClockwise)
       print("Turret Counter Clockwise",turretCounterClockwise)
+      print("Elbow Up",elbowUp)
+      print("Elbow Down",elbowDown)
+      print("Shoulder Up",shoulderUp)
+      print("Shoulder Down",shoulderDown)
+
 
       #Left tread
       if joystick1 < 0:
@@ -101,7 +123,35 @@ def forward():
          p5.start(30)
          sleep(0.2)
          p5.start(60)
-      
+      else:
+         p5.stop()
+      #Shoulder & Elbow
+      """
+      if shoulderUp == 1:
+         GPIO.output(DIG6, GPIO.HIGH)
+         p6.start(30)
+         sleep(0.2)
+         p6.start(60)
+      elif shoulderDown == 1:
+         GPIO.output(DIG6, GPIO.LOW)
+         p6.start(30)
+         sleep(0.2)
+         p6.start(60)
+      else:
+         p6.stop()
+      if elbowUp == 1:
+         GPIO.output(DIG7, GPIO.HIGH)
+         p7.start(30)
+         sleep(0.2)
+         p7.start(60)
+      elif elbowDown == 1:
+         GPIO.output(DIG7, GPIO.LOW)
+         p7.start(30)
+         sleep(0.2)
+         p7.start(60)
+      else:
+         p7.stop()
+      """
    return render_template('gamepad.html')
 
 if __name__ == '__main__': 
