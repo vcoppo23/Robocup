@@ -75,7 +75,6 @@ def forward():
       elbowDown = request.form['elbowDown']
       shoulderUp = request.form['shoulderUp']
       shoulderDown = request.form['shoulderDown']
-      changemode = request.form['changemode']
       joystick1 = int((float(joystick1)*100))
       joystick2 = int((float(joystick2)*100))
       print("Left % power",joystick1)
