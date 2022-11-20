@@ -2,6 +2,11 @@ from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
 from static import stepper
+from camera import Camera
+import os
+
+
+pi_camera = Camera(flip=False) # flip pi camera if upside down.
 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
@@ -61,6 +66,7 @@ def index():
       return render_template('gamepad.html')
    else:
       return render_template('gamepad.html')
+
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
@@ -153,6 +159,24 @@ def forward():
          p7.stop()
       """
    return render_template('gamepad.html')
+
+def gen(camera):
+    """Video streaming generator function."""
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(pi_camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+# Take a photo when pressing camera button
+@app.route('/picture')
+def take_picture():
+    pi_camera.take_picture()
+    return "None"
 
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
