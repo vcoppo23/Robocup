@@ -113,12 +113,12 @@ def forward():
          p4.start(joystick2)
       
       #Turret
-      if turretClockwise == 1:
+      if turretClockwise == 1 and turretCounterClockwise == 0:
          GPIO.output(DIG5, GPIO.HIGH)
          p5.start(30)
          sleep(0.2)
          p5.start(60)
-      elif turretCounterClockwise == 1:
+      elif turretCounterClockwise == 1 and turretClockwise == 0:
          GPIO.output(DIG5, GPIO.LOW)
          p5.start(30)
          sleep(0.2)
@@ -127,24 +127,24 @@ def forward():
          p5.stop()
       #Shoulder & Elbow
       """
-      if shoulderUp == 1:
+      if shoulderUp == 1 and shoulderDown == 0:
          GPIO.output(DIG6, GPIO.HIGH)
          p6.start(30)
          sleep(0.2)
          p6.start(60)
-      elif shoulderDown == 1:
+      elif shoulderDown == 1 and shoulderUp == 0:
          GPIO.output(DIG6, GPIO.LOW)
          p6.start(30)
          sleep(0.2)
          p6.start(60)
       else:
          p6.stop()
-      if elbowUp == 1:
+      if elbowUp == 1 and elbowDown == 0:
          GPIO.output(DIG7, GPIO.HIGH)
          p7.start(30)
          sleep(0.2)
          p7.start(60)
-      elif elbowDown == 1:
+      elif elbowDown == 1 and elbowUp == 0:
          GPIO.output(DIG7, GPIO.LOW)
          p7.start(30)
          sleep(0.2)
