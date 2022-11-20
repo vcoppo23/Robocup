@@ -165,7 +165,7 @@ def forward():
       """
       if wristmode == True:
          return render_template('video.html')
-         
+
    return render_template('gamepad.html')
 
 def gen(camera):
@@ -177,14 +177,10 @@ def gen(camera):
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(pi_camera),
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# Take a photo when pressing camera button
-@app.route('/picture')
-def take_picture():
-    pi_camera.take_picture()
-    return "None"
 
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
