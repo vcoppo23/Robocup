@@ -48,6 +48,7 @@
           shoulderDown = gp.buttons[3].pressed;
           elbowUp = gp.buttons[1].pressed;
           elbowDown = gp.buttons[2].pressed;
+          changemode = gp.buttons[9].pressed;
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',

@@ -56,7 +56,7 @@ GPIO.setup(An7, GPIO.OUT)
 GPIO.setup(DIG7, GPIO.OUT)
 p7 = GPIO.PWM(An7, 100)
 """
-
+wristmode = False
 app = Flask(__name__) 
 
 @app.route('/')
@@ -80,6 +80,7 @@ def forward():
       elbowDown = request.form['elbowDown']
       shoulderUp = request.form['shoulderUp']
       shoulderDown = request.form['shoulderDown']
+      changemode = request.form['changemode']
       joystick1 = int((float(joystick1)*100))
       joystick2 = int((float(joystick2)*100))
       print("Left % power",joystick1)
@@ -91,7 +92,11 @@ def forward():
       print("Shoulder Up",shoulderUp)
       print("Shoulder Down",shoulderDown)
 
-
+      # This switches the page to a wrist mode, where the camerea is from the wrist and there is fine tuned wrist control
+      if changemode == 1:
+         wristmode = True
+      elif changemode == 0:
+         wristmode = False
       #Left tread
       if joystick1 < 0:
          joystick1 = -joystick1
@@ -158,6 +163,9 @@ def forward():
       else:
          p7.stop()
       """
+      if wristmode == True:
+         return render_template('video.html')
+         
    return render_template('gamepad.html')
 
 def gen(camera):
