@@ -48,11 +48,10 @@
           shoulderDown = gp.buttons[3].pressed;
           elbowUp = gp.buttons[1].pressed;
           elbowDown = gp.buttons[2].pressed;
-          changemode = gp.buttons[9].pressed;
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',
-            data: {'joystick1': joystick1, 'joystick2': joystick2, 'turretClockwise': turretClockwise, 'turretCounterClockwise': turretCounterClockwise, 'shoulderUp': shoulderUp, 'shoulderDown': shoulderDown, 'elbowUp': elbowUp, 'elbowDown': elbowDown, 'changemode': changemode},
+            data: {'joystick1': joystick1, 'joystick2': joystick2, 'turretClockwise': turretClockwise, 'turretCounterClockwise': turretCounterClockwise, 'shoulderUp': shoulderUp, 'shoulderDown': shoulderDown, 'elbowUp': elbowUp, 'elbowDown': elbowDown},
             success: function(response) {
               console.log("Data Sent");
             }

@@ -4,10 +4,6 @@ from time import sleep
 from static import stepper
 from camera import Camera
 import os
-
-
-
-
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -70,104 +66,94 @@ def index():
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
-   wristmode = False
-   if wristmode == True:
-         return render_template('video.html')
-   else:
-      if request.method == 'POST':
 
-         joystick1 = request.form['joystick1']
-         joystick2 = request.form['joystick2']
-         turretClockwise = request.form['turretClockwise']
-         turretCounterClockwise = request.form['turretCounterClockwise']
-         elbowUp = request.form['elbowUp']
-         elbowDown = request.form['elbowDown']
-         shoulderUp = request.form['shoulderUp']
-         shoulderDown = request.form['shoulderDown']
-         changemode = request.form['changemode']
-         joystick1 = int((float(joystick1)*100))
-         joystick2 = int((float(joystick2)*100))
-         print("Left % power",joystick1)
-         print("Right % power",joystick2)
-         print("Turret Clockwise",turretClockwise)
-         print("Turret Counter Clockwise",turretCounterClockwise)
-         print("Elbow Up",elbowUp)
-         print("Elbow Down",elbowDown)
-         print("Shoulder Up",shoulderUp)
-         print("Shoulder Down",shoulderDown)
+      joystick1 = request.form['joystick1']
+      joystick2 = request.form['joystick2']
+      turretClockwise = request.form['turretClockwise']
+      turretCounterClockwise = request.form['turretCounterClockwise']
+      elbowUp = request.form['elbowUp']
+      elbowDown = request.form['elbowDown']
+      shoulderUp = request.form['shoulderUp']
+      shoulderDown = request.form['shoulderDown']
+      changemode = request.form['changemode']
+      joystick1 = int((float(joystick1)*100))
+      joystick2 = int((float(joystick2)*100))
+      print("Left % power",joystick1)
+      print("Right % power",joystick2)
+      print("Turret Clockwise",turretClockwise)
+      print("Turret Counter Clockwise",turretCounterClockwise)
+      print("Elbow Up",elbowUp)
+      print("Elbow Down",elbowDown)
+      print("Shoulder Up",shoulderUp)
+      print("Shoulder Down",shoulderDown)
 
-         # This switches the page to a wrist mode, where the camerea is from the wrist and there is fine tuned wrist control
-         if changemode == 1:
-            wristmode = True
-         elif changemode == 0:
-            wristmode = False
-         #Left tread
-         if joystick1 < 0:
-            joystick1 = -joystick1
-            GPIO.output(DIG1, GPIO.HIGH)
-            GPIO.output(DIG2, GPIO.LOW)
-            p1.start(joystick1)
-            p2.start(joystick1)
-         else:
-            GPIO.output(DIG1, GPIO.LOW)
-            GPIO.output(DIG2, GPIO.HIGH)
-            p1.start(joystick1)
-            p2.start(joystick1)
+      #Left tread
+      if joystick1 < 0:
+         joystick1 = -joystick1
+         GPIO.output(DIG1, GPIO.HIGH)
+         GPIO.output(DIG2, GPIO.LOW)
+         p1.start(joystick1)
+         p2.start(joystick1)
+      else:
+         GPIO.output(DIG1, GPIO.LOW)
+         GPIO.output(DIG2, GPIO.HIGH)
+         p1.start(joystick1)
+         p2.start(joystick1)
 
-         #Right tread 
-         if joystick2 < 0:
-            joystick2 = -joystick2
-            GPIO.output(DIG3, GPIO.LOW)
-            GPIO.output(DIG4, GPIO.HIGH)
-            p3.start(joystick2)
-            p4.start(joystick2)
-         else:
-            GPIO.output(DIG3, GPIO.HIGH)
-            GPIO.output(DIG4, GPIO.LOW)
-            p3.start(joystick2)
-            p4.start(joystick2)
-         
-         #Turret
-         if turretClockwise == 1 and turretCounterClockwise == 0:
-            GPIO.output(DIG5, GPIO.HIGH)
-            p5.start(30)
-            sleep(0.2)
-            p5.start(60)
-         elif turretCounterClockwise == 1 and turretClockwise == 0:
-            GPIO.output(DIG5, GPIO.LOW)
-            p5.start(30)
-            sleep(0.2)
-            p5.start(60)
-         else:
-            p5.stop()
-         #Shoulder & Elbow
-         """
-         if shoulderUp == 1 and shoulderDown == 0:
-            GPIO.output(DIG6, GPIO.HIGH)
-            p6.start(30)
-            sleep(0.2)
-            p6.start(60)
-         elif shoulderDown == 1 and shoulderUp == 0:
-            GPIO.output(DIG6, GPIO.LOW)
-            p6.start(30)
-            sleep(0.2)
-            p6.start(60)
-         else:
-            p6.stop()
-         if elbowUp == 1 and elbowDown == 0:
-            GPIO.output(DIG7, GPIO.HIGH)
-            p7.start(30)
-            sleep(0.2)
-            p7.start(60)
-         elif elbowDown == 1 and elbowUp == 0:
-            GPIO.output(DIG7, GPIO.LOW)
-            p7.start(30)
-            sleep(0.2)
-            p7.start(60)
-         else:
-            p7.stop()
-         """
+      #Right tread 
+      if joystick2 < 0:
+         joystick2 = -joystick2
+         GPIO.output(DIG3, GPIO.LOW)
+         GPIO.output(DIG4, GPIO.HIGH)
+         p3.start(joystick2)
+         p4.start(joystick2)
+      else:
+         GPIO.output(DIG3, GPIO.HIGH)
+         GPIO.output(DIG4, GPIO.LOW)
+         p3.start(joystick2)
+         p4.start(joystick2)
       
+      #Turret
+      if turretClockwise == 1 and turretCounterClockwise == 0:
+         GPIO.output(DIG5, GPIO.HIGH)
+         p5.start(30)
+         sleep(0.2)
+         p5.start(60)
+      elif turretCounterClockwise == 1 and turretClockwise == 0:
+         GPIO.output(DIG5, GPIO.LOW)
+         p5.start(30)
+         sleep(0.2)
+         p5.start(60)
+      else:
+         p5.stop()
+      #Shoulder & Elbow
+      """
+      if shoulderUp == 1 and shoulderDown == 0:
+         GPIO.output(DIG6, GPIO.HIGH)
+         p6.start(30)
+         sleep(0.2)
+         p6.start(60)
+      elif shoulderDown == 1 and shoulderUp == 0:
+         GPIO.output(DIG6, GPIO.LOW)
+         p6.start(30)
+         sleep(0.2)
+         p6.start(60)
+      else:
+         p6.stop()
+      if elbowUp == 1 and elbowDown == 0:
+         GPIO.output(DIG7, GPIO.HIGH)
+         p7.start(30)
+         sleep(0.2)
+         p7.start(60)
+      elif elbowDown == 1 and elbowUp == 0:
+         GPIO.output(DIG7, GPIO.LOW)
+         p7.start(30)
+         sleep(0.2)
+         p7.start(60)
+      else:
+         p7.stop()
+      """
+   
 
       return render_template('gamepad.html')
 
