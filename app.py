@@ -68,7 +68,7 @@ def forward():
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
-      turretClockwise = request.form['turretClockwise']
+      turretClockwise = bool(request.form['turretClockwise'])
       turretCounterClockwise = request.form['turretCounterClockwise']
       elbowUp = request.form['elbowUp']
       elbowDown = request.form['elbowDown']
