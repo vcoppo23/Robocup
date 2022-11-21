@@ -39,18 +39,18 @@ GPIO.setup(DIG5, GPIO.OUT)
 p5 = GPIO.PWM(AN5, 100)
 
 #Setup for Shoulder & Elbow respectively
-"""
-AN6 = 
-DIG6 = 
+
+AN6 = 19
+DIG6 = 16
 GPIO.setup(AN6, GPIO.OUT)
 GPIO.setup(DIG6, GPIO.OUT)
 p6 = GPIO.PWM(AN6, 100)
-AN7 = 
-DIG7 = 
+AN7 = 0
+DIG7 = 0
 GPIO.setup(AN7, GPIO.OUT)
 GPIO.setup(DIG7, GPIO.OUT)
-p7 = GPIO.PWM(An7, 100)
-"""
+p7 = GPIO.PWM(AN7, 100)
+
 
 app = Flask(__name__) 
 
@@ -126,7 +126,7 @@ def forward():
       else:
          p5.stop()
       #Shoulder & Elbow
-      """
+      
       if shoulderUp == 1 and shoulderDown == 0:
          GPIO.output(DIG6, GPIO.HIGH)
          p6.start(30)
@@ -151,7 +151,7 @@ def forward():
          p7.start(60)
       else:
          p7.stop()
-      """
+      
    return render_template('gamepad.html')
 
 if __name__ == '__main__': 
