@@ -113,12 +113,12 @@ def forward():
          p4.start(joystick2)
       
       #Turret
-      if turretClockwise == True and turretCounterClockwise == False:
+      if turretClockwise == True:
          GPIO.output(DIG5, GPIO.HIGH)
          p5.start(30)
          sleep(0.2)
          p5.start(60)
-      elif turretCounterClockwise == True and turretClockwise == False:
+      elif turretCounterClockwise == True:
          GPIO.output(DIG5, GPIO.LOW)
          p5.start(30)
          sleep(0.2)
