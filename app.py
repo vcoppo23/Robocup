@@ -127,12 +127,12 @@ def forward():
          p5.stop()
       #Shoulder & Elbow
       
-      if shoulderUp == True and shoulderDown == False:
+      if shoulderUp == True:
          GPIO.output(DIG6, GPIO.HIGH)
          p6.start(30)
          sleep(0.2)
          p6.start(60)
-      elif shoulderDown == True and shoulderUp == False:
+      elif shoulderDown == True:
          GPIO.output(DIG6, GPIO.LOW)
          p6.start(30)
          sleep(0.2)
