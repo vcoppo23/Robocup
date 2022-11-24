@@ -69,21 +69,21 @@ def forward():
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
       turretClockwise = bool(request.form['turretClockwise'])
-      turretCounterClockwise = request.form['turretCounterClockwise']
-      elbowUp = request.form['elbowUp']
-      elbowDown = request.form['elbowDown']
-      shoulderUp = request.form['shoulderUp']
-      shoulderDown = request.form['shoulderDown']
+      turretCounterClockwise = bool(request.form['turretCounterClockwise'])
+      elbowUp = bool(request.form['elbowUp'])
+      elbowDown = bool(request.form['elbowDown'])
+      shoulderUp = bool(request.form['shoulderUp'])
+      shoulderDown = bool(request.form['shoulderDown'])
       joystick1 = int((float(joystick1)*100))
       joystick2 = int((float(joystick2)*100))
-      print("Left % power",joystick1)
+      """print("Left % power",joystick1)
       print("Right % power",joystick2)
       print("Turret Clockwise",turretClockwise)
       print("Turret Counter Clockwise",turretCounterClockwise)
       print("Elbow Up",elbowUp)
       print("Elbow Down",elbowDown)
       print("Shoulder Up",shoulderUp)
-      print("Shoulder Down",shoulderDown)
+      print("Shoulder Down",shoulderDown)"""
 
 
       #Left tread
@@ -139,12 +139,12 @@ def forward():
          p6.start(60)
       else:
          p6.stop()
-      if elbowUp == 1 and elbowDown == 0:
+      if elbowUp == True:
          GPIO.output(DIG7, GPIO.HIGH)
          p7.start(30)
          sleep(0.2)
          p7.start(60)
-      elif elbowDown == 1 and elbowUp == 0:
+      elif elbowDown == True:
          GPIO.output(DIG7, GPIO.LOW)
          p7.start(30)
          sleep(0.2)
