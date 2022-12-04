@@ -42,14 +42,13 @@
           gp = navigator.getGamepads()[0];
           joystick1 = applyDeadzone(gp.axes[1], 0.25);
           joystick2 = applyDeadzone(gp.axes[3], 0.25);
-          triButton = gp.buttons[3].value;
           leftTrigger = gp.buttons[6].value;
           rightTrigger = gp.buttons[7].value;
           
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',
-            data: {'joystick1': joystick1, 'joystick2': joystick2, 'leftTrigger': leftTrigger, 'rightTrigger': rightTrigger,'tributton': triButton},
+            data: {'joystick1': joystick1, 'joystick2': joystick2, 'leftTrigger': leftTrigger, 'rightTrigger': rightTrigger,'tributton': triButton,},
             success: function(response) {
               console.log("Data Sent");
             }
