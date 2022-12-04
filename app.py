@@ -36,7 +36,7 @@ p4 = GPIO.PWM(AN4, 100)
 
 # Setup for Encoders
 encoder1 = Encoder(17, 27)
-encoder2 = Encoder(14, 15)
+encoder2 = Encoder(10, 9)
 
 app = Flask(__name__) 
 
