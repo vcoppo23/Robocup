@@ -72,7 +72,7 @@ def forward():
       if xvalue == 1 and rotationlock == False:
          rotationlock = True
          print ("Rotation Lock Activated")
-      elif xvalue == 0 and rotationlock == True:
+      elif xvalue == 1 and rotationlock == True:
          rotationlock = False
          print ("Rotation Lock Deactivated")
       
