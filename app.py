@@ -69,10 +69,10 @@ def forward():
       if xbutton == 'false':
          xvalue = 0
       
-      if xvalue == 1 and rotationlock == False:
+      if xvalue == 1 and leftTrigger != 0 and rotationlock == False:
          rotationlock = True
          print ("Rotation Lock Activated")
-      if xvalue == 1 and rotationlock == True:
+      elif xvalue == 1 and rightTrigger != 0 and rotationlock == True:
          rotationlock = False
          print ("Rotation Lock Deactivated")
       
