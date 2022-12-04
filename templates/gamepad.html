@@ -44,7 +44,7 @@
           joystick2 = applyDeadzone(gp.axes[3], 0.25);
           leftTrigger = gp.buttons[6].value;
           rightTrigger = gp.buttons[7].value;
-          xbutton = gp.buttons[3].pressed;
+          xbutton = gp.buttons[3].value;
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',
