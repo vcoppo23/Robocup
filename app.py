@@ -54,7 +54,7 @@ def forward():
       joystick2 = request.form['joystick2']
       leftTrigger = request.form['leftTrigger']
       rightTrigger = request.form['rightTrigger']
-      xButton = request.form['xButton']
+      xButton = request.form['xbutton']
       leftTrigger = (int(float(leftTrigger)*100))//2
       rightTrigger = (int(float(rightTrigger)*100))//2
       joystick1 = (int((float(joystick1)*100)))//4
@@ -98,6 +98,37 @@ def forward():
       else:
          GPIO.output(DIG4, GPIO.LOW)
          p4.start(joystick2)
+         
+   #creates a range of motion for the flippers
+      while rotation_mode == True:
+         if leftTrigger > 0:
+            GPIO.output(DIG1, GPIO.HIGH)
+            GPIO.output(DIG2, GPIO.LOW)
+            p1.start(leftTrigger)
+            p2.start(leftTrigger)
+         elif rightTrigger > 0:
+            GPIO.output(DIG1, GPIO.LOW)
+            GPIO.output(DIG2, GPIO.HIGH)
+            p1.start(rightTrigger)
+            p2.start(rightTrigger)
+      
+         #Flippers
+         if ((((encoder1.getValue())/1350)*360)//1) < 90 and ((((encoder1.getValue())/1350)*360)//1) > -90:
+            if joystick1 < 0:
+               joystick1 = -joystick1
+               GPIO.output(DIG3, GPIO.HIGH)
+               p3.start(joystick1)
+            else:
+               GPIO.output(DIG3, GPIO.LOW)
+               p3.start(joystick1)
+         if ((((encoder2.getValue())/1350)*360)//1) < 90 and ((((encoder2.getValue())/1350)*360)//1) > -90:
+            if joystick2 < 0:
+               joystick2 = -joystick2
+               GPIO.output(DIG4, GPIO.HIGH)
+               p4.start(joystick2)
+            else:
+               GPIO.output(DIG4, GPIO.LOW)
+               p4.start(joystick2)
 
 
 
