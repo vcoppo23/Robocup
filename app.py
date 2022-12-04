@@ -12,11 +12,11 @@ GPIO.setwarnings(False)
 AN2 = 23
 AN1 = 22
 DIG2 = 18
-DIG1 = 17
-GPIO.setup(AN2, GPIO.OUTPUT)
-GPIO.setup(AN1, GPIO.OUTPUT)
-GPIO.setup(DIG2, GPIO.OUTPUT)
-GPIO.setup(DIG1, GPIO.OUTPUT)
+DIG1 = 27
+GPIO.setup(AN2, GPIO.OUT)
+GPIO.setup(AN1, GPIO.OUT)
+GPIO.setup(DIG2, GPIO.OUT)
+GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
 p2 = GPIO.PWM(AN2, 100)
 
@@ -25,15 +25,15 @@ AN4 = 19
 AN3 = 16
 DIG4 = 26
 DIG3 = 20
-GPIO.setup(AN4, GPIO.OUTPUT)
-GPIO.setup(AN3, GPIO.OUTPUT)
-GPIO.setup(DIG4, GPIO.OUTPUT)
-GPIO.setup(DIG3, GPIO.OUTPUT)
+GPIO.setup(AN4, GPIO.OUT)
+GPIO.setup(AN3, GPIO.OUT)
+GPIO.setup(DIG4, GPIO.OUT)
+GPIO.setup(DIG3, GPIO.OUT)
 p3 = GPIO.PWM(AN3, 100)
 p4 = GPIO.PWM(AN4, 100)
 
 # Setup for Encoders
-encoder1 = Encoder(17, 27)
+encoder1 = Encoder(17, 4)
 encoder2 = Encoder(10, 9)
 
 app = Flask(__name__) 
@@ -84,21 +84,21 @@ def forward():
          p2.start(rightTrigger)
          
       #Flippers
-      if joystick1 < 0:
-         
+      if joystick1 < 0 and ((((encoder1.getValue())/1350)*360)//1) < -90:
          joystick1 = -joystick1
          GPIO.output(DIG3, GPIO.HIGH)
          p3.start(joystick1)
-      else:
-         
+
+      elif joystick1 > 0 and ((((encoder1.getValue())/1350)*360)//1) < 90:
          GPIO.output(DIG3, GPIO.LOW)
          p3.start(joystick1)
-      if joystick2 < 0:
-         
+
+      if joystick2 < 0 and ((((encoder2.getValue())/1350)*360)//1) < -90: 
          joystick2 = -joystick2
          GPIO.output(DIG4, GPIO.HIGH)
          p4.start(joystick2)
-      else:
+
+      elif joystick2 > 0 and ((((encoder2.getValue())/1350)*360)//1) < 90:
          
          GPIO.output(DIG4, GPIO.LOW)
          p4.start(joystick2)
