@@ -54,7 +54,7 @@ def forward():
       joystick2 = request.form['joystick2']
       leftTrigger = request.form['leftTrigger']
       rightTrigger = request.form['rightTrigger']
-      xbutton = request.form['xbutton']
+      xbutton = bool(request.form['xbutton'])
 
       leftTrigger = (int(float(leftTrigger)*100))//2
       rightTrigger = (int(float(rightTrigger)*100))//2
