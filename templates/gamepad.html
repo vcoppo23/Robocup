@@ -48,7 +48,7 @@
           $.ajax({
             url: "{{ url_for('forward') }}",
             type: 'POST',
-            data: {'joystick1': joystick1, 'joystick2': joystick2, 'leftTrigger': leftTrigger, 'rightTrigger': rightTrigger,'tributton': triButton,},
+            data: {'joystick1': joystick1, 'joystick2': joystick2, 'leftTrigger': leftTrigger, 'rightTrigger': rightTrigger,'tributton': triButton},
             success: function(response) {
               console.log("Data Sent");
             }
