@@ -63,6 +63,7 @@ def forward():
       rotationlock = False
       xvalue = False
       print(xbutton)
+
       if xbutton == 'true':
          xvalue = True
       if xbutton == 'false':
@@ -70,11 +71,13 @@ def forward():
       
       if xvalue == True and rotationlock == False:
          rotationlock = True
+         print ("Rotation Lock Activated")
       elif xvalue == True and rotationlock == True:
          rotationlock = False
+         print ("Rotation Lock Deactivated")
       
 
-      print (rotationlock, xvalue)
+      print (rotationlock)
       
       
       #Tread
