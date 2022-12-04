@@ -60,17 +60,30 @@ def forward():
       rightTrigger = (int(float(rightTrigger)*100))//2
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
-      xvalue = False
+      xbutton = int(xbutton)
+      rotationlock = False
 
-      if xbutton == 'true':
-         xvalue == True
-      elif xbutton == 'false':
-         xvalue == False
-      print("Left Trigger: ", leftTrigger)
-      print("Right Trigger: ", rightTrigger)
+      if xbutton == 1 and rotationlock == False:
+         rotationlock = True
+      elif xbutton == 1 and rotationlock == True:
+         rotationlock = False
+      
+
+      
+      
+      
       #Tread
       if leftTrigger > 0:
-         print("motor issue")
+         GPIO.output(DIG1, GPIO.HIGH)
+         GPIO.output(DIG2, GPIO.HIGH)
+         p1.start(leftTrigger)
+         p2.start(leftTrigger)
+      if rightTrigger > 0:
+         GPIO.output(DIG1, GPIO.LOW)
+         GPIO.output(DIG2, GPIO.LOW)
+         p1.start(rightTrigger)
+         p2.start(rightTrigger)
+         
       #Flippers
       if joystick1 < 0:
          print(joystick1)
