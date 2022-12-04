@@ -1,8 +1,8 @@
 from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
-from static import Encoder
-
+from static import encoder
+from encoder import Encoder 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
