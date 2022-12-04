@@ -64,7 +64,7 @@ def forward():
       xvalue = False
       print(xbutton)
       if xbutton == 'true':
-         xbutton = True
+         xvalue = True
       if xbutton == 'false':
          xvalue = False
       
