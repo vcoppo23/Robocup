@@ -58,7 +58,10 @@ def forward():
       rightTrigger = (int(float(rightTrigger)*100))//2
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
-      tributton = request.form['tributton']
+      # this is giving a bad request error
+
+      tributton = request.form['triButton'] 
+
       print ('mode works:', tributton)
       print("Left Trigger: ", leftTrigger)
       print("Right Trigger: ", rightTrigger)
