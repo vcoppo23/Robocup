@@ -69,10 +69,10 @@ def forward():
       if xbutton == 'false':
          xvalue = 0
       
-      if xvalue == 1 and leftTrigger != 0 and rotationlock == False:
+      if xvalue == 1 and joystick1 != 0 and rotationlock == False:
          rotationlock = True
          print ("Rotation Lock Activated")
-      elif xvalue == 1 and rightTrigger != 0 and rotationlock == True:
+      elif xvalue == 1 and joystick2 != 0 and rotationlock == True:
          rotationlock = False
          print ("Rotation Lock Deactivated")
       
