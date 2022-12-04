@@ -1,14 +1,13 @@
 from re import U
 from flask import Flask, render_template, Response, request
 from time import sleep
-from encoder import Encoder
+from static.encoder import Encoder
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 
 # This is designed to test half of the chasis, including the two motors running the tread and the two flippers
-
 #Setup for Tread
 AN2 = 23
 AN1 = 22
