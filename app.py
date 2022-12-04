@@ -54,22 +54,11 @@ def forward():
       joystick2 = request.form['joystick2']
       leftTrigger = request.form['leftTrigger']
       rightTrigger = request.form['rightTrigger']
-      tributton = request.form['xbutton']
       leftTrigger = (int(float(leftTrigger)*100))//2
       rightTrigger = (int(float(rightTrigger)*100))//2
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
       rotation_mode = False
-
-      # Creates a mode switching button for the flippers rotation lock
-      if tributton:
-
-         if rotation_mode == False:
-            rotation_mode = True
-            print ("Rotation lock on")
-         else:
-            rotation_mode = False
-            print ("Rotation lock off")
 
       #Tread
       if leftTrigger > 0:
