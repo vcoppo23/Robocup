@@ -61,12 +61,14 @@ def forward():
       rotation_mode = False
 
       #Tread
-      if leftTrigger > 0:
+      if leftTrigger != 0:
+         print("not a server issue Left Trigger")
          GPIO.output(DIG1, GPIO.HIGH)
          GPIO.output(DIG2, GPIO.LOW)
          p1.start(leftTrigger)
          p2.start(leftTrigger)
-      elif rightTrigger > 0:
+      elif rightTrigger != 0:
+         print("not a server issue Right Trigger")
          GPIO.output(DIG1, GPIO.LOW)
          GPIO.output(DIG2, GPIO.HIGH)
          p1.start(rightTrigger)
@@ -74,17 +76,21 @@ def forward():
       
       #Flippers
       if joystick1 < 0:
+         print(joystick1)
          joystick1 = -joystick1
          GPIO.output(DIG3, GPIO.HIGH)
          p3.start(joystick1)
       else:
+         print (joystick1)
          GPIO.output(DIG3, GPIO.LOW)
          p3.start(joystick1)
       if joystick2 < 0:
+         print(joystick2)
          joystick2 = -joystick2
          GPIO.output(DIG4, GPIO.HIGH)
          p4.start(joystick2)
       else:
+         print (joystick2)
          GPIO.output(DIG4, GPIO.LOW)
          p4.start(joystick2)
    
