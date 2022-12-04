@@ -54,7 +54,7 @@ def forward():
       joystick2 = request.form['joystick2']
       leftTrigger = request.form['leftTrigger']
       rightTrigger = request.form['rightTrigger']
-      triButton = request.form['triButton'] 
+      #triButton = request.form['triButton'] 
 
       leftTrigger = (int(float(leftTrigger)*100))//2
       rightTrigger = (int(float(rightTrigger)*100))//2
@@ -62,7 +62,7 @@ def forward():
       joystick2 = (int((float(joystick2)*100)))//4 
       # this is giving a bad request error
 
-      print ('mode works:', triButton)
+      #print ('mode works:', triButton)
       print("Left Trigger: ", leftTrigger)
       print("Right Trigger: ", rightTrigger)
       #Tread
