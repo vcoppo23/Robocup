@@ -62,7 +62,7 @@ def forward():
       rotation_mode = False
 
       # Creates a mode switching button for the flippers rotation lock
-      if xButton == 1 :
+      if xButton == True:
 
          if rotation_mode == False:
             rotation_mode = True
@@ -98,7 +98,7 @@ def forward():
       else:
          GPIO.output(DIG4, GPIO.LOW)
          p4.start(joystick2)
-         
+
    #creates a range of motion for the flippers
       while rotation_mode == True:
          if leftTrigger > 0:
