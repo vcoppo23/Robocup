@@ -60,7 +60,6 @@ def forward():
       rightTrigger = (int(float(rightTrigger)*100))//2
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
-      xbutton = int(xbutton)
       rotationlock = False
       print(xbutton)
       #if xbutton == 1 and rotationlock == False:
