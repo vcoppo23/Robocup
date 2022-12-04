@@ -58,11 +58,13 @@ def forward():
       rightTrigger = (int(float(rightTrigger)*100))//2
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
-
+      tributton = request.form['tributton']
+      print ('mode works:', tributton)
       print("Left Trigger: ", leftTrigger)
       print("Right Trigger: ", rightTrigger)
       #Tread
-      
+      if leftTrigger > 0:
+         print("motor issue")
       #Flippers
       if joystick1 < 0:
          print(joystick1)
