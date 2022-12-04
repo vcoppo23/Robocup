@@ -62,7 +62,7 @@ def forward():
       rotation_mode = False
 
       # Creates a mode switching button for the flippers rotation lock
-      if tributton == True:
+      if tributton:
 
          if rotation_mode == False:
             rotation_mode = True
@@ -98,7 +98,7 @@ def forward():
       else:
          GPIO.output(DIG4, GPIO.LOW)
          p4.start(joystick2)
-
+   
 
 
 
