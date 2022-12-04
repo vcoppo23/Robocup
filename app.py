@@ -77,7 +77,7 @@ def forward():
          print ("Rotation Lock Deactivated")
       
 
-      print (rotationlock)
+      print (rotationlock, xvalue)
       
       
       #Tread
