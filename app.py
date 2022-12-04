@@ -61,14 +61,20 @@ def forward():
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
       rotationlock = False
+      xvalue = False
       print(xbutton)
-      #if xbutton == 1 and rotationlock == False:
-         #rotationlock = True
-     # elif xbutton == 1 and rotationlock == True:
-        # rotationlock = False
+      if xbutton == 'true':
+         xbutton = True
+      if xbutton == 'false':
+         xvalue = False
+      
+      if xvalue == True and rotationlock == False:
+         rotationlock = True
+      elif xvalue == True and rotationlock == True:
+         rotationlock = False
       
 
-      
+      print (rotationlock, xvalue)
       
       
       #Tread
