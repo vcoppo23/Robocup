@@ -1,8 +1,14 @@
 from re import U
+import os
+import cv2
+from cv2 import rotate
 from flask import Flask, render_template, Response, request
 from time import sleep
 from static import stepper
 
+
+
+"""
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -50,22 +56,25 @@ DIG7 = 0
 GPIO.setup(AN7, GPIO.OUT)
 GPIO.setup(DIG7, GPIO.OUT)
 p7 = GPIO.PWM(AN7, 100)
-
+"""
 
 app = Flask(__name__) 
+
+picFolder = os.path.join('static', 'pics')
+app.config['UPLOAD_FOLDER'] = picFolder
 
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
 def index(): 
-   if request.method == 'POST':    
-      return render_template('gamepad.html')
-   else:
-      return render_template('gamepad.html')
+   pic = os.path.join(app.config['UPLOAD_FOLDER'], 'IMG_0053.jpg')  
+   return render_template('gamepad.html', user_image = pic)
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
+   
    if request.method == 'POST':
-
+      pic = os.path.join(app.config['UPLOAD_FOLDER'], 'IMG_0053.jpg')
+      """
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
       turretClockwise = bool(request.form['turretClockwise'])
@@ -76,14 +85,14 @@ def forward():
       shoulderDown = bool(request.form['shoulderDown'])
       joystick1 = int((float(joystick1)*100))
       joystick2 = int((float(joystick2)*100))
-      """print("Left % power",joystick1)
+      print("Left % power",joystick1)
       print("Right % power",joystick2)
       print("Turret Clockwise",turretClockwise)
       print("Turret Counter Clockwise",turretCounterClockwise)
       print("Elbow Up",elbowUp)
       print("Elbow Down",elbowDown)
       print("Shoulder Up",shoulderUp)
-      print("Shoulder Down",shoulderDown)"""
+      print("Shoulder Down",shoulderDown)
 
 
       #Left tread
@@ -151,8 +160,12 @@ def forward():
          p7.start(60)
       else:
          p7.stop()
-      
-   return render_template('gamepad.html')
+      """
+
+      return render_template('gamepad.html', user_image = pic)
+   if request.method == 'GET':
+      pic = os.path.join(app.config['UPLOAD_FOLDER'], 'IMG_0053.jpg')
+      return render_template('gamepad.html', user_image = pic)
 
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)

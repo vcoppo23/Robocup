@@ -4,7 +4,22 @@
       <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <body> 
       <h1>Test</h1> 
+      <style>
+        .img-container img{
+          float: left;
+          width: 50%;
+        }
+      </style>
+      <!--<img src="{{ user_image }}" width="1000" height="1000">-->
+      <div class="img-container">
+        <img id="TLtread" src="{{ user_image }}" width="400" height="400">
+        <img id="TRtread" src="{{ user_image }}" width="400" height="400">
+        <img id="BLtread" src="{{ user_image }}" width="400" height="400">
+        <img id="BRtread" src="{{ user_image }}" width="400" height="400">
+      </div>
+
     </body>
+    </head>
     <script>
         //connect gamepad from window
         window.addEventListener("gamepadconnected", function(e) {
@@ -37,7 +52,6 @@
         //setInterval(logController, 100)
         //runs python script in app.py
 
-        
         function joystick() {
           gp = navigator.getGamepads()[0];
           joystick1 = applyDeadzone(gp.axes[1], 0.25);
@@ -58,10 +72,20 @@
           
           });
         }
-        setInterval(joystick, 100);
+        var change = 0;
+        const TLtread = document.getElementById('TLtread');
+        const TRtread = document.getElementById('TRtread');
+        const BLtread = document.getElementById('BLtread');
+        const BRtread = document.getElementById('BRtread');
+        function photo() {
+          //rotate image along bottom middle of image
+          TLtread.style.transform = 'rotate(' + change + 'deg)';
+          TRtread.style.transform = 'rotate(' + change + 'deg)';
+          BLtread.style.transform = 'rotate(' + change + 'deg)';
+          BRtread.style.transform = 'rotate(' + change + 'deg)';
+          change += 1;
+          console.log("Rotated");
+        }
+        setInterval(photo, 100);
     </script>
-    <body>
-      <button onclick="joystick()">Forward</button>
-    </body>
-    </head>
 </html>
