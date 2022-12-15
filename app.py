@@ -1,12 +1,7 @@
-from re import U
-import os
-import cv2
-from cv2 import rotate
 from flask import Flask, render_template, Response, request
-from time import sleep
-from static import stepper
-
-
+import cv2
+from threading import Thread
+import time
 
 """
 import RPi.GPIO as GPIO
@@ -59,21 +54,28 @@ p7 = GPIO.PWM(AN7, 100)
 """
 
 app = Flask(__name__) 
+video = cv2.VideoCapture(0)
+#vs = VideoStream(usePiCamera=False).start()
 
-picFolder = os.path.join('static', 'pics')
-app.config['UPLOAD_FOLDER'] = picFolder
+def video_stream():
+    while True:
+        success, frame = video.read()
+        if not success:
+            break
+        else:
+            success, buffer = cv2.imencode('.jpeg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
-def index(): 
-   pic = os.path.join(app.config['UPLOAD_FOLDER'], 'IMG_0053.jpg')  
-   return render_template('gamepad.html', user_image = pic)
+def index():  
+   return render_template('gamepad.html')
 
 @app.route('/forward', methods=['GET', 'POST'])
 def forward():
    
    if request.method == 'POST':
-      pic = os.path.join(app.config['UPLOAD_FOLDER'], 'IMG_0053.jpg')
       """
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
@@ -162,10 +164,17 @@ def forward():
          p7.stop()
       """
 
-      return render_template('gamepad.html', user_image = pic)
+      return render_template('gamepad.html')
    if request.method == 'GET':
-      pic = os.path.join(app.config['UPLOAD_FOLDER'], 'IMG_0053.jpg')
-      return render_template('gamepad.html', user_image = pic)
+      return render_template('gamepad.html')
 
+@app.route('/camera', methods=['GET', 'POST'])
+def camera():
+   return render_template('camera.html')
+
+@app.route('/video_feed')
+def video_feed():
+   return Response(video_stream(), mimetype='multipart/x-mixed-replace; boundary=frame')
+   
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
