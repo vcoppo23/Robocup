@@ -1,7 +1,10 @@
 from flask import Flask, render_template, Response, request
 import cv2
 from threading import Thread
+from camera import CameraStream
 import time
+
+
 
 """
 import RPi.GPIO as GPIO
@@ -54,18 +57,16 @@ p7 = GPIO.PWM(AN7, 100)
 """
 
 app = Flask(__name__) 
-video = cv2.VideoCapture(0)
-#vs = VideoStream(usePiCamera=False).start()
+#video = cv2.VideoCapture(0)
+cap = CameraStream().start()
 
-def video_stream():
-    while True:
-        success, frame = video.read()
-        if not success:
-            break
-        else:
-            success, buffer = cv2.imencode('.jpeg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+def gen_frame():
+    """Video streaming generator function."""
+    while cap:
+        frame = cap.read()
+        convert = cv2.imencode('.jpg', frame)[1].tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + convert + b'\r\n') # concate frame one by one and show result
 
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
@@ -172,9 +173,10 @@ def forward():
 def camera():
    return render_template('camera.html')
 
-@app.route('/video_feed')
+@app.route('/video_feed', methods=['GET', 'POST'])
 def video_feed():
-   return Response(video_stream(), mimetype='multipart/x-mixed-replace; boundary=frame')
+   """Video streaming route. Put this in the src attribute of an img tag."""
+   return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
    
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
