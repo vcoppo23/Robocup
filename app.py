@@ -1,7 +1,7 @@
 from flask import Flask, render_template, Response, request
 import cv2
 from threading import Thread
-from camera import CameraStream
+from imutils.video import WebcamVideoStream
 import time
 
 
@@ -58,15 +58,24 @@ p7 = GPIO.PWM(AN7, 100)
 
 app = Flask(__name__) 
 #video = cv2.VideoCapture(0)
-cap = CameraStream().start()
+cap = WebcamVideoStream()
+#set camera resolution
+'''
+from werkzeug.middleware.profiler import ProfilerMiddleware
+
+app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="./profiles")
+'''
+
+
+cap.start()
 
 def gen_frame():
     """Video streaming generator function."""
     while cap:
-        frame = cap.read()
-        convert = cv2.imencode('.jpg', frame)[1].tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + convert + b'\r\n') # concate frame one by one and show result
+      frame = cap.read()
+      convert = cv2.imencode('.jpg', frame)[1].tobytes()
+      yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + convert + b'\r\n') # concate frame one by one and show result
 
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
@@ -175,8 +184,7 @@ def camera():
 
 @app.route('/video_feed', methods=['GET', 'POST'])
 def video_feed():
-   """Video streaming route. Put this in the src attribute of an img tag."""
    return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
    
 if __name__ == '__main__': 
-	app.run(host='0.0.0.0', debug=False, threaded=True)
+	app.run(host='0.0.0.0', debug=True, threaded=True)
