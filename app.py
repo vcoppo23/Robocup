@@ -73,13 +73,13 @@ def forward():
       e1postition = ((((encoder1.getValue())/1350)*360)//1)
       e2postition = ((((encoder2.getValue())/1350)*360)//1)
       #Tread
-      if leftTrigger > 0:
+      if joystick2 > 0:
          
          GPIO.output(DIG1, GPIO.HIGH)
          GPIO.output(DIG2, GPIO.LOW)
          p1.start(leftTrigger)
          p2.start(leftTrigger)
-      if rightTrigger > 0:
+      if joystick2 > 0:
          GPIO.output(DIG1, GPIO.LOW)
          GPIO.output(DIG2, GPIO.HIGH)
          p1.start(rightTrigger)
@@ -97,17 +97,17 @@ def forward():
          GPIO.output(DIG3, GPIO.LOW)
          p3.start(joystick1)
 
-      if joystick2 < 0: 
-         print(e2postition)
-         joystick2 = -joystick2
-         GPIO.output(DIG4, GPIO.HIGH)
-         p4.start(joystick2)
+      #if joystick2 < 0: 
+       #  print(e2postition)
+       #  joystick2 = -joystick2
+       #  GPIO.output(DIG4, GPIO.HIGH)
+       #  p4.start(joystick2)
 
-      elif joystick2 > 0:
-         print(e2postition)
+      #elif joystick2 > 0:
+        # print(e2postition)
          
-         GPIO.output(DIG4, GPIO.LOW)
-         p4.start(joystick2)
+        # GPIO.output(DIG4, GPIO.LOW)
+        # p4.start(joystick2)
    
 
 
