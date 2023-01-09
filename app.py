@@ -79,23 +79,27 @@ def forward():
          GPIO.output(DIG2, GPIO.LOW)
          p1.start(leftTrigger)
          p2.start(leftTrigger)
-      if joystick2 > 0:
+      elif joystick2 < 0:
          GPIO.output(DIG1, GPIO.LOW)
          GPIO.output(DIG2, GPIO.HIGH)
-         p1.start(rightTrigger)
-         p2.start(rightTrigger)
+         p1.start(leftTrigger)
+         p2.start(leftTrigger)
          
       #Flippers
       if joystick1 < 0:
          print(e1postition)
          joystick1 = -joystick1
          GPIO.output(DIG3, GPIO.HIGH)
+         GPIO.output(DIG4, GPIO.HIGH)
          p3.start(joystick1)
+         p4.start(joystick1)
 
       elif joystick1 > 0:
          print(e1postition)
          GPIO.output(DIG3, GPIO.LOW)
+         GPIO.output(DIG4, GPIO.LOW)
          p3.start(joystick1)
+         p4.start(joystick1)
 
       #if joystick2 < 0: 
        #  print(e2postition)
