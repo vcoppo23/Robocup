@@ -70,10 +70,10 @@ def forward():
          GPIO.output(DIG1, GPIO.HIGH)
          p1.start(leftTrigger)
 
-      elif leftTrigger < 0:
+      elif rightTrigger > 0:
          
          GPIO.output(DIG1, GPIO.LOW)
-         p1.start(-leftTrigger)
+         p1.start(rightTrigger)
       
 
 
