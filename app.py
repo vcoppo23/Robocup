@@ -17,9 +17,9 @@ p1 = GPIO.PWM(AN1, 100)
 
 
 #Setup for Flippers
-AN3 = 19
+AN3 = 12
 AN2 = 16
-DIG3 = 26
+DIG3 = 13
 DIG2 = 20
 GPIO.setup(AN3, GPIO.OUT)
 GPIO.setup(AN2, GPIO.OUT)
