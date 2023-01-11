@@ -84,6 +84,7 @@ def forward():
          
          GPIO.output(DIG2, GPIO.HIGH)
          GPIO.output(DIG3, GPIO.HIGH)
+         p2.start(-joystick1)
          p3.start(-joystick1)
          
 
@@ -91,6 +92,7 @@ def forward():
          print(e1postition)
          GPIO.output(DIG2, GPIO.LOW)
          GPIO.output(DIG3, GPIO.LOW)
+         p2.start(joystick1)
          p3.start(joystick1)
          
 
