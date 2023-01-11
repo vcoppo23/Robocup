@@ -7,30 +7,26 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 
-# This is designed to test half of the chasis, including the two motors running the tread and the two flippers
+# This is designed to test half of the chasis, including the one motor running the tread and the two flippers
 #Setup for Tread
-AN2 = 23
 AN1 = 22
-DIG2 = 18
 DIG1 = 27
-GPIO.setup(AN2, GPIO.OUT)
 GPIO.setup(AN1, GPIO.OUT)
-GPIO.setup(DIG2, GPIO.OUT)
 GPIO.setup(DIG1, GPIO.OUT)
 p1 = GPIO.PWM(AN1, 100)
-p2 = GPIO.PWM(AN2, 100)
+
 
 #Setup for Flippers
-AN4 = 19
-AN3 = 16
-DIG4 = 26
-DIG3 = 20
-GPIO.setup(AN4, GPIO.OUT)
+AN3 = 19
+AN2 = 16
+DIG3 = 26
+DIG2 = 20
 GPIO.setup(AN3, GPIO.OUT)
-GPIO.setup(DIG4, GPIO.OUT)
+GPIO.setup(AN2, GPIO.OUT)
 GPIO.setup(DIG3, GPIO.OUT)
+GPIO.setup(DIG2, GPIO.OUT)
+p2 = GPIO.PWM(AN2, 100)
 p3 = GPIO.PWM(AN3, 100)
-p4 = GPIO.PWM(AN4, 100)
 
 # Setup for Encoders
 encoder1 = Encoder(17, 4)
@@ -60,60 +56,43 @@ def forward():
       rightTrigger = (int(float(rightTrigger)*100))//4
       joystick1 = (int((float(joystick1)*100)))//4
       joystick2 = (int((float(joystick2)*100)))//4 
-      rotationlock = False
-      xvalue = 0
+      
       
 
-      if xbutton == 'true':
-         xvalue = 1
-      if xbutton == 'false':
-         xvalue = 0
+      
       
       
       e1postition = ((((encoder1.getValue())/1350)*360)//1)
       e2postition = ((((encoder2.getValue())/1350)*360)//1)
       #Tread
-      if joystick2 > 0:
+      if leftTrigger > 0:
          
          GPIO.output(DIG1, GPIO.HIGH)
-         GPIO.output(DIG2, GPIO.LOW)
          p1.start(leftTrigger)
-         p2.start(leftTrigger)
-      elif joystick2 < 0:
+
+      elif leftTrigger < 0:
+         
          GPIO.output(DIG1, GPIO.LOW)
-         GPIO.output(DIG2, GPIO.HIGH)
-         p1.start(leftTrigger)
-         p2.start(leftTrigger)
+         p1.start(-leftTrigger)
+      
+
+
          
       #Flippers
       if joystick1 < 0:
          print(e1postition)
-         joystick1 = -joystick1
+         
+         GPIO.output(DIG2, GPIO.HIGH)
          GPIO.output(DIG3, GPIO.HIGH)
-         GPIO.output(DIG4, GPIO.HIGH)
-         p3.start(joystick1)
-         p4.start(joystick1)
+         p3.start(-joystick1)
+         
 
       elif joystick1 > 0:
          print(e1postition)
+         GPIO.output(DIG2, GPIO.LOW)
          GPIO.output(DIG3, GPIO.LOW)
-         GPIO.output(DIG4, GPIO.LOW)
          p3.start(joystick1)
-         p4.start(joystick1)
-
-      #if joystick2 < 0: 
-       #  print(e2postition)
-       #  joystick2 = -joystick2
-       #  GPIO.output(DIG4, GPIO.HIGH)
-       #  p4.start(joystick2)
-
-      #elif joystick2 > 0:
-        # print(e2postition)
          
-        # GPIO.output(DIG4, GPIO.LOW)
-        # p4.start(joystick2)
-   
-
 
 
 
