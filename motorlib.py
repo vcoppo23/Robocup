@@ -7,7 +7,7 @@ io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
 io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
 ####
 # To change an expander board's address, use the following command:
-# just open a python3 shell while using the pi with $ python3
+# open a python3 shell while using the pi with $ python3
 # then copy this $ "import ioexpander"
 # then $ "io1.set_i2c_addr(desired_address)" the desired address must be in the form of 0x## where # is the readout when you use the command i2cdetect -y 1
 # this will permantly change the address of the expander board until you change it again. It will not change even if it is powered off
@@ -15,42 +15,46 @@ io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
 frequency = 1000 ##This is the frequency of the pwm signal for the expander boards
 div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
-##The following four lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
-##This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
-
-
 
 objectlist = [] ##This is a list of all the motors that are created
 
 
-
 class motor:
-    def __init__(self,board, pwm, DIR): ## Create a motor by giving it a board, pwm pin, and direction pin. The Board options are "pi", "io1", and "io2"
-        self.board = board
-        self.pwm = pwm
-        self.DIR = DIR #capatilized to avoid conflict with the dir() function
-        objectlist.append(self) ##This adds the motor to the list of motors
+    def __init__(self,board, pwm, DIR): ## Create a motor by giving it a board, pwm pin, and direction pin
+        self.board = board ## The Board options are "pi", "io1", and "io2"
+        self.pwm = pwm ## pwm pin, controls motor speed
+        self.DIR = DIR ##direction pin, capatilized to avoid conflict with the dir() function
+        self.lastspeed = 0  ##This is used to track the most recent speed of the motor for the stepper function
+        objectlist.append(self) ##This adds the motor to the list of motor objects
+        
 
-        if board == "pi": ##This sets up the motor if it attatchd to the pi directly
+        if board == "pi": ##This sets up the motor if it is attatchd to the pi directly
             GPIO.setup(pwm,GPIO.OUT)
             GPIO.setup(DIR,GPIO.OUT)
             self.object = GPIO.PWM(pwm,100)
 
-        if board == "io1": ##This sets up the motor if it attatched to io expander 1
+        if board == "io1": ##This sets up the motor if it is attatched to io expander 1
     
             io1.set_mode(pwm, io.PWM)
             io1.set_mode(DIR, io.PIN_MODE_PP)
             
 
         
-        if board == "io2": ##This sets up the motor if it attatched to io expander 2
+        if board == "io2": ##This sets up the motor if it is attatched to io expander 2
             
             io2.set_mode(pwm, io.PWM)
             io2.set_mode(DIR, io.PIN_MODE_PP)
-            
+
+    def step(self,goal_speed,steps = 5): ##This function is used to step a motor a certain number of steps at a certain speed
+    ##The motor must be a motor object, the goal speed is the speed that the motor will reach at the end of the step, and steps is the number of steps that the motor will take
+        if goal_speed > 0 and last_speed < 0:
+            for i in range(steps)
+
+
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
         scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
+        self.lastspeed = speed
         if self.board == "pi":
             
             ## the speed must be scaled becuase the pwm period is different for the expanders, this normalizes the speed for all inputs
@@ -64,6 +68,9 @@ class motor:
 
         if self.board == "io1": 
             if speed > 0 and speed <= 100:
+                ## The following two lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
+                ## This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
+                ## It is necessary to set the pwm period and divider for the expander boards when starting the motor for unknown reasons
                 io1.set_pwm_control(divider=div) 
                 io1.set_pwm_period(period)
                 io1.output(self.DIR,1)
@@ -90,6 +97,7 @@ class motor:
                 io2.output(self.pwm,-scaled_speed)
 
     def stop(self):
+        self.lastspeed = 0 ##This sets the last speed to 0 so that the stepper does not get confused
         if self.board == "pi":
             self.object.stop()
         if self.board == "io1":
