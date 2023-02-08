@@ -10,29 +10,30 @@ GPIO.setwarnings(False)
 
 
 #Setup for Right tank tread
-RightTread = motor("pi", 0, 0)
-FrontRightFlipper = motor("pi", 0, 0)
-BackRightFlipper = motor("pi", 0, 0)
+RightTread = motor("io1", 1, 10)
+#FrontRightFlipper = motor("pi", 0, 0)
+#BackRightFlipper = motor("pi", 0, 0)
 
 #Setup for Left tank tread
-LeftTread = motor("pi", 0, 0)
-FrontLeftFlipper = motor("pi", 0, 0)
-BackLeftFlipper = motor("pi", 0, 0)
+LeftTread = motor("io2", 1, 10)
+#FrontLeftFlipper = motor("pi", 0, 0)
+#BackLeftFlipper = motor("pi", 0, 0)
 
 #Setup for Turret
-Turret = motor("pi", 0, 0)
+#Turret = motor("pi", 0, 0)
 
 #Setup for Shoulder
-Shoulder = motor("pi", 0, 0)
+#Shoulder = motor("pi", 0, 0)
+#Shoulder2 = motor("pi", 0, 0)
 
 #Setup for Elbow
-Elbow = motor("pi", 0, 0)
+#Elbow = motor("pi", 0, 0)
 
 #Setup for Wrist
-Wrist = motor("pi", 0, 0)
+#Wrist = motor("pi", 0, 0)
 
 #Setup for Claw
-Claw = motor("pi", 0, 0)
+#Claw = motor("pi", 0, 0)
 
 #app setup
 app = Flask(__name__) 
@@ -69,6 +70,7 @@ def mode_one():
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
 
+      '''
       if frontLeftFlipperUp == True:
          FrontLeftFlipper.start(25)
       if frontLeftFlipperDown == True:
@@ -85,7 +87,7 @@ def mode_one():
          BackRightFlipper.start(25)
       if backRightFlipperDown == True:
          BackRightFlipper.start(-25)
-
+      '''
 
       return render_template('gamepad.html')
    if request.method == 'GET':
@@ -111,10 +113,11 @@ def mode_two():
       shoulder = int((float(shoulderControls)*100))
       elbow = int((float(elbowControls)*100))
       wrist = int((float(wristControls)*100))
-
+      '''
       Turret.start(turret)
 
       Shoulder.start(shoulder)
+      Shoulder2.start(shoulder)
 
       Elbow.start(elbow)
 
@@ -124,6 +127,7 @@ def mode_two():
          Claw.start(25)
       if clawClose == True:
          Claw.start(-25)
+      '''
          
 
       return render_template('gamepad.html')

@@ -44,11 +44,11 @@ class motor:
             
             io2.set_mode(pwm, io.PWM)
             io2.set_mode(DIR, io.PIN_MODE_PP)
-
+    '''
     def step(self,goal_speed,steps = 5): ##This function is used to step a motor a certain number of steps at a certain speed
     ##The motor must be a motor object, the goal speed is the speed that the motor will reach at the end of the step, and steps is the number of steps that the motor will take
         if goal_speed > 0 and last_speed < 0:
-            for i in range(steps)
+            for i in range(steps)'''
 
 
 
