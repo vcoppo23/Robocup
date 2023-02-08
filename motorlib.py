@@ -17,10 +17,7 @@ div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
 ##The following four lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
 ##This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
-io1.set_pwm_control(divider=div) 
-io1.set_pwm_period(period)
-io2.set_pwm_control(divider=div)
-io2.set_pwm_period(period)
+
 
 
 objectlist = [] ##This is a list of all the motors that are created
