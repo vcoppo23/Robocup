@@ -37,16 +37,14 @@ class motor:
             self.object = GPIO.PWM(pwm,100)
 
         if board == "io1": ##This sets up the motor if it attatched to io expander 1
-            io1.set_pwm_control(divider=div) 
-            io1.set_pwm_period(period)
+    
             io1.set_mode(pwm, io.PWM)
             io1.set_mode(DIR, io.PIN_MODE_PP)
             
 
         
         if board == "io2": ##This sets up the motor if it attatched to io expander 2
-            io2.set_pwm_control(divider=div)
-            io2.set_pwm_period(period)
+            
             io2.set_mode(pwm, io.PWM)
             io2.set_mode(DIR, io.PIN_MODE_PP)
             
@@ -66,17 +64,28 @@ class motor:
 
         if self.board == "io1": 
             if speed > 0 and speed <= 100:
+                io1.set_pwm_control(divider=div) 
+                io1.set_pwm_period(period)
                 io1.output(self.DIR,1)
                 io1.output(self.pwm,scaled_speed)
+
             elif speed < 0 and speed >= -100:
+                io1.set_pwm_control(divider=div) 
+                io1.set_pwm_period(period)
                 io1.output(self.DIR,0)
                 io1.output(self.pwm,-scaled_speed)
         
         if self.board == "io2": 
+
             if speed > 0 and speed <= 100:
+                io2.set_pwm_control(divider=div)
+                io2.set_pwm_period(period)
                 io2.output(self.DIR,1)
                 io2.output(self.pwm,scaled_speed)
+                
             elif speed < 0 and speed >= -100:
+                io2.set_pwm_control(divider=div)
+                io2.set_pwm_period(period)
                 io2.output(self.DIR,0)
                 io2.output(self.pwm,-scaled_speed)
 
