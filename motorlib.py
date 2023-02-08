@@ -89,15 +89,15 @@ class motor:
                 io2.output(self.DIR,0)
                 io2.output(self.pwm,-scaled_speed)
 
-        def stop(self):
-            if self.board == "pi":
-                self.object.stop()
-            if self.board == "io1":
-                io1.output(self.pwm,0)
-                io1.output(self.DIR,0)
-            if self.board == "io2":
-                io2.output(self.pwm,0)
-                io2.output(self.DIR,0)
+    def stop(self):
+        if self.board == "pi":
+            self.object.stop()
+        if self.board == "io1":
+            io1.output(self.pwm,0)
+            io1.output(self.DIR,0)
+        if self.board == "io2":
+            io2.output(self.pwm,0)
+            io2.output(self.DIR,0)
         
 def stopall():
     for i in objectlist:
