@@ -50,9 +50,9 @@ class motor:
             
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
-
+        scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
         if self.board == "pi":
-            scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
+            
             ## the speed must be scaled becuase the pwm period is different for the expanders, this normalizes the speed for all inputs
 
             if speed > 0:
