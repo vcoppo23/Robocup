@@ -107,6 +107,7 @@ def stopall():
 
 shoulder = motor("io1",1,3) ##Create a motor object for the shoulder motor
 shoulder.start(50) ##Start the shoulder motor at 50% speed
+time.sleep(20) ##Wait 1 second
 stopall()
 
 
