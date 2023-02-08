@@ -70,6 +70,10 @@ def mode_one():
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
 
+      print(joystick1)
+      print(joystick2)
+      
+
       '''
       if frontLeftFlipperUp == True:
          FrontLeftFlipper.start(25)
