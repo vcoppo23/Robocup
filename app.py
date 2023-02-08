@@ -64,13 +64,13 @@ def mode_one():
       backRightFlipperDown = bool(request.form['backRightFlipperDown'])
 
 
-      joystick1 = int((float(joystick1)*100))/2
+      #joystick1 = int((float(joystick1)*100))/2
       joystick2 = int((float(joystick2)*100))/2
 
-      LeftTread.start(joystick1)
+      #LeftTread.start(joystick1)
       RightTread.start(joystick2)
-      if joystick1 == 0:
-         LeftTread.stop()
+      #if joystick1 == 0:
+         #LeftTread.stop()
       if joystick2 == 0:
          RightTread.stop()
       print(joystick1)
