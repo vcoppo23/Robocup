@@ -42,11 +42,15 @@ class motor:
         if board == "io1": ##This sets up the motor if it attatched to io expander 1
             io1.set_mode(pwm, io.PWM)
             io1.set_mode(DIR, io.PIN_MODE_PP)
+            io1.set_pwm_control(divider=div) 
+            io1.set_pwm_period(period)
 
         
         if board == "io2": ##This sets up the motor if it attatched to io expander 2
             io2.set_mode(pwm, io.PWM)
             io2.set_mode(DIR, io.PIN_MODE_PP)
+            io2.set_pwm_control(divider=div)
+            io2.set_pwm_period(period)
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
 
