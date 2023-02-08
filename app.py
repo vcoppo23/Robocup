@@ -69,9 +69,9 @@ def mode_one():
 
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
-      if joystick1 = 0:
+      if joystick1 == 0:
          LeftTread.stop()
-      if joystick2 = 0:
+      if joystick2 == 0:
          RightTread.stop()
       print(joystick1)
       print(joystick2)
