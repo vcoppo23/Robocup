@@ -1,4 +1,4 @@
-import ioexpander as io
+import ioexpander as io ## install with $ pip3 install pimoroni-ioexpander
 import RPi.GPIO as GPIO
 import time
 GPIO.setmode(GPIO.BCM)
@@ -52,6 +52,7 @@ class motor:
 
         if self.board == "pi":
             scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
+            ## the speed must be scaled becuase the pwm period is different for the expanders, this normalizes the speed for all inputs
 
             if speed > 0:
                 GPIO.output(self.DIR,GPIO.HIGH)
@@ -94,8 +95,7 @@ def stopall():
 
 shoulder = motor("io1",1,3) ##Create a motor object for the shoulder motor
 shoulder.start(50) ##Start the shoulder motor at 50% speed
-
-
+stopall()
 
 
 
