@@ -8,6 +8,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+powerP = 0.6
 
 #Setup for Right tank tread
 RightTread = motor("io1", 1, 10)
@@ -47,6 +48,7 @@ def index():
 def mode_one():
    #this mode controls the treads, flippers
    if request.method == 'POST':
+
       
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
@@ -64,15 +66,15 @@ def mode_one():
       backRightFlipperDown = bool(request.form['backRightFlipperDown'])
 
 
-      joystick1 = int((float(joystick1)*100))
-      joystick2 = int((float(joystick2)*100))
+      joystick1 = int((float(joystick1)*100))*powerP
+      joystick2 = int((float(joystick2)*100))*powerP
 
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
 
       print(joystick1)
       print(joystick2)
-      
+
 
       '''
       if frontLeftFlipperUp == True:
@@ -113,10 +115,10 @@ def mode_two():
       clawOpen = bool(request.form['clawOpen'])
       clawClose = bool(request.form['clawClose'])
 
-      turret = int((float(turretControls)*100))
-      shoulder = int((float(shoulderControls)*100))
-      elbow = int((float(elbowControls)*100))
-      wrist = int((float(wristControls)*100))
+      turret = int((float(turretControls)*100))*powerP
+      shoulder = int((float(shoulderControls)*100))*powerP
+      elbow = int((float(elbowControls)*100))*powerP
+      wrist = int((float(wristControls)*100))*powerP
       '''
       Turret.start(turret)
 
