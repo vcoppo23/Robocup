@@ -19,7 +19,9 @@ period = int(24000000/div/frequency)
 objectlist = [] ##This is a list of all the motors that are created
 
 
+
 class motor:
+
     def __init__(self,board, pwm, DIR): ## Create a motor by giving it a board, pwm pin, and direction pin
         self.board = board ## The Board options are "pi", "io1", and "io2"
         self.pwm = pwm ## pwm pin, controls motor speed
@@ -34,40 +36,41 @@ class motor:
             self.object = GPIO.PWM(pwm,100)
 
         if board == "io1": ##This sets up the motor if it is attatched to io expander 1
-    
             io1.set_mode(pwm, io.PWM)
             io1.set_mode(DIR, io.PIN_MODE_PP)
             
-
-        
         if board == "io2": ##This sets up the motor if it is attatched to io expander 2
-            
             io2.set_mode(pwm, io.PWM)
             io2.set_mode(DIR, io.PIN_MODE_PP)
-    '''
-    def step(self,goal_speed,steps = 5): ##This function is used to step a motor a certain number of steps at a certain speed
-    ##The motor must be a motor object, the goal speed is the speed that the motor will reach at the end of the step, and steps is the number of steps that the motor will take
-        if goal_speed > 0 and last_speed < 0:
-            for i in range(steps)'''
-
-
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
         scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
         self.lastspeed = speed
+        
+        if speed > 100 or speed < -100:
+            print ("Speed out of range: must be between -100 and 100")
+            return
+        
         if self.board == "pi":
             
             ## the speed must be scaled becuase the pwm period is different for the expanders, this normalizes the speed for all inputs
-
-            if speed > 0:
+            if speed == 0:
+                self.object.stop()
+            elif speed > 5:
                 GPIO.output(self.DIR,GPIO.HIGH)
                 self.object.start(speed)
-            elif speed < 0 and speed >= -100:
+            elif speed < -5:
                 GPIO.output(self.DIR,GPIO.LOW)
                 self.object.start(-speed)
 
         if self.board == "io1": 
-            if speed > 0 and speed <= 100:
+            if speed == 0:
+                io1.set_pwm_control(divider=div) 
+                io1.set_pwm_period(period)
+                io1.output(self.pwm,0)
+                io1.output(self.DIR,0)
+
+            elif speed > 0:
                 ## The following two lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
                 ## This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
                 ## It is necessary to set the pwm period and divider for the expander boards when starting the motor for unknown reasons
@@ -76,31 +79,37 @@ class motor:
                 io1.output(self.DIR,1)
                 io1.output(self.pwm,scaled_speed)
 
-            elif speed < 0 and speed >= -100:
+            elif speed < 0:
                 io1.set_pwm_control(divider=div) 
                 io1.set_pwm_period(period)
                 io1.output(self.DIR,0)
                 io1.output(self.pwm,-scaled_speed)
         
         if self.board == "io2": 
+            if speed == 0:
+                io2.set_pwm_control(divider=div)
+                io2.set_pwm_period(period)
+                io2.output(self.pwm,0)
+                io2.output(self.DIR,0)
 
-            if speed > 0 and speed <= 100:
+            elif speed > 0:
                 io2.set_pwm_control(divider=div)
                 io2.set_pwm_period(period)
                 io2.output(self.DIR,1)
                 io2.output(self.pwm,scaled_speed)
                 
-            elif speed < 0 and speed >= -100:
+            elif speed < 0:
                 io2.set_pwm_control(divider=div)
                 io2.set_pwm_period(period)
                 io2.output(self.DIR,0)
                 io2.output(self.pwm,-scaled_speed)
 
     def stop(self):
-        self.lastspeed = 0 ##This sets the last speed to 0 so that the stepper does not get confused
+        self.lastspeed = 0 ##This sets the last known speed to 0 
         if self.board == "pi":
             self.object.stop()
         if self.board == "io1":
+
             io1.output(self.pwm,0)
             io1.output(self.DIR,0)
         if self.board == "io2":
