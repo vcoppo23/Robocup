@@ -65,7 +65,7 @@ def mode_one():
 
 
       #joystick1 = int((float(joystick1)*100))/2
-      joystick2 = int((float(joystick2)*100))
+      joystick2 = int((float(joystick2)*100))/2
 
       #LeftTread.start(joystick1)
       RightTread.start(joystick2)
