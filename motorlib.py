@@ -7,7 +7,7 @@ io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
 io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
 ####
 # To change an expander board's address, use the following command:
-# open a python3 shell while using the pi with $ python3
+# open a python3 shell while using the pi and the board is plugged in with $ python3
 # then copy this $ "import ioexpander"
 # then $ "io1.set_i2c_addr(desired_address)" the desired address must be in the form of 0x## where # is the readout when you use the command i2cdetect -y 1
 # this will permantly change the address of the expander board until you change it again. It will not change even if it is powered off
@@ -17,8 +17,6 @@ div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
 
 objectlist = [] ##This is a list of all the motors that are created
-
-
 
 class motor:
 
