@@ -43,11 +43,21 @@
         //setInterval(logController, 100)
         //runs python script in app.py
 
+        let controlMode = false;
+
         function controls() {
 
           gp = navigator.getGamepads()[0];
 
-          if (gp.buttons[9].pressed == false) {
+          if (gp.buttons[9].pressed) {
+            controlMode = true;
+          }
+            
+          else if (gp.buttons[8].pressed) {
+              controlMode = false;
+          }
+
+          if (controleMode == false) {
 
             joystick1 = applyDeadzone(gp.axes[1], 0.15);
             joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -74,7 +84,7 @@
             });
           }
 
-          else if (gp.buttons[9].pressed == true) {
+          else if (controlMode == true) {
 
             shoulderControls = applyDeadzone(gp.axes[1], 0.15);
             elbowControls = applyDeadzone(gp.axes[3], 0.15);

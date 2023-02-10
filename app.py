@@ -11,14 +11,14 @@ GPIO.setwarnings(False)
 powerP = 0.6
 
 #Setup for Right tank tread
-RightTread = motor("io1", 1, 10)
-#FrontRightFlipper = motor("pi", 0, 0)
-#BackRightFlipper = motor("pi", 0, 0)
+RightTread = motor("io1", 2, 9)
+FrontRightFlipper = motor("io2", 1, 10)
+#BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
-LeftTread = motor("io2", 1, 10)
-#FrontLeftFlipper = motor("pi", 0, 0)
-#BackLeftFlipper = motor("pi", 0, 0)
+LeftTread = motor("io1", 1, 10)
+FrontLeftFlipper = motor("io2", 2, 9)
+#BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
 #Turret = motor("pi", 0, 0)
@@ -66,20 +66,20 @@ def mode_one():
       backRightFlipperDown = bool(request.form['backRightFlipperDown'])
 
 
-      #joystick1 = int((float(joystick1)*100))
-      joystick2 = int((float(joystick2)*100))
+      joystick1 = int((float(joystick1)*100)*powerP)
+      joystick2 = int((float(joystick2)*100)*powerP)
 
-      #LeftTread.start(joystick1)
+      LeftTread.start(joystick1)
       RightTread.start(joystick2)
-      #if joystick1 == 0:
-         #LeftTread.stop()
+      if joystick1 == 0:
+         LeftTread.stop()
       if joystick2 == 0:
          RightTread.stop()
-      print(joystick1)
-      print(joystick2)
+      #print(joystick1)
+      #print(joystick2)
 
 
-      '''
+      
       if frontLeftFlipperUp == True:
          FrontLeftFlipper.start(25)
       if frontLeftFlipperDown == True:
@@ -96,7 +96,7 @@ def mode_one():
          BackRightFlipper.start(25)
       if backRightFlipperDown == True:
          BackRightFlipper.start(-25)
-      '''
+      
 
       return render_template('gamepad.html')
    if request.method == 'GET':
@@ -115,13 +115,16 @@ def mode_two():
 
       wristControls = request.form['wristControls']
 
-      clawOpen = bool(request.form['clawOpen'])
-      clawClose = bool(request.form['clawClose'])
 
-      turret = int((float(turretControls)*100))*powerP
-      shoulder = int((float(shoulderControls)*100))*powerP
-      elbow = int((float(elbowControls)*100))*powerP
-      wrist = int((float(wristControls)*100))*powerP
+      # DOUBLE CHECK THESE
+      #IDK IF VALUES FROM TRIGGERS ARE IN A 0-1 SCALE
+      clawOpen = int(float(request.form['clawOpen'])*100)
+      clawClose = int(float(request.form['clawClose'])*100)
+
+      turret = int((float(turretControls)*100)*powerP)
+      shoulder = int((float(shoulderControls)*100)*powerP)
+      elbow = int((float(elbowControls)*100)*powerP)
+      wrist = int((float(wristControls)*100)*powerP)
       '''
       Turret.start(turret)
 
