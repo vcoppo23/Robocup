@@ -88,14 +88,14 @@ def mode_one():
          FrontRightFlipper.start(25)
       if frontRightFlipperDown == True:
          FrontRightFlipper.start(-25)
-      if backLeftFlipperUp == True:
-         BackLeftFlipper.start(25)
-      if backLeftFlipperDown == True:
-         BackLeftFlipper.start(-25)
-      if backRightFlipperUp == True:
-         BackRightFlipper.start(25)
-      if backRightFlipperDown == True:
-         BackRightFlipper.start(-25)
+     # if backLeftFlipperUp == True:
+     #   BackLeftFlipper.start(25)
+     # if backLeftFlipperDown == True:
+     #    BackLeftFlipper.start(-25)
+     # if backRightFlipperUp == True:
+     #    BackRightFlipper.start(25)
+     # if backRightFlipperDown == True:
+     #    BackRightFlipper.start(-25)
       
 
       return render_template('gamepad.html')
