@@ -42,22 +42,7 @@
         }
         //setInterval(logController, 100)
         //runs python script in app.py
-
-        let controlMode = false;
-
         function controls() {
-
-          gp = navigator.getGamepads()[0];
-
-          //if (gp.buttons[9].pressed) {
-          //  controlMode = true;
-          //}
-            
-          //else if (gp.buttons[8].pressed) {
-          //    controlMode = false;
-          //}
-
-          if (controleMode == false) {
 
             joystick1 = applyDeadzone(gp.axes[1], 0.15);
             joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -84,27 +69,8 @@
             });
           }
 
-          else if (controlMode == true) {
-
-            shoulderControls = applyDeadzone(gp.axes[1], 0.15);
-            elbowControls = applyDeadzone(gp.axes[3], 0.15);
-
-            turretControls = applyDeadzone(gp.axes[0], 0.15);
-            wristControls = applyDeadzone(gp.axes[2], 0.15);
-
-            clawOpen = gp.buttons[6].value;
-            clawClose = gp.buttons[7].value;
-
-            $.ajax({
-              url: "{{ url_for('mode_two') }}",
-              type: 'POST',
-              data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
-              success: function(response) {
-                console.log("Mode 2 Sent");
-              }
-            });
-          }
-        }
+          
+        
         setInterval(controls, 100);
     </script>
 </html>
