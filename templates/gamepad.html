@@ -42,32 +42,32 @@
         }
         //setInterval(logController, 100)
         //runs python script in app.py
-        
+        function controls() {
 
-        joystick1 = applyDeadzone(gp.axes[1], 0.15);
-        joystick2 = applyDeadzone(gp.axes[3], 0.15);
+            joystick1 = applyDeadzone(gp.axes[1], 0.15);
+            joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-        frontLeftFlipperUp = gp.buttons[4].pressed;
-        frontLeftFlipperDown = gp.buttons[6].pressed;
+            frontLeftFlipperUp = gp.buttons[4].pressed;
+            frontLeftFlipperDown = gp.buttons[6].pressed;
 
-        frontRightFlipperUp = gp.buttons[5].pressed;
-        frontRightFlipperDown = gp.buttons[7].pressed;
+            frontRightFlipperUp = gp.buttons[5].pressed;
+            frontRightFlipperDown = gp.buttons[7].pressed;
 
-        backLeftFlipperUp = gp.buttons[13].pressed;
-        backLeftFlipperDown = gp.buttons[12].pressed;
+            backLeftFlipperUp = gp.buttons[13].pressed;
+            backLeftFlipperDown = gp.buttons[12].pressed;
 
-        backRightFlipperUp = gp.buttons[0].pressed;
-        backRightFlipperDown = gp.buttons[3].pressed;
+            backRightFlipperUp = gp.buttons[0].pressed;
+            backRightFlipperDown = gp.buttons[3].pressed;
 
-        $.ajax({
-          url: "{{ url_for('mode_one') }}",
-          type: 'POST',
-          data: {'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-          success: function(response) {
-            console.log("Mode 1 Sent");
+            $.ajax({
+              url: "{{ url_for('mode_one') }}",
+              type: 'POST',
+              data: {'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
+              success: function(response) {
+                console.log("Mode 1 Sent");
+              }
+            });
           }
-        });
-          
 
           
         
