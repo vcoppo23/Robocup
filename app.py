@@ -97,6 +97,7 @@ def mode_one():
          BackRightFlipper.start(-25)
       '''
       
+      print(f"{joystick1} power, {joystick2} power")
 
       return render_template('gamepad.html')
    if request.method == 'GET':
@@ -141,6 +142,8 @@ def mode_two():
       if clawClose == True:
          Claw.start(-25)
       '''
+
+      print(f"{clawOpen} power, {clawClose} power")
 
       return render_template('gamepad.html')
    if request.method == 'GET':
