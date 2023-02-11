@@ -69,44 +69,33 @@ def mode_one():
       joystick1 = int((float(joystick1)*100)*powerP)
       joystick2 = int((float(joystick2)*100)*powerP)
 
-      #LeftTread.start(joystick1)
-      #RightTread.start(joystick2)
-      #if joystick1 == 0:
-      #   LeftTread.stop()
-      #if joystick2 == 0:
-      #   RightTread.stop()
-      #print(joystick1)
-      #print(joystick2)
-
-
-      
-      #if frontLeftFlipperUp == True:
-      #   FrontLeftFlipper.start(25)
-      #if frontLeftFlipperDown == True:
-      #   FrontLeftFlipper.start(-25)  
-      #if frontRightFlipperUp == True:
-      #   FrontRightFlipper.start(25)
-      #if frontRightFlipperDown == True:
-      #   FrontRightFlipper.start(-25)
-
-      #if backLeftFlipperUp == True:
-      #  BackLeftFlipper.start(25)
-      #if backLeftFlipperDown == True:
-      #   BackLeftFlipper.start(-25)
-      #if backRightFlipperUp == True:
-      #   BackRightFlipper.start(25)
-      #if backRightFlipperDown == True:
-      #   BackRightFlipper.start(-25)
-      
-
-      return render_template('gamepad.html')
-   if request.method == 'GET':
-      return render_template('gamepad.html')
-   
-@app.route('/mode_two', methods=['GET', 'POST'])
-def mode_two():
-   #this mode controls the turret, shoulder, elbow, wrist, claw
-   if request.method == 'POST':
+      '''
+      LeftTread.start(joystick1)
+      RightTread.start(joystick2)
+      if joystick1 == 0:
+         LeftTread.stop()
+      if joystick2 == 0:
+         RightTread.stop()
+      print(joystick1)
+      print(joystick2)
+ 
+      if frontLeftFlipperUp == True:
+         FrontLeftFlipper.start(25)
+      if frontLeftFlipperDown == True:
+         FrontLeftFlipper.start(-25)  
+      if frontRightFlipperUp == True:
+         FrontRightFlipper.start(25)
+      if frontRightFlipperDown == True:
+         FrontRightFlipper.start(-25)
+      if backLeftFlipperUp == True:
+        BackLeftFlipper.start(25)
+      if backLeftFlipperDown == True:
+         BackLeftFlipper.start(-25)
+      if backRightFlipperUp == True:
+         BackRightFlipper.start(25)
+      if backRightFlipperDown == True:
+         BackRightFlipper.start(-25)
+      '''
 
       turretControls = request.form['turretControls']
 
@@ -126,6 +115,7 @@ def mode_two():
       shoulder = int((float(shoulderControls)*100)*powerP)
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
+
       '''
       Turret.start(turret)
 
