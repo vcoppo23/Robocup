@@ -46,17 +46,9 @@
   
 
         function controls() {
-          controlMode = false;
+          let controlMode = false;
 
           gp = navigator.getGamepads()[0];
-
-          if (gp.buttons[9].pressed) {
-            controlMode = true;
-          }
-            
-          else if (gp.buttons[8].pressed) {
-              controlMode = false;
-          }
 
           if (controleMode == false) {
 
@@ -83,6 +75,10 @@
                 console.log("Tread Mode Sent");
               }
             });
+
+            if (gp.buttons[9].pressed) {
+              controlMode = true;
+            }
           }
 
           else if (controlMode == true) {
@@ -101,9 +97,14 @@
               type: 'POST',
               data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
               success: function(response) {
-                console.log("Mode 2 Sent");
+                console.log("Tread Mode Sent");
               }
             });
+
+            if (gp.buttons[8].pressed) {
+              controlMode = false;
+            }
+
           }
         }
         setInterval(controls, 100);
