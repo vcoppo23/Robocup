@@ -43,8 +43,9 @@
         //setInterval(logController, 100)
         //runs python script in app.py
 
-        function controls() {
+  
 
+        function controls() {
           controlMode = false;
 
           gp = navigator.getGamepads()[0];
@@ -57,7 +58,7 @@
               controlMode = false;
           }
 
-          if (controleMode) {
+          if (controleMode == false) {
 
             joystick1 = applyDeadzone(gp.axes[1], 0.15);
             joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -84,7 +85,7 @@
             });
           }
 
-          else if (!controlMode) {
+          else if (controlMode == true) {
 
             shoulderControls = applyDeadzone(gp.axes[1], 0.15);
             elbowControls = applyDeadzone(gp.axes[3], 0.15);
@@ -96,11 +97,11 @@
             clawClose = gp.buttons[7].value;
 
             $.ajax({
-              url: "{{ url_for('mode_one') }}",
+              url: "{{ url_for('mode_two') }}",
               type: 'POST',
               data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
               success: function(response) {
-                console.log("Turret Mode Sent");
+                console.log("Mode 2 Sent");
               }
             });
           }
