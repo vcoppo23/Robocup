@@ -96,6 +96,16 @@ def mode_one():
       if backRightFlipperDown == True:
          BackRightFlipper.start(-25)
       '''
+      
+
+      return render_template('gamepad.html')
+   if request.method == 'GET':
+      return render_template('gamepad.html')
+   
+@app.route('/mode_two', methods=['GET', 'POST'])
+def mode_two():
+   #this mode controls the turret, shoulder, elbow, wrist, claw
+   if request.method == 'POST':
 
       turretControls = request.form['turretControls']
 
@@ -131,20 +141,6 @@ def mode_one():
       if clawClose == True:
          Claw.start(-25)
       '''
-
-      print("recieved data")
-      
-
-      return render_template('gamepad.html')
-   if request.method == 'GET':
-      return render_template('gamepad.html')
-   
-@app.route('/mode_two', methods=['GET', 'POST'])
-def mode_two():
-   #this mode controls the turret, shoulder, elbow, wrist, claw
-   if request.method == 'POST':
-
-      print("someone f'd up")
 
       return render_template('gamepad.html')
    if request.method == 'GET':

@@ -50,61 +50,47 @@
 
           gp = navigator.getGamepads()[0];
 
-          if (gp.buttons[9].pressed) {
-              controlMode = true;
-          }
+          joystick1 = applyDeadzone(gp.axes[1], 0.15);
+          joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-          else if (gp.buttons[8].pressed) {
-              controlMode = false;
-          }
+          frontLeftFlipperUp = gp.buttons[4].pressed;
+          frontLeftFlipperDown = gp.buttons[6].pressed;
 
-          else if (controlMode == false) {
+          frontRightFlipperUp = gp.buttons[5].pressed;
+          frontRightFlipperDown = gp.buttons[7].pressed;
 
-            joystick1 = applyDeadzone(gp.axes[1], 0.15);
-            joystick2 = applyDeadzone(gp.axes[3], 0.15);
+          backLeftFlipperUp = gp.buttons[13].pressed;
+          backLeftFlipperDown = gp.buttons[12].pressed;
 
-            frontLeftFlipperUp = gp.buttons[4].pressed;
-            frontLeftFlipperDown = gp.buttons[6].pressed;
+          backRightFlipperUp = gp.buttons[0].pressed;
+          backRightFlipperDown = gp.buttons[3].pressed;
 
-            frontRightFlipperUp = gp.buttons[5].pressed;
-            frontRightFlipperDown = gp.buttons[7].pressed;
+          $.ajax({
+            url: "{{ url_for('mode_one') }}",
+            type: 'POST',
+            data: {'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
+            success: function(response) {
+              console.log("Tread Mode Sent");
+            }
+          });
 
-            backLeftFlipperUp = gp.buttons[13].pressed;
-            backLeftFlipperDown = gp.buttons[12].pressed;
+          shoulderControls = applyDeadzone(gp.axes[1], 0.15);
+          elbowControls = applyDeadzone(gp.axes[3], 0.15);
 
-            backRightFlipperUp = gp.buttons[0].pressed;
-            backRightFlipperDown = gp.buttons[3].pressed;
+          turretControls = applyDeadzone(gp.axes[0], 0.15);
+          wristControls = applyDeadzone(gp.axes[2], 0.15);
 
-            $.ajax({
-              url: "{{ url_for('mode_one') }}",
-              type: 'POST',
-              data: {'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-              success: function(response) {
-                console.log("Turret Mode Sent");
-              }
-            });
-          }
+          clawOpen = gp.buttons[6].value;
+          clawClose = gp.buttons[7].value;
 
-          else if (controlMode == true) {
-
-            shoulderControls = applyDeadzone(gp.axes[1], 0.15);
-            elbowControls = applyDeadzone(gp.axes[3], 0.15);
-
-            turretControls = applyDeadzone(gp.axes[0], 0.15);
-            wristControls = applyDeadzone(gp.axes[2], 0.15);
-
-            clawOpen = gp.buttons[6].value;
-            clawClose = gp.buttons[7].value;
-
-            $.ajax({
-              url: "{{ url_for('mode_one') }}",
-              type: 'POST',
-              data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
-              success: function(response) {
-                console.log("Tread Mode Sent");
-              }
-            });
-          }
+          $.ajax({
+            url: "{{ url_for('mode_two') }}",
+            type: 'POST',
+            data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
+            success: function(response) {
+              console.log("Turret Mode Sent");
+            }
+          });
         }
         setInterval(controls, 100);
     </script>
