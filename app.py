@@ -145,9 +145,9 @@ def mode_two():
 
       print(f"{clawOpen} power, {clawClose} power")
 
-      return render_template('gamepad.html')
+      return render_template('gamepad2.html')
    if request.method == 'GET':
-      return render_template('gamepad.html')
+      return render_template('gamepad2.html')
 
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
