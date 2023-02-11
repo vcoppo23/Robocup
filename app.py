@@ -69,25 +69,25 @@ def mode_one():
       joystick1 = int((float(joystick1)*100)*powerP)
       joystick2 = int((float(joystick2)*100)*powerP)
 
-      LeftTread.start(joystick1)
-      RightTread.start(joystick2)
-      if joystick1 == 0:
-         LeftTread.stop()
-      if joystick2 == 0:
-         RightTread.stop()
+      #LeftTread.start(joystick1)
+      #RightTread.start(joystick2)
+      #if joystick1 == 0:
+      #   LeftTread.stop()
+      #if joystick2 == 0:
+      #   RightTread.stop()
       #print(joystick1)
       #print(joystick2)
 
 
       
-      if frontLeftFlipperUp == True:
-         FrontLeftFlipper.start(25)
-      if frontLeftFlipperDown == True:
-         FrontLeftFlipper.start(-25)  
-      if frontRightFlipperUp == True:
-         FrontRightFlipper.start(25)
-      if frontRightFlipperDown == True:
-         FrontRightFlipper.start(-25)
+      #if frontLeftFlipperUp == True:
+      #   FrontLeftFlipper.start(25)
+      #if frontLeftFlipperDown == True:
+      #   FrontLeftFlipper.start(-25)  
+      #if frontRightFlipperUp == True:
+      #   FrontRightFlipper.start(25)
+      #if frontRightFlipperDown == True:
+      #   FrontRightFlipper.start(-25)
 
       #if backLeftFlipperUp == True:
       #  BackLeftFlipper.start(25)
