@@ -131,6 +131,8 @@ def mode_one():
       if clawClose == True:
          Claw.start(-25)
       '''
+
+      print("recieved data")
       
 
       return render_template('gamepad.html')

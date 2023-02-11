@@ -46,11 +46,19 @@
   
 
         function controls() {
-          let controlMode = false;
+          controlMode = false;
 
           gp = navigator.getGamepads()[0];
 
-          if (controleMode == false) {
+          if (gp.buttons[9].pressed) {
+              controlMode = true;
+          }
+
+          else if (gp.buttons[8].pressed) {
+              controlMode = false;
+          }
+
+          else if (controlMode == false) {
 
             joystick1 = applyDeadzone(gp.axes[1], 0.15);
             joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -72,13 +80,9 @@
               type: 'POST',
               data: {'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
               success: function(response) {
-                console.log("Tread Mode Sent");
+                console.log("Turret Mode Sent");
               }
             });
-
-            if (gp.buttons[9].pressed) {
-              controlMode = true;
-            }
           }
 
           else if (controlMode == true) {
@@ -93,18 +97,13 @@
             clawClose = gp.buttons[7].value;
 
             $.ajax({
-              url: "{{ url_for('mode_two') }}",
+              url: "{{ url_for('mode_one') }}",
               type: 'POST',
               data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
               success: function(response) {
                 console.log("Tread Mode Sent");
               }
             });
-
-            if (gp.buttons[8].pressed) {
-              controlMode = false;
-            }
-
           }
         }
         setInterval(controls, 100);
