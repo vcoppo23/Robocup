@@ -118,6 +118,10 @@ def stopall():
     for i in objectlist:
         i.stop()
 
+def shutdown(): ## This function can be called as an emergency stop, it will stop all motors and then shut down the pi
+    GPIO.cleanup()
+    from subprocess import call
+    call("sudo shutdown -h now", shell=True)
 ##Example of how to use this class
 
 
