@@ -1,6 +1,7 @@
 import ioexpander as io ## install with $ pip3 install pimoroni-ioexpander
 import RPi.GPIO as GPIO
 import time
+from subprocess import call
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
@@ -120,7 +121,6 @@ def stopall():
 
 def shutdown(): ## This function can be called as an emergency stop, it will stop all motors and then shut down the pi
     GPIO.cleanup()
-    from subprocess import call
     call("sudo shutdown -h now", shell=True)
 
 

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, Response, request
 from threading import Thread
 from time import sleep
-from motorlib import motor
+from motorlib import motor, objectlist, stopall, shutdown
 
 
 import RPi.GPIO as GPIO
@@ -49,7 +49,8 @@ def mode_one():
    #this mode controls the treads, flippers
    if request.method == 'POST':
 
-      
+      shutdown = bool(request.form['shutdown'])
+
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
 
@@ -68,6 +69,9 @@ def mode_one():
 
       joystick1 = int((float(joystick1)*100)*powerP)
       joystick2 = int((float(joystick2)*100)*powerP)
+
+      if shutdown == True: ##shutsdown all motors and turns the pi off
+         shutdown()
 
       '''
       LeftTread.start(joystick1)
@@ -108,6 +112,8 @@ def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
    if request.method == 'POST':
 
+      shutdown = bool(request.form['shutdown'])
+
       turretControls = request.form['turretControls']
 
       shoulderControls = request.form['shoulderControls']
@@ -127,6 +133,8 @@ def mode_two():
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
 
+      if shutdown == True:  ##shutsdown all motors and turns the pi off 
+         shutdown()
       '''
       Turret.start(turret)
 
