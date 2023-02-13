@@ -11,12 +11,12 @@ GPIO.setwarnings(False)
 powerP = 0.6
 
 #Setup for Right tank tread
-#RightTread = motor("io1", 2, 9)
+RightTread = motor("io1", 1, 9)
 #rontRightFlipper = motor("io2", 1, 10)
 #BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
-#LeftTread = motor("io1", 1, 10)
+LeftTread = motor("io1", 2, 10)
 #FrontLeftFlipper = motor("io2", 2, 9)
 #BackLeftFlipper = motor("io2", 0, 0)
 
@@ -73,9 +73,10 @@ def mode_one():
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          shutdown()
 
-      '''
+      
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
+      '''
       if joystick1 == 0:
          LeftTread.stop()
       if joystick2 == 0:
@@ -133,7 +134,7 @@ def mode_two():
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
 
-      if endLife2 == True:  ##shutsdown all motors and turns the pi off 
+      if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
          shutdown()
       '''
       Turret.start(turret)
