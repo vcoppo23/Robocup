@@ -11,27 +11,27 @@ GPIO.setwarnings(False)
 powerP = 0.6
 
 #Setup for Right tank tread
-RightTread = motor("io1", 1, 9)
+#RightTread = motor("io1", 1, 9)
 #rontRightFlipper = motor("io2", 1, 10)
 #BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
-LeftTread = motor("io1", 2, 10)
+#LeftTread = motor("io1", 2, 10)
 #FrontLeftFlipper = motor("io2", 2, 9)
 #BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
-#Turret = motor("pi", 0, 0)
+Turret = motor("io2", 1, 7)
 
 #Setup for Shoulder
-#Shoulder = motor("pi", 0, 0)
-#Shoulder2 = motor("pi", 0, 0)
+Shoulder = motor("io2", 2, 8)
+
 
 #Setup for Elbow
-#Elbow = motor("pi", 0, 0)
+Elbow = motor("io2", 3, 9)
 
 #Setup for Wrist
-#Wrist = motor("pi", 0, 0)
+Wrist = motor("io2", 4, 10)
 
 #Setup for Claw
 #Claw = motor("pi", 0, 0)
@@ -73,16 +73,11 @@ def mode_one():
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          shutdown()
 
-      
+      '''
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
-      '''
-      if joystick1 == 0:
-         LeftTread.stop()
-      if joystick2 == 0:
-         RightTread.stop()
-      print(joystick1)
-      print(joystick2)
+      
+      
  
       if frontLeftFlipperUp == True:
          FrontLeftFlipper.start(25)
@@ -136,23 +131,23 @@ def mode_two():
 
       if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
          shutdown()
-      '''
+      
       Turret.start(turret)
 
       Shoulder.start(shoulder)
-      Shoulder2.start(shoulder)
+      
 
       Elbow.start(elbow)
 
       Wrist.start(wrist)
 
-      if clawOpen == True:
-         Claw.start(25)
-      if clawClose == True:
-         Claw.start(-25)
-      '''
+      #if clawOpen == True:
+      #   Claw.start(25)
+      #if clawClose == True:
+      #   Claw.start(-25)
+      
 
-      print(f"{clawOpen} power, {clawClose} power")
+      #print(f"{clawOpen} power, {clawClose} power")
 
       return render_template('gamepad2.html')
    if request.method == 'GET':

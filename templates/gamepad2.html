@@ -48,11 +48,11 @@
 
           shutdown2 = gp.buttons[14].pressed;
 
-          shoulderControls = applyDeadzone(gp.axes[1], 0.15);
-          elbowControls = applyDeadzone(gp.axes[3], 0.15);
+          shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+          elbowControls = applyDeadzone(gp.axes[3], 0.25);
 
-          turretControls = applyDeadzone(gp.axes[0], 0.15);
-          wristControls = applyDeadzone(gp.axes[2], 0.15);
+          turretControls = applyDeadzone(gp.axes[0], 0.25);
+          wristControls = applyDeadzone(gp.axes[2], 0.25);
 
           clawOpen = gp.buttons[6].value;
           clawClose = gp.buttons[7].value;

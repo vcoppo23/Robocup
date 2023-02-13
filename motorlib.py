@@ -121,6 +121,7 @@ def stopall():
 
 def shutdown(): ## This function can be called as an emergency stop, it will stop all motors and then shut down the pi
     GPIO.cleanup()
+    stopall()
     call("sudo shutdown -h now", shell=True)
 
 
