@@ -2,7 +2,7 @@ from flask import Flask, render_template, Response, request
 from threading import Thread
 from time import sleep
 from motorlib import motor, objectlist, stopall, shutdown
-
+from subprocess import call
 
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
