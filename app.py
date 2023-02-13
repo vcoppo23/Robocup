@@ -49,7 +49,7 @@ def mode_one():
    #this mode controls the treads, flippers
    if request.method == 'POST':
 
-      endLife = bool(request.form['shutdown'])
+      endLife = int(request.form['shutdown'])
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
@@ -70,7 +70,7 @@ def mode_one():
       joystick1 = int((float(joystick1)*100)*powerP)
       joystick2 = int((float(joystick2)*100)*powerP)
 
-      if endLife == True: ##shutsdown all motors and turns the pi off
+      if endLife > 0: ##shutsdown all motors and turns the pi off
          shutdown()
 
       '''
