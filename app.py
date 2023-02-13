@@ -49,7 +49,7 @@ def mode_one():
    #this mode controls the treads, flippers
    if request.method == 'POST':
 
-      shutdown = bool(request.form['shutdown'])
+      endLife = bool(request.form['shutdown'])
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
@@ -70,7 +70,7 @@ def mode_one():
       joystick1 = int((float(joystick1)*100)*powerP)
       joystick2 = int((float(joystick2)*100)*powerP)
 
-      if shutdown == True: ##shutsdown all motors and turns the pi off
+      if endLife == True: ##shutsdown all motors and turns the pi off
          shutdown()
 
       '''
@@ -112,7 +112,7 @@ def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
    if request.method == 'POST':
 
-      shutdown2 = bool(request.form['shutdown2'])
+      endLife2 = bool(request.form['shutdown2'])
 
       turretControls = request.form['turretControls']
 
@@ -133,7 +133,7 @@ def mode_two():
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
 
-      if shutdown2 == True:  ##shutsdown all motors and turns the pi off 
+      if endLife2 == True:  ##shutsdown all motors and turns the pi off 
          shutdown()
       '''
       Turret.start(turret)
