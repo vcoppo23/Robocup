@@ -46,6 +46,8 @@
 
           gp = navigator.getGamepads()[0];
 
+          shutdown = gp.buttons[17].pressed;
+
           shoulderControls = applyDeadzone(gp.axes[1], 0.15);
           elbowControls = applyDeadzone(gp.axes[3], 0.15);
 
@@ -58,7 +60,7 @@
           $.ajax({
             url: "{{ url_for('mode_two') }}",
             type: 'POST',
-            data: {'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
+            data: {'shutdown':shutdown,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
             success: function(response) {
               console.log("Turret Mode Sent");
             }
