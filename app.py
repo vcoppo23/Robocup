@@ -112,7 +112,7 @@ def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
    if request.method == 'POST':
 
-      shutdown = bool(request.form['shutdown'])
+      shutdown2 = bool(request.form['shutdown2'])
 
       turretControls = request.form['turretControls']
 
@@ -133,7 +133,7 @@ def mode_two():
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
 
-      if shutdown == True:  ##shutsdown all motors and turns the pi off 
+      if shutdown2 == True:  ##shutsdown all motors and turns the pi off 
          shutdown()
       '''
       Turret.start(turret)
