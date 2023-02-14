@@ -79,22 +79,45 @@ def mode_one():
       
       
  
-      if frontLeftFlipperUp == True:
+      if frontLeftFlipperUp == 'true':
          FrontLeftFlipper.start(25)
-      if frontLeftFlipperDown == True:
+      else:
+         FrontLeftFlipper.start(0)
+
+      if frontLeftFlipperDown == 'true':
          FrontLeftFlipper.start(-25)  
-      if frontRightFlipperUp == True:
+      else:
+         FrontLeftFlipper.start(0)
+
+      if frontRightFlipperUp == 'true':
          FrontRightFlipper.start(25)
-      if frontRightFlipperDown == True:
+      else:
+         FrontRightFlipper.start(0)
+
+      if frontRightFlipperDown == 'true':
          FrontRightFlipper.start(-25)
-      if backLeftFlipperUp == True:
+      else:
+         frontRightFlipper.start(0)
+
+      if backLeftFlipperUp == 'true':
         BackLeftFlipper.start(25)
-      if backLeftFlipperDown == True:
+      else: 
+         BackLeftFlipper.start(0)
+
+      if backLeftFlipperDown == 'true':
          BackLeftFlipper.start(-25)
-      if backRightFlipperUp == True:
+      else:
+         BackLeftFlipper.start(0)
+
+      if backRightFlipperUp == 'true':
          BackRightFlipper.start(25)
-      if backRightFlipperDown == True:
+      else:
+         BackRightFlipper.start(0)
+
+      if backRightFlipperDown == 'true':
          BackRightFlipper.start(-25)
+      else:
+         BackRightFlipper.start(0)
       '''
       
       print(f"{joystick1} power, {joystick2} power")
