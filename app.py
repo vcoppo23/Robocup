@@ -21,10 +21,10 @@ powerP = 0.6
 #BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
-Turret = motor("io2", 1, 7)
+Turret = motor("io2", 2, 8)
 
 #Setup for Shoulder
-Shoulder = motor("io2", 2, 8)
+Shoulder = motor("io2", 1, 7)
 
 
 #Setup for Elbow
