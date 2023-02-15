@@ -28,10 +28,10 @@ Shoulder = motor("io2", 1, 10)
 
 
 #Setup for Elbow
-Elbow = motor("io2", 3, 9)
+Elbow = motor("io2", 3, 11)
 
 #Setup for Wrist
-Wrist = motor("io2", 4, 7)
+Wrist = motor("io2", 4, 12)
 
 #Setup for Claw
 #Claw = motor("pi", 0, 0)
