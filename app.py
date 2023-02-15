@@ -24,14 +24,14 @@ powerP = 0.6
 Turret = motor("io2", 2, 8)
 
 #Setup for Shoulder
-Shoulder = motor("io2", 1, 7)
+Shoulder = motor("io2", 1, 10)
 
 
 #Setup for Elbow
 Elbow = motor("io2", 3, 9)
 
 #Setup for Wrist
-Wrist = motor("io2", 4, 10)
+Wrist = motor("io2", 4, 7)
 
 #Setup for Claw
 #Claw = motor("pi", 0, 0)
