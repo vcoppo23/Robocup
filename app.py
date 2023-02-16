@@ -131,7 +131,7 @@ def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
    if request.method == 'POST':
 
-      endLife2 = bool(request.form['shutdown2'])
+      endLife2 = (request.form['shutdown2'])
 
       turretControls = request.form['turretControls']
 
