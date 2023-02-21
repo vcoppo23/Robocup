@@ -32,3 +32,7 @@ To exit the virutal environment type in the terminal
 ```bash
 deactivate
 ```
+
+###Credits
+Benilde-St. Margarets Robotic Team
+2022-23
