@@ -25,9 +25,10 @@ Then start the flask server with
 '''bash
 pythton3 -m flask run --host=0.0.0.0
 '''
+
 To stop the flask server hit "Control+C" at the same time on your keybaord
 
-To exit the virutal environment
+To exit the virutal environment type in the terminal
 '''bash
 deactivate
 '''
