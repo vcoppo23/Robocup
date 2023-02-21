@@ -33,6 +33,6 @@ To exit the virutal environment type in the terminal
 deactivate
 ```
 
-###Credits
+##Credits
 Benilde-St. Margarets Robotic Team
 2022-23
