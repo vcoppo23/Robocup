@@ -1,4 +1,4 @@
-# FlaskApp
+# Robocup
 Creates a website that takes user inputs via a ps4 controller to control the robot
 
 ## Installation:
