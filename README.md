@@ -6,10 +6,12 @@ Create a virtual environment with
 '''bash
 python3 -m venv ./venv
 '''
+
 Activate the virtual environment with
 '''bash
 source venv/bin/activate
 '''
+
 install Flask in the environment
 ```bash
 pip3 install flask
@@ -24,6 +26,7 @@ Then start the flask server with
 pythton3 -m flask run --host=0.0.0.0
 '''
 To stop the flask server hit "Control+C" at the same time on your keybaord
+
 To exit the virutal environment
 '''bash
 deactivate
