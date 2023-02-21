@@ -54,17 +54,17 @@ def mode_one():
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
 
-      frontLeftFlipperUp = bool(request.form['frontLeftFlipperUp'])
-      frontLeftFlipperDown = bool(request.form['frontLeftFlipperDown'])
+      frontLeftFlipperUp = (request.form['frontLeftFlipperUp'])
+      frontLeftFlipperDown = (request.form['frontLeftFlipperDown'])
 
-      frontRightFlipperUp = bool(request.form['frontRightFlipperUp'])
-      frontRightFlipperDown = bool(request.form['frontRightFlipperDown'])
+      frontRightFlipperUp = (request.form['frontRightFlipperUp'])
+      frontRightFlipperDown = (request.form['frontRightFlipperDown'])
 
-      backLeftFlipperUp = bool(request.form['backLeftFlipperUp'])
-      backLeftFlipperDown = bool(request.form['backLeftFlipperDown'])
+      backLeftFlipperUp = (request.form['backLeftFlipperUp'])
+      backLeftFlipperDown = (request.form['backLeftFlipperDown'])
 
-      backRightFlipperUp = bool(request.form['backRightFlipperUp'])
-      backRightFlipperDown = bool(request.form['backRightFlipperDown'])
+      backRightFlipperUp = (request.form['backRightFlipperUp'])
+      backRightFlipperDown = (request.form['backRightFlipperDown'])
 
 
       joystick1 = int((float(joystick1)*100)*powerP)
