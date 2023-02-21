@@ -74,11 +74,12 @@ def mode_one():
          shutdown()
 
       
-      LeftTread.start(joystick1)
-      RightTread.start(joystick2)
+      #LeftTread.start(joystick1)
+      #RightTread.start(joystick2)
       
-      
- 
+      FrontLeftFlipper.start(joystick1)
+      FrontRightFlipper.start(joystick2)
+      '''
       if frontLeftFlipperUp == 'true':
          FrontLeftFlipper.start(60)
       else:
@@ -98,7 +99,7 @@ def mode_one():
          FrontRightFlipper.start(-60)
       else:
          FrontRightFlipper.start(0)
-      '''
+      
       if backLeftFlipperUp == 'true':
         BackLeftFlipper.start(25)
       else: 
