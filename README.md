@@ -1,7 +1,30 @@
 # FlaskApp
-Creates a website that takes user inputs via a ps4 controller
-# To run: 
-1. Activate a virtual environment with "source venv/bin/activate"
-2. run with "flask run", if you want to run on all interfaces use "flask run --host=0.0.0.0"
-2.1 if the previous command doesn't work, use "pyhton3 -m flask run --host=0.0.0.0"
-#Robocup
+Creates a website that takes user inputs via a ps4 controller to control the robot
+
+## Installation:
+Create a virtual environment with
+'''bash
+python3 -m venv ./venv
+'''
+Activate the virtual environment with
+'''bash
+source venv/bin/activate
+'''
+install Flask in the environment
+```bash
+pip3 install flask
+```
+## Usage:
+Activate the virtual environment (if not active already) with 
+```bash
+source venv/bin/activate
+```
+Then start the flask server with
+'''bash
+pythton3 -m flask run --host=0.0.0.0
+'''
+To stop the flask server hit "Control+C" at the same time on your keybaord
+To exit the virutal environment
+'''bash
+deactivate
+'''
