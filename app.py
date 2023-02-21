@@ -80,22 +80,22 @@ def mode_one():
       
  
       if frontLeftFlipperUp == 'true':
-         FrontLeftFlipper.start(25)
+         FrontLeftFlipper.start(60)
       else:
          FrontLeftFlipper.start(0)
 
       if frontLeftFlipperDown == 'true':
-         FrontLeftFlipper.start(-25)  
+         FrontLeftFlipper.start(-60)  
       else:
          FrontLeftFlipper.start(0)
 
       if frontRightFlipperUp == 'true':
-         FrontRightFlipper.start(25)
+         FrontRightFlipper.start(60)
       else:
          FrontRightFlipper.start(0)
 
       if frontRightFlipperDown == 'true':
-         FrontRightFlipper.start(-25)
+         FrontRightFlipper.start(-60)
       else:
          FrontRightFlipper.start(0)
       '''
