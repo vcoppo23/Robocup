@@ -34,5 +34,5 @@ deactivate
 ```
 
 ### Credits:
-Benilde-St. Margarets Robotic Team
+Benilde-St. Margarets Robotics Team
 2022-23
