@@ -1,77 +1,120 @@
-<html> 
-    <head> 
-      <title>Test </title> 
-      <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <body> 
-      <h1>Test Mode 1</h1> 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Robocup Cams</title>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-    </body>
+  <style>
+    body {
+      margin: 10px;
+    }
+    h1 {
+      font-size: 25px;
+      font-family: sans-serif;
+    }
+    .parent {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: repeat(3, 320px);
+      grid-template-rows: repeat(3, 240px);
+    }
+    .parent > div {
+      padding: 0px;
+      background-color: #e0e0e0;
+      color: white;
+      border-radius: 3px;
+      display: grid;
+      place-items: center;
+    }
 
-    <script>
-        //connect gamepad from window
-        window.addEventListener("gamepadconnected", function(e) {
-          console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-            e.gamepad.index, e.gamepad.id,
-            e.gamepad.buttons.length, e.gamepad.axes.length);
-        });
-        //set controller as gp
-        var gp = navigator.getGamepads()[0];
-        //disconnect gamepad from window
-        window.addEventListener("gamepaddisconnected", function(e) {
-          console.log("Gamepad disconnected from index %d: %s",
-            e.gamepad.index, e.gamepad.id);
-        });
-        //apply Deadzone so no motor running when at rest
-        var applyDeadzone = function(number, threshold){
-          percentage = (Math.abs(number) - threshold) / (1 - threshold);
-          if(percentage < 0)
-            percentage = 0;
-          return percentage * (number > 0 ? 1 : -1);
-        }
-        //var xaxis = applyDeadzone(gp.axes[0], 0.25);
-        //var yaxis = applyDeadzone(gp.axes[1], 0.25);
-        //console log controller axis positions
-        function logController() {
-          gp = navigator.getGamepads()[0];
-          console.log(gp.axes[1]);
-          console.log(gp.axes[3]);
-        }
-        //setInterval(logController, 100)
-        //runs python script in app.py
+    .parent > div {
+      font-family: sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Robocup Camera Stream '23</h1>
+  <div class="parent">
+    <div><img src="http://192.168.20.144/video_feed1" title="Front Left"></div>
+    <div>2</div>
+    <div><img src="http://192.168.20.144/video_feed2" title="Front Right"></div>
+    <div>4</div>
+    <div><img src="http://192.168.20.144/video_feed0" title="Arm"></div>
+    <div>6</div>
+    <div>7</div>
+    <div><img src="http://192.168.20.144/video_feed3" title="Center Rear"></div>
+    <div>9</div>
+  </div>
+</body>
 
-  
+<script>
+  //connect gamepad from window
+  window.addEventListener("gamepadconnected", function(e) {
+    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      e.gamepad.index, e.gamepad.id,
+      e.gamepad.buttons.length, e.gamepad.axes.length);
+  });
+  //set controller as gp
+  var gp = navigator.getGamepads()[0];
+  //disconnect gamepad from window
+  window.addEventListener("gamepaddisconnected", function(e) {
+    console.log("Gamepad disconnected from index %d: %s",
+      e.gamepad.index, e.gamepad.id);
+  });
+  //apply Deadzone so no motor running when at rest
+  var applyDeadzone = function(number, threshold){
+    percentage = (Math.abs(number) - threshold) / (1 - threshold);
+    if(percentage < 0)
+      percentage = 0;
+    return percentage * (number > 0 ? 1 : -1);
+  }
+  //var xaxis = applyDeadzone(gp.axes[0], 0.25);
+  //var yaxis = applyDeadzone(gp.axes[1], 0.25);
+  //console log controller axis positions
+  function logController() {
+    gp = navigator.getGamepads()[0];
+    console.log(gp.axes[1]);
+    console.log(gp.axes[3]);
+  }
+  //setInterval(logController, 100)
+  //runs python script in app.py
 
-        function controls() {
-          controlMode = false;
 
-          gp = navigator.getGamepads()[0];
 
-          shutdown = gp.buttons[14].pressed;
+  function controls() {
+    controlMode = false;
 
-          joystick1 = applyDeadzone(gp.axes[1], 0.15);
-          joystick2 = applyDeadzone(gp.axes[3], 0.15);
+    gp = navigator.getGamepads()[0];
 
-          frontLeftFlipperUp = gp.buttons[4].pressed;
-          frontLeftFlipperDown = gp.buttons[6].pressed;
+    shutdown = gp.buttons[14].pressed;
 
-          frontRightFlipperUp = gp.buttons[5].pressed;
-          frontRightFlipperDown = gp.buttons[7].pressed;
+    joystick1 = applyDeadzone(gp.axes[1], 0.15);
+    joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-          backLeftFlipperUp = gp.buttons[13].pressed;
-          backLeftFlipperDown = gp.buttons[12].pressed;
+    frontLeftFlipperUp = gp.buttons[4].pressed;
+    frontLeftFlipperDown = gp.buttons[6].pressed;
 
-          backRightFlipperUp = gp.buttons[0].pressed;
-          backRightFlipperDown = gp.buttons[3].pressed;
+    frontRightFlipperUp = gp.buttons[5].pressed;
+    frontRightFlipperDown = gp.buttons[7].pressed;
 
-          $.ajax({
-            url: "{{ url_for('mode_one') }}",
-            type: 'POST',
-            data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-            success: function(response) {
-              console.log("Tread Mode Sent");
-            }
-          });
-        }
-        setInterval(controls, 100);
-    </script>
+    backLeftFlipperUp = gp.buttons[13].pressed;
+    backLeftFlipperDown = gp.buttons[12].pressed;
+
+    backRightFlipperUp = gp.buttons[0].pressed;
+    backRightFlipperDown = gp.buttons[3].pressed;
+
+    $.ajax({
+      url: "{{ url_for('mode_one') }}",
+      type: 'POST',
+      data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
+      success: function(response) {
+        console.log("Tread Mode Sent");
+      }
+    });
+  }
+  setInterval(controls, 100);
+</script>
+
 </html>

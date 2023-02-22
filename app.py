@@ -11,27 +11,27 @@ GPIO.setwarnings(False)
 powerP = 0.6
 
 #Setup for Right tank tread
-#RightTread = motor("io1", 1, 9)
-#rontRightFlipper = motor("io2", 1, 10)
+RightTread = motor("io1", 1, 10)
+FrontRightFlipper = motor("io1", 6, 12)
 #BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
-#LeftTread = motor("io1", 2, 10)
-#FrontLeftFlipper = motor("io2", 2, 9)
+LeftTread = motor("io1", 2, 8)
+FrontLeftFlipper = motor("io1", 5, 11)
 #BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
-Turret = motor("io2", 1, 7)
+#Turret = motor("io2", 2, 8)
 
 #Setup for Shoulder
-Shoulder = motor("io2", 2, 8)
+#Shoulder = motor("io2", 1, 10)
 
 
 #Setup for Elbow
-Elbow = motor("io2", 3, 9)
+#Elbow = motor("io2", 5, 11)
 
 #Setup for Wrist
-Wrist = motor("io2", 4, 10)
+#Wrist = motor("io2", 6, 12)
 
 #Setup for Claw
 #Claw = motor("pi", 0, 0)
@@ -54,17 +54,17 @@ def mode_one():
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
 
-      frontLeftFlipperUp = bool(request.form['frontLeftFlipperUp'])
-      frontLeftFlipperDown = bool(request.form['frontLeftFlipperDown'])
+      frontLeftFlipperUp = (request.form['frontLeftFlipperUp'])
+      frontLeftFlipperDown = (request.form['frontLeftFlipperDown'])
 
-      frontRightFlipperUp = bool(request.form['frontRightFlipperUp'])
-      frontRightFlipperDown = bool(request.form['frontRightFlipperDown'])
+      frontRightFlipperUp = (request.form['frontRightFlipperUp'])
+      frontRightFlipperDown = (request.form['frontRightFlipperDown'])
 
-      backLeftFlipperUp = bool(request.form['backLeftFlipperUp'])
-      backLeftFlipperDown = bool(request.form['backLeftFlipperDown'])
+      backLeftFlipperUp = (request.form['backLeftFlipperUp'])
+      backLeftFlipperDown = (request.form['backLeftFlipperDown'])
 
-      backRightFlipperUp = bool(request.form['backRightFlipperUp'])
-      backRightFlipperDown = bool(request.form['backRightFlipperDown'])
+      backRightFlipperUp = (request.form['backRightFlipperUp'])
+      backRightFlipperDown = (request.form['backRightFlipperDown'])
 
 
       joystick1 = int((float(joystick1)*100)*powerP)
@@ -73,32 +73,33 @@ def mode_one():
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          shutdown()
 
+      
+      #LeftTread.start(joystick1)
+      #RightTread.start(joystick2)
+      
+      FrontLeftFlipper.start(joystick1)
+      FrontRightFlipper.start(joystick2)
       '''
-      LeftTread.start(joystick1)
-      RightTread.start(joystick2)
-      
-      
- 
       if frontLeftFlipperUp == 'true':
-         FrontLeftFlipper.start(25)
+         FrontLeftFlipper.start(60)
       else:
          FrontLeftFlipper.start(0)
 
       if frontLeftFlipperDown == 'true':
-         FrontLeftFlipper.start(-25)  
+         FrontLeftFlipper.start(-60)  
       else:
          FrontLeftFlipper.start(0)
 
       if frontRightFlipperUp == 'true':
-         FrontRightFlipper.start(25)
+         FrontRightFlipper.start(60)
       else:
          FrontRightFlipper.start(0)
 
       if frontRightFlipperDown == 'true':
-         FrontRightFlipper.start(-25)
+         FrontRightFlipper.start(-60)
       else:
-         frontRightFlipper.start(0)
-
+         FrontRightFlipper.start(0)
+      
       if backLeftFlipperUp == 'true':
         BackLeftFlipper.start(25)
       else: 
@@ -130,8 +131,8 @@ def mode_one():
 def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
    if request.method == 'POST':
-
-      endLife2 = bool(request.form['shutdown2'])
+      
+      endLife2 = (request.form['shutdown2'])
 
       turretControls = request.form['turretControls']
 
@@ -151,7 +152,7 @@ def mode_two():
       shoulder = int((float(shoulderControls)*100)*powerP)
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
-
+      '''
       if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
          shutdown()
       
@@ -171,7 +172,7 @@ def mode_two():
       
 
       #print(f"{clawOpen} power, {clawClose} power")
-
+      '''
       return render_template('gamepad2.html')
    if request.method == 'GET':
       return render_template('gamepad2.html')
