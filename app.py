@@ -88,14 +88,16 @@ def mode_one():
       elif valueConverter(frontLeftFlipperDown):
          print("FLF DOWN")
          FrontLeftFlipper.start(-50)  
-      elif valueConverter(frontRightFlipperUp):
+      else:
+         FrontLeftFlipper.start(0)
+
+      if valueConverter(frontRightFlipperUp):
          print("FRF UP")
          FrontRightFlipper.start(50)
       elif valueConverter(frontRightFlipperDown):
          print("FRF DOWN")
          FrontRightFlipper.start(-50)
       else:
-         FrontLeftFlipper.start(0)
          FrontRightFlipper.start(0)
 
       '''
