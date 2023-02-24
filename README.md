@@ -16,6 +16,14 @@ install Flask in the environment
 ```bash
 pip3 install flask
 ```
+
+On the Raspberry Pi enable I2C
+
+Run the command in the raspberry pi terminal
+```bash
+sudo raspi-config
+```
+Using the arrow keys, go down and select "Interfacing Options," then select "I2C" and enable it
 ## Usage:
 Activate the virtual environment (if not active already) with 
 ```bash
