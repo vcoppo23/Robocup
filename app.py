@@ -45,10 +45,10 @@ def index():
    return render_template('gamepad.html')
 
 def valueConverter(value):
-   if value == 0:
-      return False
-   else:
+   if value == 'true':
       return True
+   else:
+      return False
 
 @app.route('/mode_one', methods=['GET', 'POST'])
 def mode_one():
