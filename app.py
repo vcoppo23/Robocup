@@ -85,26 +85,19 @@ def mode_one():
       if valueConverter(frontLeftFlipperUp):
          print("FLF UP")
          FrontLeftFlipper.start(50)
-      else:
-         FrontLeftFlipper.start(0)
-
-      if valueConverter(frontLeftFlipperDown):
+      elif valueConverter(frontLeftFlipperDown):
          print("FLF DOWN")
          FrontLeftFlipper.start(-50)  
-      else:
-         FrontLeftFlipper.start(0)
-
-      if valueConverter(frontRightFlipperUp):
+      elif valueConverter(frontRightFlipperUp):
          print("FRF UP")
          FrontRightFlipper.start(50)
-      else:
-         FrontRightFlipper.start(0)
-
-      if valueConverter(frontRightFlipperDown):
+      elif valueConverter(frontRightFlipperDown):
          print("FRF DOWN")
          FrontRightFlipper.start(-50)
       else:
+         FrontLeftFlipper.start(0)
          FrontRightFlipper.start(0)
+
       '''
       if valueConverter(backLeftFlipperUp):
         BackLeftFlipper.start(25)
