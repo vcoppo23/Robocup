@@ -11,20 +11,20 @@ GPIO.setwarnings(False)
 powerP = 0.6
 
 #Setup for Right tank tread
-#RightTread = motor("io1", 1, 9)
-#rontRightFlipper = motor("io2", 1, 10)
+RightTread = motor("io1", 1, 9)
+FrontRightFlipper = motor("io2", 1, 10)
 #BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
-#LeftTread = motor("io1", 2, 10)
-#FrontLeftFlipper = motor("io2", 2, 9)
+LeftTread = motor("io1", 2, 10)
+FrontLeftFlipper = motor("io2", 2, 9)
 #BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
-Turret = motor("io2", 1, 7)
+Turret = motor("io2", 2, 8)
 
 #Setup for Shoulder
-Shoulder = motor("io2", 2, 8)
+Shoulder = motor("io2", 1, 7)
 
 
 #Setup for Elbow
@@ -44,27 +44,33 @@ app = Flask(__name__)
 def index():  
    return render_template('gamepad.html')
 
+def valueConverter(value):
+   if value == 0:
+      return False
+   else:
+      return True
+
 @app.route('/mode_one', methods=['GET', 'POST'])
 def mode_one():
    #this mode controls the treads, flippers
    if request.method == 'POST':
 
-      endLife = (request.form['shutdown'])
+      endLife = request.form['shutdown']
 
       joystick1 = request.form['joystick1']
       joystick2 = request.form['joystick2']
 
-      frontLeftFlipperUp = bool(request.form['frontLeftFlipperUp'])
-      frontLeftFlipperDown = bool(request.form['frontLeftFlipperDown'])
+      frontLeftFlipperUp = request.form['frontLeftFlipperUp']
+      frontLeftFlipperDown = request.form['frontLeftFlipperDown']
 
-      frontRightFlipperUp = bool(request.form['frontRightFlipperUp'])
-      frontRightFlipperDown = bool(request.form['frontRightFlipperDown'])
+      frontRightFlipperUp = request.form['frontRightFlipperUp']
+      frontRightFlipperDown = request.form['frontRightFlipperDown']
 
-      backLeftFlipperUp = bool(request.form['backLeftFlipperUp'])
-      backLeftFlipperDown = bool(request.form['backLeftFlipperDown'])
+      backLeftFlipperUp = request.form['backLeftFlipperUp']
+      backLeftFlipperDown = request.form['backLeftFlipperDown']
 
-      backRightFlipperUp = bool(request.form['backRightFlipperUp'])
-      backRightFlipperDown = bool(request.form['backRightFlipperDown'])
+      backRightFlipperUp = request.form['backRightFlipperUp']
+      backRightFlipperDown = request.form['backRightFlipperDown']
 
 
       joystick1 = int((float(joystick1)*100)*powerP)
@@ -73,52 +79,49 @@ def mode_one():
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          shutdown()
 
-      '''
       LeftTread.start(joystick1)
       RightTread.start(joystick2)
       
-      
- 
-      if frontLeftFlipperUp == 'true':
+      if valueConverter(frontLeftFlipperUp):
          FrontLeftFlipper.start(25)
       else:
          FrontLeftFlipper.start(0)
 
-      if frontLeftFlipperDown == 'true':
+      if valueConverter(frontLeftFlipperDown):
          FrontLeftFlipper.start(-25)  
       else:
          FrontLeftFlipper.start(0)
 
-      if frontRightFlipperUp == 'true':
+      if valueConverter(frontRightFlipperUp):
          FrontRightFlipper.start(25)
       else:
          FrontRightFlipper.start(0)
 
-      if frontRightFlipperDown == 'true':
+      if valueConverter(frontRightFlipperDown):
          FrontRightFlipper.start(-25)
       else:
-         frontRightFlipper.start(0)
-
-      if backLeftFlipperUp == 'true':
+         FrontRightFlipper.start(0)
+      '''
+      if valueConverter(backLeftFlipperUp):
         BackLeftFlipper.start(25)
       else: 
          BackLeftFlipper.start(0)
 
-      if backLeftFlipperDown == 'true':
+      if valueConverter(backLeftFlipperDown):
          BackLeftFlipper.start(-25)
       else:
          BackLeftFlipper.start(0)
 
-      if backRightFlipperUp == 'true':
+      if valueConverter(backRightFlipperUp):
          BackRightFlipper.start(25)
       else:
          BackRightFlipper.start(0)
 
-      if backRightFlipperDown == 'true':
+      if valueConverter(backRightFlipperDown):
          BackRightFlipper.start(-25)
       else:
          BackRightFlipper.start(0)
-      '''
+      '''   
       
       print(f"{joystick1} power, {joystick2} power")
 
@@ -131,7 +134,7 @@ def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
    if request.method == 'POST':
 
-      endLife2 = bool(request.form['shutdown2'])
+      endLife2 = request.form['shutdown2']
 
       turretControls = request.form['turretControls']
 
