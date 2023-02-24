@@ -21,10 +21,10 @@ FrontLeftFlipper = motor("io1", 6, 12)
 #BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
-Turret = motor("io2", 2, 8)
+Turret = motor("io2", 2, 10)
 
 #Setup for Shoulder
-Shoulder = motor("io2", 1, 7)
+Shoulder = motor("io2", 1, 9)
 
 
 #Setup for Elbow
