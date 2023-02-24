@@ -13,12 +13,12 @@ powerP = 0.6
 #Setup for Right tank tread
 RightTread = motor("io1", 1, 9)
 FrontRightFlipper = motor("io2", 1, 10)
-#BackRightFlipper = motor("io1", 0, 0)
+BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
 LeftTread = motor("io1", 2, 10)
 FrontLeftFlipper = motor("io2", 2, 9)
-#BackLeftFlipper = motor("io2", 0, 0)
+BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
 Turret = motor("io2", 2, 8)
@@ -28,10 +28,10 @@ Shoulder = motor("io2", 1, 7)
 
 
 #Setup for Elbow
-#Elbow = motor("io2", 5, 11)
+Elbow = motor("io2", 5, 11)
 
 #Setup for Wrist
-#Wrist = motor("io2", 6, 12)
+Wrist = motor("io2", 6, 12)
 
 #Setup for Claw
 #Claw = motor("pi", 0, 0)
@@ -154,7 +154,7 @@ def mode_two():
       shoulder = int((float(shoulderControls)*100)*powerP)
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
-      '''
+      
       if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
          shutdown()
       
@@ -166,7 +166,7 @@ def mode_two():
       Elbow.start(elbow)
 
       Wrist.start(wrist)
-
+      
       #if clawOpen == True:
       #   Claw.start(25)
       #if clawClose == True:
@@ -174,7 +174,7 @@ def mode_two():
       
 
       #print(f"{clawOpen} power, {clawClose} power")
-      '''
+      
       return render_template('gamepad2.html')
    if request.method == 'GET':
       return render_template('gamepad2.html')
