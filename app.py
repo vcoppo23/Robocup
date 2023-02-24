@@ -45,10 +45,10 @@ def index():
    return render_template('gamepad.html')
 
 def valueConverter(value):
-   if value == 0:
-      return False
-   else:
+   if value == 1:
       return True
+   else:
+      return False
 
 @app.route('/mode_one', methods=['GET', 'POST'])
 def mode_one():
@@ -83,22 +83,26 @@ def mode_one():
       RightTread.start(joystick2)
       
       if valueConverter(frontLeftFlipperUp):
-         FrontLeftFlipper.start(25)
+         print("FLF UP")
+         FrontLeftFlipper.start(50)
       else:
          FrontLeftFlipper.start(0)
 
       if valueConverter(frontLeftFlipperDown):
-         FrontLeftFlipper.start(-25)  
+         print("FLF DOWN")
+         FrontLeftFlipper.start(-50)  
       else:
          FrontLeftFlipper.start(0)
 
       if valueConverter(frontRightFlipperUp):
-         FrontRightFlipper.start(25)
+         print("FRF UP")
+         FrontRightFlipper.start(50)
       else:
          FrontRightFlipper.start(0)
 
       if valueConverter(frontRightFlipperDown):
-         FrontRightFlipper.start(-25)
+         print("FRF DOWN")
+         FrontRightFlipper.start(-50)
       else:
          FrontRightFlipper.start(0)
       '''

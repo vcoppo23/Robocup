@@ -93,17 +93,17 @@
     joystick1 = applyDeadzone(gp.axes[1], 0.15);
     joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-          frontLeftFlipperUp = gp.buttons[4].value;
-          frontLeftFlipperDown = gp.buttons[6].value;
+    frontLeftFlipperUp = gp.buttons[4].value;
+    frontLeftFlipperDown = gp.buttons[6].value;
 
-          frontRightFlipperUp = gp.buttons[5].value;
-          frontRightFlipperDown = gp.buttons[7].value;
+    frontRightFlipperUp = gp.buttons[5].value;
+    frontRightFlipperDown = gp.buttons[7].value;
 
-          backLeftFlipperUp = gp.buttons[13].value;
-          backLeftFlipperDown = gp.buttons[12].value;
+    backLeftFlipperUp = gp.buttons[13].value;
+    backLeftFlipperDown = gp.buttons[12].value;
 
-          backRightFlipperUp = gp.buttons[0].value;
-          backRightFlipperDown = gp.buttons[3].value;
+    backRightFlipperUp = gp.buttons[0].value;
+    backRightFlipperDown = gp.buttons[3].value;
 
     $.ajax({
       url: "{{ url_for('mode_one') }}",
