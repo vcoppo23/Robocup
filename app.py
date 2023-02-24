@@ -12,12 +12,12 @@ powerP = 0.6
 
 #Setup for Right tank tread
 RightTread = motor("io1", 1, 9)
-FrontRightFlipper = motor("io2", 1, 10)
+FrontRightFlipper = motor("io1", 5, 11)
 #BackRightFlipper = motor("io1", 0, 0)
 
 #Setup for Left tank tread
 LeftTread = motor("io1", 2, 10)
-FrontLeftFlipper = motor("io2", 2, 9)
+FrontLeftFlipper = motor("io1", 6, 12)
 #BackLeftFlipper = motor("io2", 0, 0)
 
 #Setup for Turret
