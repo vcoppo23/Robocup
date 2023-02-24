@@ -28,10 +28,10 @@ Shoulder = motor("io2", 1, 7)
 
 
 #Setup for Elbow
-Elbow = motor("io2", 3, 9)
+#Elbow = motor("io2", 5, 11)
 
 #Setup for Wrist
-Wrist = motor("io2", 4, 10)
+#Wrist = motor("io2", 6, 12)
 
 #Setup for Claw
 #Claw = motor("pi", 0, 0)
@@ -154,7 +154,7 @@ def mode_two():
       shoulder = int((float(shoulderControls)*100)*powerP)
       elbow = int((float(elbowControls)*100)*powerP)
       wrist = int((float(wristControls)*100)*powerP)
-
+      '''
       if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
          shutdown()
       
@@ -174,7 +174,7 @@ def mode_two():
       
 
       #print(f"{clawOpen} power, {clawClose} power")
-
+      '''
       return render_template('gamepad2.html')
    if request.method == 'GET':
       return render_template('gamepad2.html')
