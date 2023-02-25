@@ -77,14 +77,13 @@ def mode_one():
       joystick2 = int((float(joystick2)*100)*powerP)
 
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
-         while True:
-            LeftTread.start(0)
-            RightTread.start(0)
-            FrontLeftFlipper.start(0)
-            FrontRightFlipper.start(0)
-            #BackLeftFlipper.stop()
-            #BackRightFlipper.stop()
-            #shutdown()
+         LeftTread.start(0)
+         RightTread.start(0)
+         FrontLeftFlipper.start(0)
+         FrontRightFlipper.start(0)
+         #BackLeftFlipper.stop()
+         #BackRightFlipper.stop()
+         #shutdown()
 
       LeftTread.start(joystick1)
       RightTread.start(-joystick2)
