@@ -79,7 +79,7 @@ def mode_one():
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          shutdown()
 
-      LeftTread.start(-joystick1)
+      LeftTread.start(joystick1)
       RightTread.start(-joystick2)
       
       if valueConverter(frontLeftFlipperUp):
@@ -148,12 +148,12 @@ def mode_two():
       
       Turret.start(turret)
 
-      Shoulder.start(shoulder)
+      Shoulder.start(-shoulder)
       
 
       Elbow.start(elbow)
 
-      Wrist.start(wrist)
+      Wrist.start(-wrist)
       
       #if clawOpen == True:
       #   Claw.start(25)
