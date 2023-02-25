@@ -82,11 +82,11 @@
 
     gp = navigator.getGamepads()[0];
 
-    if (gp.buttons[17].pressed) {
+    if (gp.buttons[14].pressed) {
       toggle();
     }
 
-    shutdown = gp.buttons[14].pressed;
+    shutdown = gp.buttons[17].pressed;
 
     joystick1 = applyDeadzone(gp.axes[1], 0.15);
     joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -117,11 +117,11 @@
 
     gp = navigator.getGamepads()[0];
 
-    if (gp.buttons[17].pressed) {
+    if (gp.buttons[14].pressed) {
       toggle();
     }
 
-    shutdown2 = gp.buttons[14].pressed;
+    shutdown2 = gp.buttons[17].pressed;
 
     shoulderControls = applyDeadzone(gp.axes[1], 0.25);
     elbowControls = applyDeadzone(gp.axes[3], 0.25);
