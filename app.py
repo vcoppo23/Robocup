@@ -78,10 +78,10 @@ def mode_one():
 
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          while True:
-            LeftTread.stop()
-            RightTread.stop()
-            FrontLeftFlipper.stop()
-            FrontRightFlipper.stop()
+            LeftTread.start(0)
+            RightTread.start(0)
+            FrontLeftFlipper.start(0)
+            FrontRightFlipper.start(0)
             #BackLeftFlipper.stop()
             #BackRightFlipper.stop()
             #shutdown()
