@@ -42,7 +42,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
 def index():  
-   return render_template('gamepad.html')
+   return render_template('gamepad3.html')
 
 def valueConverter(value):
    if value == 'true':
@@ -79,54 +79,43 @@ def mode_one():
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
          shutdown()
 
-      LeftTread.start(joystick1)
-      RightTread.start(joystick2)
+      LeftTread.start(-joystick1)
+      RightTread.start(-joystick2)
       
       if valueConverter(frontLeftFlipperUp):
-         print("FLF UP")
          FrontLeftFlipper.start(50)
       elif valueConverter(frontLeftFlipperDown):
-         print("FLF DOWN")
          FrontLeftFlipper.start(-50)  
       else:
          FrontLeftFlipper.start(0)
 
       if valueConverter(frontRightFlipperUp):
-         print("FRF UP")
-         FrontRightFlipper.start(50)
-      elif valueConverter(frontRightFlipperDown):
-         print("FRF DOWN")
          FrontRightFlipper.start(-50)
+      elif valueConverter(frontRightFlipperDown):
+         FrontRightFlipper.start(50)
       else:
          FrontRightFlipper.start(0)
-
       '''
       if valueConverter(backLeftFlipperUp):
-        BackLeftFlipper.start(25)
-      else: 
-         BackLeftFlipper.start(0)
-
-      if valueConverter(backLeftFlipperDown):
-         BackLeftFlipper.start(-25)
+         BackLeftFlipper.start(50)
+      elif valueConverter(backLeftFlipperDown):
+         BackLeftFlipper.start(-50)
       else:
          BackLeftFlipper.start(0)
 
       if valueConverter(backRightFlipperUp):
-         BackRightFlipper.start(25)
+         BackRightFlipper.start(50)
+      elif valueConverter(backRightFlipperDown):
+         BackRightFlipper.start(-50)
       else:
          BackRightFlipper.start(0)
-
-      if valueConverter(backRightFlipperDown):
-         BackRightFlipper.start(-25)
-      else:
-         BackRightFlipper.start(0)
-      '''   
+      '''
       
-      print(f"{joystick1} power, {joystick2} power")
+      print("Tread Mode sending data")
 
-      return render_template('gamepad.html')
+      return render_template('gamepad3.html')
    if request.method == 'GET':
-      return render_template('gamepad.html')
+      return render_template('gamepad3.html')
    
 @app.route('/mode_two', methods=['GET', 'POST'])
 def mode_two():
@@ -173,10 +162,12 @@ def mode_two():
       
 
       #print(f"{clawOpen} power, {clawClose} power")
+
+      print("Turret Mode sending data")
       
-      return render_template('gamepad2.html')
+      return render_template('gamepad3.html')
    if request.method == 'GET':
-      return render_template('gamepad2.html')
+      return render_template('gamepad3.html')
 
 if __name__ == '__main__': 
 	app.run(host='0.0.0.0', debug=True, threaded=True)
