@@ -77,6 +77,12 @@ def mode_one():
       joystick2 = int((float(joystick2)*100)*powerP)
 
       if endLife  == 'true': ##shutsdown all motors and turns the pi off
+         LeftTread.stop()
+         RightTread.stop()
+         FrontLeftFlipper.stop()
+         FrontRightFlipper.stop()
+         #BackLeftFlipper.stop()
+         #BackRightFlipper.stop()
          shutdown()
 
       LeftTread.start(joystick1)
@@ -144,6 +150,10 @@ def mode_two():
       wrist = int((float(wristControls)*100)*powerP)
       
       if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
+         Turret.stop()
+         Shoulder.stop()
+         Elbow.stop()
+         Wrist.stop()
          shutdown()
       
       Turret.start(turret)
