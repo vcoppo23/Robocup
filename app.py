@@ -111,7 +111,7 @@ def mode_one():
          BackRightFlipper.start(0)
       '''
       
-      print("Tread Mode sending data")
+      #print("Tread Mode sending data")
 
       return render_template('gamepad3.html')
    if request.method == 'GET':
@@ -163,7 +163,7 @@ def mode_two():
 
       #print(f"{clawOpen} power, {clawClose} power")
 
-      print("Turret Mode sending data")
+      #print("Turret Mode sending data")
       
       return render_template('gamepad3.html')
    if request.method == 'GET':
