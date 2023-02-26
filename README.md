@@ -53,7 +53,7 @@ To make sure it is sending the controls right click onto the Google page and cli
 
 If you see the "Tread mode sent" line, you can move the joysticks/bumpers+triggers to move the treads/flippers respectivly. To switch modes, click on the Left button on the D-Pad (the leftmost button on the controller) and a new line will appear in the Console page with "Turret Mode Sent," now you can move the turret/arm (it may take a few tries to switch, it is very finicky, your current mode is the one with the increasting number to the left of it)
 
-###INCASE SOMETHING GOES WRONG HIT THE PS BUTTON
+### INCASE SOMETHING GOES WRONG HIT THE PS BUTTON
 That is the Stop All button, it puts the motors into a constant state of 0% power, if the motors start to jitter back and forth/stop it means it is working, this gives you time to unplug the batteries.
 
 To get out of Stop All mode, just stop the flask servers and restart them
