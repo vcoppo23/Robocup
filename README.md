@@ -31,8 +31,9 @@ You should see a file name "app.py" and a file named "motorlib.py" with 3/4 othe
 
 For the camera pi put in the command
 ```bash
-cd Downloads/*robo_cams* (something along those lines, if that doesn't work just cd into Downloads then run "ls" to get the folder name)
+cd Downloads/robo_cams
 ```
+(something along those lines, if that doesn't work just cd into Downloads then run "ls" to get the folder name)
 Check using "ls" and make sure there is an app.py file
 
 Start the flask server on the Raspberry Pi that controls the motors with
