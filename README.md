@@ -15,7 +15,7 @@ sudo raspi-config
 ```
 Using the arrow keys, go down and select "Interfacing Options," then select "I2C" and enable it
 ## Usage:
-SSH into both of the Raspberry Pis using pi@*ip* for the motor controlling Pi and student@*ip* for the camera controlling Pi
+SSH into both of the Raspberry Pis using "pi@*ip*" for the motor controlling Pi and "student@*ip*" for the camera controlling Pi (intert Pi's ip into the italicized ip)
 
 Start the flask server on the Raspberry Pi that controls the motors with
 ```bash
