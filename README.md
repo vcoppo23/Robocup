@@ -17,7 +17,7 @@ Using the arrow keys, go down and select "Interfacing Options," then select "I2C
 ## Usage:
 Start the flask server on the Raspberry Pi that controls the motors with
 ```bash
-pythton3 -m flask run --host=0.0.0.0
+python3 -m flask run --host=0.0.0.0
 ```
 
 Then start the cameras on the other Pi with
