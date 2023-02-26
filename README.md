@@ -40,11 +40,16 @@ Start the flask server on the Raspberry Pi that controls the motors with
 ```bash
 python3 -m flask run --host=0.0.0.0
 ```
-
+A bunch of lines with pop up into the terminal with a few URLs, go to *pi's ip*:5000 in Google and you should see the page
 Then start the cameras on the other Pi with
 ```bash
 sudo python3 app.py
 ```
+Refresh the Google page and the cameras will load onto the page
+
+You can connect a ps4 controller via a wire or wirelessly to your laptop to run the robot, just make sure you are on the Google page (check by clicking onto the page) 
+
+To make sure it is sending the controls right click onto the Google page and click "inspect", in the pop up that appears to the right go to the top right and click on "Console" (It may be throwing a lot of errors if you haven't moved the controller on the page yet, if you click a button on the controller it will stop the errors, say a controller has been connected a then the line "Tread mode send" should appear with an increasing number next to it, that means everything is working) If you see the "Tread mode sent" line, you can move the joysticks/bumpers+triggers to move the treads/flippers respectivly. To switch modes, click on the Left button on the D-Pad (the leftmost button on the controller) and a new line will appear in the Console page with "Turret Mode Sent," now you can move the turret/arm (it may take a few tries to switch, it is very finicky, your current mode is the one with the increasting number to the left of it)
 
 To stop a flask server hit "Control+C" at the same time on your keybaord
 
