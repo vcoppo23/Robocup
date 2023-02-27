@@ -71,6 +71,7 @@
 
 <script>
   //connect gamepad from window
+  
   window.addEventListener("gamepadconnected", function(e) {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
       e.gamepad.index, e.gamepad.id,
@@ -91,7 +92,7 @@
     return percentage * (number > 0 ? 1 : -1);
   }
   //runs python script in app.py
-
+  var switcher = false;
   let toggle_mode = false;
 
   function toggle() {
@@ -99,7 +100,7 @@
   }
 
   function tread_mode() {
-    var switcher = false;
+   
     gp = navigator.getGamepads()[0];
 
     if (gp.buttons[14].pressed) {
