@@ -135,6 +135,7 @@
     });
     switcher == true;
     } 
+    console.log(switcher);
     if (switcher == true && (frontLeftFlipperUp == false || frontLeftFlipperDown == false || frontRightFlipperUp == false || frontRightFlipperDown == false || backLeftFlipperUp == false || backLeftFlipperDown == false || backRightFlipperUp == false || backRightFlipperDown == false || joystick1 == 0 || joystick2 == 0 || shutdown == false)) {
       $.ajax({
         url: "{{ url_for('mode_one') }}",
@@ -144,8 +145,10 @@
           console.log("Tread Mode Sent");
         }
       });
+      
       switcher == false;
     }
+    console.log(switcher);
     }
 
   function turret_mode() {
