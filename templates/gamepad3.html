@@ -122,15 +122,17 @@
 
     backRightFlipperUp = gp.buttons[0].pressed;
     backRightFlipperDown = gp.buttons[3].pressed;
-
+    if (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
+    
     $.ajax({
       url: "{{ url_for('mode_one') }}",
       type: 'POST',
-      data: {'shutdown': shutdown,'joystick1': joystick, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
+      data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
       success: function(response) {
         console.log("Tread Mode Sent");
       }
     });
+    } 
     }
 
   function turret_mode() {
