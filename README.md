@@ -38,6 +38,8 @@ ls
 ```
 You should see a file name "app.py" and a file named "motorlib.py" with 3/4 other folders
 
+Visit [Camera Github](https://github.com/tmedina23/Robocup23-Cams) for more information on cameras
+
 For the camera pi put in the command
 ```bash
 cd Downloads/Robocup23-Cams
