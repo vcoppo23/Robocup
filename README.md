@@ -4,10 +4,10 @@ Creates a website that takes user inputs via a ps4 controller to control the rob
 ## Installation:
 Clone the repo into your Raspberry Pi with 
 ```bash
-git clone Githublink
+git clone https://github.com/vcoppo23/Robocup.git
 ```
 
-install Flask on Both Raspberry Pis with
+install Flask on the Raspberry Pis with
 ```bash
 pip3 install flask
 ```
@@ -26,34 +26,27 @@ Using the arrow keys, go down and select "Interfacing Options," then select "I2C
 ## Usage:
 SSH into both of the Raspberry Pis using "pi@*ip*" for the motor controlling Pi and "student@*ip*" for the camera controlling Pi (intert Pi's ip into the italicized ip)
 
-Then cd into the correct directory
+Then cd into the correct directory with 
 
-For the motor controlling pi put in the command
 ```bash
 cd Robocup
 ```
+
 Then check to make sure you are in the correct directory with
 ```bash
 ls
 ```
 You should see a file name "app.py" and a file named "motorlib.py" with 3/4 other folders
 
-Visit [Camera Github](https://github.com/tmedina23/Robocup23-Cams) for more information on cameras
-
-For the camera pi put in the command
-```bash
-cd Downloads/Robocup23-Cams
-```
-
 Start the flask server on the Raspberry Pi that controls the motors with
 ```bash
 python3 -m flask run --host=0.0.0.0
 ```
 A bunch of lines with pop up into the terminal with a few URLs, go to *pi's ip*:5000 in Google and you should see the page,
-Then start the cameras on the other Pi with
-```bash
-sudo python3 app.py
-```
+Then start the cameras on the other Pi
+
+Visit [Camera Github](https://github.com/tmedina23/Robocup23-Cams) for more information on cameras
+
 Refresh the Google page and the cameras will load onto the page
 
 You can connect a ps4 controller via a wire or wirelessly to your laptop to run the robot, just make sure you are on the Google page (check by clicking onto the page) 
