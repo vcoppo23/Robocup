@@ -2,6 +2,11 @@
 Creates a website that takes user inputs via a ps4 controller to control the robot
 
 ## Installation:
+Clone the repo into your Raspberry Pi with 
+```bash
+git clone Githublink
+```
+
 install Flask on Both Raspberry Pis with
 ```bash
 pip3 install flask
