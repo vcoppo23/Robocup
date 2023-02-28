@@ -18,9 +18,7 @@ pip3 install pimoroni-ioexpaner
 ```
 If it gives you an error, try using sudo pip3 install ... 
 
-On the Raspberry Pi that is controlling the motors enable I2C
-
-Run the command in the Raspberry Pi terminal
+On the Raspberry Pi that is controlling the motors enable I2C, Run the command in the Raspberry Pi terminal
 ```bash
 sudo raspi-config
 ```
