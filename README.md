@@ -12,6 +12,11 @@ install Flask on Both Raspberry Pis with
 pip3 install flask
 ```
 
+install the ioexpander library
+```bash
+pip3 install pimoroni-ioexpaner
+```
+
 On the Raspberry Pi that is controlling the motors enable I2C
 
 Run the command in the Raspberry Pi terminal
