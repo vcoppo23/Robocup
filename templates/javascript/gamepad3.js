@@ -100,6 +100,7 @@
     clawOpen = gp.buttons[6].value;
     clawClose = gp.buttons[7].value;
 
+    if (shoulderControls !=0 || elbowControls !=0 || turretControls !=0 || wristControls !=0 || clawOpen.pressed || clawClose.pressed || shutdown2.pressed){
     $.ajax({
       url: "{{ url_for('mode_two') }}",
       type: 'POST',
@@ -108,6 +109,21 @@
         console.log("Turret Mode Sent");
       }
     });
+    latch_turret = true;
+    }
+    console.log(latch_turret);
+    if (latch_turret == true && shoulderControls ==0 && elbowControls ==0 && turretControls ==0 && wristControls ==0 && clawOpen.pressed == false && clawClose.pressed && shutdown2.pressed){
+      $.ajax({
+        url: "{{ url_for('mode_two') }}",
+        type: 'POST',
+        data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
+        success: function(response) {
+          console.log("Turret Mode Sent");
+        }
+      });
+      latch_turret = flase;
+    }
+      console.log(latch_turret);
     }
 
     function run() {
