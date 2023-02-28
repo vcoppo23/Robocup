@@ -65,7 +65,7 @@ That is the Stop All button, it puts the motors into a constant state of 0% powe
 
 To get out of Stop All mode, just stop the flask servers and restart them
 
-To stop a flask server hit "Control+C" at the same time on your keybaord
+To stop a flask server hit "Control+C" at the same time on your keyboard while in the pi terminal
 
 ### Controls:
 While in Tread Mode:
