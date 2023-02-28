@@ -16,6 +16,7 @@ install the ioexpander library
 ```bash
 pip3 install pimoroni-ioexpaner
 ```
+If it gives you an error, try using sudo pip3 install ... 
 
 On the Raspberry Pi that is controlling the motors enable I2C
 
