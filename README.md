@@ -47,7 +47,7 @@ Start the flask server on the Raspberry Pi that controls the motors with
 ```bash
 python3 -m flask run --host=0.0.0.0
 ```
-A bunch of lines with pop up into the terminal with a few URLs, go to *pi's ip*:5000 in Google and you should see the page
+A bunch of lines with pop up into the terminal with a few URLs, go to *pi's ip*:5000 in Google and you should see the page,
 Then start the cameras on the other Pi with
 ```bash
 sudo python3 app.py
