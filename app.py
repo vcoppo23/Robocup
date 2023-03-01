@@ -10,6 +10,7 @@ GPIO.setwarnings(False)
 
 powerP = 0.6
 
+#hi gabe -tommy
 #Setup for Right tank tread
 RightTread = motor("io1", 1, 9)
 FrontRightFlipper = motor("io1", 5, 11)

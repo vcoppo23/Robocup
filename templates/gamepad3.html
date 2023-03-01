@@ -5,6 +5,24 @@
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
   <style>
+    #circle {
+      width: 200px;
+      height: 200px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      border: black;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 50px;
+      font-family: "Comic Sans MS";
+      cursor: pointer;
+      /* position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); */
+    }
     body {
       margin: 10px;
     }
@@ -35,10 +53,11 @@
   </style>
 </head>
 <body>
+  
   <h1>Robocup Camera Stream '23</h1>
   <div class="parent">
     <div><img src="http://192.168.20.144/video_feed1" title="Front Left"></div>
-    <div>2</div>
+    <div><button id="circle" onclick="console.log()">Stop</button></div>
     <div><img src="http://192.168.20.144/video_feed2" title="Front Right"></div>
     <div>4</div>
     <div><img src="http://192.168.20.144/video_feed0" title="Arm"></div>
@@ -47,10 +66,12 @@
     <div><img src="http://192.168.20.144/video_feed3" title="Center Rear"></div>
     <div>9</div>
   </div>
+  
 </body>
 
 <script>
   //connect gamepad from window
+  
   window.addEventListener("gamepadconnected", function(e) {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
       e.gamepad.index, e.gamepad.id,
@@ -71,7 +92,7 @@
     return percentage * (number > 0 ? 1 : -1);
   }
   //runs python script in app.py
-
+  var switcher = false;
   let toggle_mode = false;
 
   function toggle() {
@@ -79,7 +100,7 @@
   }
 
   function tread_mode() {
-
+   
     gp = navigator.getGamepads()[0];
 
     if (gp.buttons[14].pressed) {
@@ -102,15 +123,33 @@
 
     backRightFlipperUp = gp.buttons[0].pressed;
     backRightFlipperDown = gp.buttons[3].pressed;
-
+    if(frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
+    
     $.ajax({
       url: "{{ url_for('mode_one') }}",
       type: 'POST',
       data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
       success: function(response) {
         console.log("Tread Mode Sent");
+
       }
     });
+    switcher = true;
+    } 
+    console.log(switcher);
+    if (switcher == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {
+      $.ajax({
+        url: "{{ url_for('mode_one') }}",
+        type: 'POST',
+        data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
+        success: function(response) {
+          console.log("Tread Mode Sent");
+        }
+      });
+      
+      switcher = false;
+    }
+    console.log(switcher);
     }
 
   function turret_mode() {
