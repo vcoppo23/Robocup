@@ -70,123 +70,142 @@
 </body>
 
 <script>
-  //connect gamepad from window
-  
-  window.addEventListener("gamepadconnected", function(e) {
-    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-      e.gamepad.index, e.gamepad.id,
-      e.gamepad.buttons.length, e.gamepad.axes.length);
-  });
-  //set controller as gp
-  var gp = navigator.getGamepads()[0];
-  //disconnect gamepad from window
-  window.addEventListener("gamepaddisconnected", function(e) {
-    console.log("Gamepad disconnected from index %d: %s",
-      e.gamepad.index, e.gamepad.id);
-  });
-  //apply Deadzone so no motor running when at rest
-  var applyDeadzone = function(number, threshold){
-    percentage = (Math.abs(number) - threshold) / (1 - threshold);
-    if(percentage < 0)
-      percentage = 0;
-    return percentage * (number > 0 ? 1 : -1);
-  }
-  //runs python script in app.py
-  var switcher = false;
-  let toggle_mode = false;
+   //connect gamepad from window	
 
-  function toggle() {
-    toggle_mode = !toggle_mode;
-  }
+   window.addEventListener("gamepadconnected", function(e) {	
+    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",	
+      e.gamepad.index, e.gamepad.id,	
+      e.gamepad.buttons.length, e.gamepad.axes.length);	
+  });	
+  //set controller as gp	
+  var gp = navigator.getGamepads()[0];	
+  //disconnect gamepad from window	
+  window.addEventListener("gamepaddisconnected", function(e) {	
+    console.log("Gamepad disconnected from index %d: %s",	
+      e.gamepad.index, e.gamepad.id);	
+  });	
+  //apply Deadzone so no motor running when at rest	
+  var applyDeadzone = function(number, threshold){	
+    percentage = (Math.abs(number) - threshold) / (1 - threshold);	
+    if(percentage < 0)	
+      percentage = 0;	
+    return percentage * (number > 0 ? 1 : -1);	
+  }	
+  //runs python script in app.py	
+  var latch_tread = false;	
+  var latch_turret = false;	
+  let toggle_mode = false;	
 
-  function tread_mode() {
-   
-    gp = navigator.getGamepads()[0];
+  function toggle() {	
+    toggle_mode = !toggle_mode;	
+  }	
 
-    if (gp.buttons[14].pressed) {
-      toggle();
-    }
+  function tread_mode() {	
 
-    shutdown = gp.buttons[16].pressed;
+    gp = navigator.getGamepads()[0];	
 
-    joystick1 = applyDeadzone(gp.axes[1], 0.15);
-    joystick2 = applyDeadzone(gp.axes[3], 0.15);
+    if (gp.buttons[14].pressed) {	
+      toggle();	
+    }	
 
-    frontLeftFlipperUp = gp.buttons[4].pressed;
-    frontLeftFlipperDown = gp.buttons[6].pressed;
+    shutdown = gp.buttons[16].pressed;	
 
-    frontRightFlipperUp = gp.buttons[5].pressed;
-    frontRightFlipperDown = gp.buttons[7].pressed;
+    joystick1 = applyDeadzone(gp.axes[1], 0.15);	
+    joystick2 = applyDeadzone(gp.axes[3], 0.15);	
 
-    backLeftFlipperUp = gp.buttons[13].pressed;
-    backLeftFlipperDown = gp.buttons[12].pressed;
+    frontLeftFlipperUp = gp.buttons[4].pressed;	
+    frontLeftFlipperDown = gp.buttons[6].pressed;	
 
-    backRightFlipperUp = gp.buttons[0].pressed;
-    backRightFlipperDown = gp.buttons[3].pressed;
-    if(frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
-    
-    $.ajax({
-      url: "{{ url_for('mode_one') }}",
-      type: 'POST',
-      data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-      success: function(response) {
-        console.log("Tread Mode Sent");
+    frontRightFlipperUp = gp.buttons[5].pressed;	
+    frontRightFlipperDown = gp.buttons[7].pressed;	
 
-      }
-    });
-    switcher = true;
-    } 
-    if (switcher == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {
-      $.ajax({
-        url: "{{ url_for('mode_one') }}",
-        type: 'POST',
-        data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-        success: function(response) {
-          console.log("Tread Mode Sent");
-        }
-      });
-      
-      switcher = false;
-    }
-    }
+    backLeftFlipperUp = gp.buttons[13].pressed;	
+    backLeftFlipperDown = gp.buttons[12].pressed;	
 
-  function turret_mode() {
+    backRightFlipperUp = gp.buttons[0].pressed;	
+    backRightFlipperDown = gp.buttons[3].pressed;	
+    if(frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {	
 
-    gp = navigator.getGamepads()[0];
+    $.ajax({	
+      url: "{{ url_for('mode_one') }}",	
+      type: 'POST',	
+      data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},	
+      success: function(response) {	
+        console.log("Tread Mode Sent");	
 
-    if (gp.buttons[14].pressed) {
-      toggle();
-    }
+      }	
+    });	
+    latch_tread = true;	
+    } 	
+    console.log(latch_tread);	
+    if (latch_tread == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {	
+      $.ajax({	
+        url: "{{ url_for('mode_one') }}",	
+        type: 'POST',	
+        data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},	
+        success: function(response) {	
+          console.log("Tread Mode Sent");	
+        }	
+      });	
 
-    shutdown2 = gp.buttons[16].pressed;
+      latch_tread = false;	
+    }	
+    console.log(latch_tread);	
+    }	
 
-    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
-    elbowControls = applyDeadzone(gp.axes[3], 0.25);
+  function turret_mode() {	
 
-    turretControls = applyDeadzone(gp.axes[0], 0.25);
-    wristControls = applyDeadzone(gp.axes[2], 0.25);
+    gp = navigator.getGamepads()[0];	
 
-    clawOpen = gp.buttons[6].value;
-    clawClose = gp.buttons[7].value;
+    if (gp.buttons[14].pressed) {	
+      toggle();	
+    }	
 
-    $.ajax({
-      url: "{{ url_for('mode_two') }}",
-      type: 'POST',
-      data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
-      success: function(response) {
-        console.log("Turret Mode Sent");
-      }
-    });
-    }
+    shutdown2 = gp.buttons[16].pressed;	
 
-    function run() {
-        if (!toggle_mode) {
-        tread_mode();
-        } else {
-        turret_mode();
-        }
-    }
-    setInterval(run, 200);
+    shoulderControls = applyDeadzone(gp.axes[1], 0.25);	
+    elbowControls = applyDeadzone(gp.axes[3], 0.25);	
+
+    turretControls = applyDeadzone(gp.axes[0], 0.25);	
+    wristControls = applyDeadzone(gp.axes[2], 0.25);	
+
+    clawOpen = gp.buttons[6].value;	
+    clawClose = gp.buttons[7].value;	
+
+    if (shoulderControls !=0 || elbowControls !=0 || turretControls !=0 || wristControls !=0 || clawOpen.pressed || clawClose.pressed || shutdown2.pressed){	
+    $.ajax({	
+      url: "{{ url_for('mode_two') }}",	
+      type: 'POST',	
+      data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},	
+      success: function(response) {	
+        console.log("Turret Mode Sent");	
+      }	
+    });	
+    latch_turret = true;	
+    }	
+    console.log(latch_turret);	
+    if (latch_turret == true && shoulderControls ==0 && elbowControls ==0 && turretControls ==0 && wristControls ==0 && clawOpen.pressed == false && clawClose.pressed && shutdown2.pressed){	
+      $.ajax({	
+        url: "{{ url_for('mode_two') }}",	
+        type: 'POST',	
+        data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},	
+        success: function(response) {	
+          console.log("Turret Mode Sent");	
+        }	
+      });	
+      latch_turret = flase;	
+    }	
+      console.log(latch_turret);	
+    }	
+
+    function run() {	
+        if (!toggle_mode) {	
+        tread_mode();	
+        } else {	
+        turret_mode();	
+        }	
+    }	
+    setInterval(run, 150);
 </script>
 
 </html>
