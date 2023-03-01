@@ -146,7 +146,7 @@ def mode_two():
       clawOpen = int(float(request.form['clawOpen'])*100)
       clawClose = int(float(request.form['clawClose'])*100)
 
-      turret = int((float(turretControls)*100)*0.3)
+      turret = -int((float(turretControls)*100)*0.3)
       shoulder = int((float(shoulderControls)*100)*powerT)
       elbow = int((float(elbowControls)*100)*powerT)
       wrist = int((float(wristControls)*100)*powerT)
