@@ -172,7 +172,7 @@
     clawOpen = gp.buttons[6].value;	
     clawClose = gp.buttons[7].value;	
 
-    if (shoulderControls !=0 || elbowControls !=0 || turretControls !=0 || wristControls !=0 || clawOpen.pressed || clawClose.pressed || shutdown2.pressed){	
+    if (shoulderControls !=0 || elbowControls !=0 || turretControls !=0 || wristControls !=0 || shutdown2){	
     $.ajax({	
       url: "{{ url_for('mode_two') }}",	
       type: 'POST',	
@@ -184,7 +184,7 @@
     latch_turret = true;	
     }	
     	
-    if (latch_turret == true && shoulderControls == 0 && elbowControls == 0 && turretControls ==0 && wristControls ==0 && clawOpen.pressed == false && clawClose.pressed && shutdown2.pressed){	
+    if (latch_turret == true && shoulderControls == 0 && elbowControls == 0 && turretControls ==0 && wristControls ==0 && shutdown2 == false){	
       $.ajax({	
         url: "{{ url_for('mode_two') }}",	
         type: 'POST',	
