@@ -137,7 +137,7 @@
     });	
     latch_tread = true;	
     } 	
-    console.log(latch_tread);	
+  
     if (latch_tread == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {	
       $.ajax({	
         url: "{{ url_for('mode_one') }}",	
@@ -150,7 +150,7 @@
 
       latch_tread = false;	
     }	
-    console.log(latch_tread);	
+    
     }	
 
   function turret_mode() {	
@@ -183,7 +183,7 @@
     });	
     latch_turret = true;	
     }	
-    console.log(latch_turret);	
+    	
     if (latch_turret == true && shoulderControls ==0 && elbowControls ==0 && turretControls ==0 && wristControls ==0 && clawOpen.pressed == false && clawClose.pressed && shutdown2.pressed){	
       $.ajax({	
         url: "{{ url_for('mode_two') }}",	
@@ -195,7 +195,7 @@
       });	
       latch_turret = flase;	
     }	
-      console.log(latch_turret);	
+      
     }	
 
     function run() {	
