@@ -67,6 +67,9 @@ To get out of Stop All mode, just stop the flask servers and restart them
 To stop a flask server hit "Control+C" at the same time on your keyboard while in the pi terminal
 
 ### Controls:
+
+
+
 While in Tread Mode:
 Up/Down on joysticks move treads forward/backward respectivly, the bumper/trigger move the flippers up/down respectivly
 
