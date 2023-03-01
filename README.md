@@ -1,4 +1,7 @@
 # Robocup
+## BSM Robotics
+### Val Coppo '23, Gabe Mankowski '23, Thomas Medina '23 
+
 Creates a website that takes user inputs via a ps4 controller to control the robot
 
 ## Installation:
