@@ -68,7 +68,7 @@ To stop a flask server hit "Control+C" at the same time on your keyboard while i
 
 ### Controls:
 
-
+![alt text](https://github.com/vcoppo23/Robocup/blob/html-rewrite/images/Tread_mode.png?raw=true)
 
 While in Tread Mode:
 Up/Down on joysticks move treads forward/backward respectivly, the bumper/trigger move the flippers up/down respectivly
