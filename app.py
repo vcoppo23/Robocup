@@ -9,7 +9,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 powerP = 0.6
-powerT = 0.3
+powerT = 0.25
 
 #hi gabe -tommy
 #Setup for Right tank tread
