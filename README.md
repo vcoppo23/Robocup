@@ -2,6 +2,7 @@
 ## BSM Robotics
 ### Val Coppo '23, Gabe Mankowski '23, Thomas Medina '23 
 
+Built for the ___ robot for Robocup 2023 in Bordeaux, France.
 Creates a website that takes user inputs via a ps4 controller to control the robot
 
 ## Installation:
