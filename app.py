@@ -9,6 +9,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 powerP = 0.6
+powerT = 0.3
 
 #hi gabe -tommy
 #Setup for Right tank tread
@@ -145,10 +146,10 @@ def mode_two():
       clawOpen = int(float(request.form['clawOpen'])*100)
       clawClose = int(float(request.form['clawClose'])*100)
 
-      turret = int((float(turretControls)*100)*powerP)
-      shoulder = int((float(shoulderControls)*100)*powerP)
-      elbow = int((float(elbowControls)*100)*powerP)
-      wrist = int((float(wristControls)*100)*powerP)
+      turret = int((float(turretControls)*100)*powerT)
+      shoulder = int((float(shoulderControls)*100)*powerT)
+      elbow = int((float(elbowControls)*100)*powerT)
+      wrist = int((float(wristControls)*100)*powerT)
       
       if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
          while True:
