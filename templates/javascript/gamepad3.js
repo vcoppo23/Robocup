@@ -1,76 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Robocup Cams</title>
-  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-  <style>
-    #circle {
-      width: 200px;
-      height: 200px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      border: black;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 50px;
-      font-family: "Comic Sans MS";
-      cursor: pointer;
-      /* position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); */
-    }
-    body {
-      margin: 10px;
-    }
-    h1 {
-      font-size: 25px;
-      font-family: sans-serif;
-    }
-    .parent {
-      display: grid;
-      grid-gap: 5px;
-      grid-template-columns: repeat(3, 320px);
-      grid-template-rows: repeat(3, 240px);
-    }
-    .parent > div {
-      padding: 0px;
-      background-color: #e0e0e0;
-      color: white;
-      border-radius: 3px;
-      display: grid;
-      place-items: center;
-    }
-
-    .parent > div {
-      font-family: sans-serif;
-      font-size: 24px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <h1>Robocup Camera Stream '23</h1>
-  <div class="parent">
-    <div><img src="http://192.168.20.144/video_feed1" title="Front Left"></div>
-    <div><button id="circle" onclick="console.log()">Stop</button></div>
-    <div><img src="http://192.168.20.144/video_feed2" title="Front Right"></div>
-    <div>4</div>
-    <div><img src="http://192.168.20.144/video_feed0" title="Arm"></div>
-    <div>6</div>
-    <div>7</div>
-    <div><img src="http://192.168.20.144/video_feed3" title="Center Rear"></div>
-    <div>9</div>
-  </div>
-  
-</body>
-
-<script>
   //connect gamepad from window
-  //better
+  
   window.addEventListener("gamepadconnected", function(e) {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
       e.gamepad.index, e.gamepad.id,
@@ -91,7 +20,8 @@
     return percentage * (number > 0 ? 1 : -1);
   }
   //runs python script in app.py
-  var switcher = false;
+  var latch_tread = false;
+  var latch_turret = false;
   let toggle_mode = false;
 
   function toggle() {
@@ -133,10 +63,10 @@
 
       }
     });
-    switcher = true;
+    latch_tread = true;
     } 
-    console.log(switcher);
-    if (switcher == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {
+    console.log(latch_tread);
+    if (latch_tread == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {
       $.ajax({
         url: "{{ url_for('mode_one') }}",
         type: 'POST',
@@ -146,9 +76,9 @@
         }
       });
       
-      switcher = false;
+      latch_tread = false;
     }
-    console.log(switcher);
+    console.log(latch_tread);
     }
 
   function turret_mode() {
@@ -170,6 +100,7 @@
     clawOpen = gp.buttons[6].value;
     clawClose = gp.buttons[7].value;
 
+    if (shoulderControls !=0 || elbowControls !=0 || turretControls !=0 || wristControls !=0 || clawOpen.pressed || clawClose.pressed || shutdown2.pressed){
     $.ajax({
       url: "{{ url_for('mode_two') }}",
       type: 'POST',
@@ -178,6 +109,21 @@
         console.log("Turret Mode Sent");
       }
     });
+    latch_turret = true;
+    }
+    console.log(latch_turret);
+    if (latch_turret == true && shoulderControls ==0 && elbowControls ==0 && turretControls ==0 && wristControls ==0 && clawOpen.pressed == false && clawClose.pressed && shutdown2.pressed){
+      $.ajax({
+        url: "{{ url_for('mode_two') }}",
+        type: 'POST',
+        data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
+        success: function(response) {
+          console.log("Turret Mode Sent");
+        }
+      });
+      latch_turret = flase;
+    }
+      console.log(latch_turret);
     }
 
     function run() {
@@ -188,8 +134,3 @@
         }
     }
     setInterval(run, 100);
-</script>
-
-<script src="javascript/gamepad3.js"></script>
-
-</html>
