@@ -71,11 +71,11 @@
 
 <script>
   //connect gamepad from window
-  window.addEventListener("gamepadconnected", function(e) {
-    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-      e.gamepad.index, e.gamepad.id,
-      e.gamepad.buttons.length, e.gamepad.axes.length);
-  });
+  ///window.addEventListener("gamepadconnected", function(e) {
+    ///console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      ///e.gamepad.index, e.gamepad.id,
+      ///e.gamepad.buttons.length, e.gamepad.axes.length);
+  ///});
   //disconnect gamepad from window
   window.addEventListener("gamepaddisconnected", function(e) {
     console.log("Gamepad disconnected from index %d: %s",
@@ -129,7 +129,7 @@
   //End of Arm Defs
 
   console.log("Variables Set")
-});
+  });
 
   function toggle() {
     toggle_mode = !toggle_mode;
