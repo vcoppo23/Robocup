@@ -57,7 +57,7 @@ def mode_one():
    #this mode controls the treads, flippers
    if request.method == 'POST':
 
-      dictionary = json.loads(request.POST.get('values'))
+      dictionary = json.loads(request.form('values'))
 
       print(dictionary)
 

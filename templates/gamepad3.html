@@ -97,7 +97,7 @@
 
     gp = navigator.getGamepads()[0];
     //Tread definitions
-     shutdown = gp.buttons[16].pressed;
+    shutdown = gp.buttons[16].pressed;
 
     joystick1 = applyDeadzone(gp.axes[1], 0.15);
     joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -193,7 +193,7 @@
   }
 
   function run() {
-    if (!toggle_mode && frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
+    if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
     tread_mode();
     } 
     else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
