@@ -92,43 +92,43 @@
   var switcher = false;
   let toggle_mode = false;
 
-  var gp = navigator.getGamepads()[0];
 
   window.addEventListener("gamepadconnected", function(e) {
 
-  //Tread definitions
-  var shutdown = gp.buttons[16].pressed;
+    var gp = navigator.getGamepads()[0];
+    //Tread definitions
+    var shutdown = gp.buttons[16].pressed;
 
-  var joystick1 = applyDeadzone(gp.axes[1], 0.15);
-  var joystick2 = applyDeadzone(gp.axes[3], 0.15);
+    var joystick1 = applyDeadzone(gp.axes[1], 0.15);
+    var joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-  frontLeftFlipperUp = gp.buttons[4].pressed;
-  var frontLeftFlipperDown = gp.buttons[6].pressed;
+    frontLeftFlipperUp = gp.buttons[4].pressed;
+    var frontLeftFlipperDown = gp.buttons[6].pressed;
 
-  var frontRightFlipperUp = gp.buttons[5].pressed;
-  var frontRightFlipperDown = gp.buttons[7].pressed;
+    var frontRightFlipperUp = gp.buttons[5].pressed;
+    var frontRightFlipperDown = gp.buttons[7].pressed;
 
-  var backLeftFlipperUp = gp.buttons[13].pressed;
-  var backLeftFlipperDown = gp.buttons[12].pressed;
+    var backLeftFlipperUp = gp.buttons[13].pressed;
+    var backLeftFlipperDown = gp.buttons[12].pressed;
 
-  var backRightFlipperUp = gp.buttons[0].pressed;
-  var backRightFlipperDown = gp.buttons[3].pressed;
-  //End of Tread Defs
+    var backRightFlipperUp = gp.buttons[0].pressed;
+    var backRightFlipperDown = gp.buttons[3].pressed;
+    //End of Tread Defs
 
-  //Arm definitions
-  var shutdown2 = gp.buttons[16].pressed;
+    //Arm definitions
+    var shutdown2 = gp.buttons[16].pressed;
 
-  var shoulderControls = applyDeadzone(gp.axes[1], 0.25);
-  var elbowControls = applyDeadzone(gp.axes[3], 0.25);
+    var shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+    var elbowControls = applyDeadzone(gp.axes[3], 0.25);
 
-  var turretControls = applyDeadzone(gp.axes[0], 0.25);
-  var wristControls = applyDeadzone(gp.axes[2], 0.25);
+    var turretControls = applyDeadzone(gp.axes[0], 0.25);
+    var wristControls = applyDeadzone(gp.axes[2], 0.25);
 
-  var clawOpen = gp.buttons[6].value;
-  var clawClose = gp.buttons[7].value;
-  //End of Arm Defs
+    var clawOpen = gp.buttons[6].value;
+    var clawClose = gp.buttons[7].value;
+    //End of Arm Defs
 
-  console.log("Variables Set")
+    console.log("Variables Set")
   });
 
   function toggle() {
