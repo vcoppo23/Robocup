@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, Response, request
 from threading import Thread
 from time import sleep
@@ -54,24 +55,28 @@ def valueConverter(value):
 @app.route('/mode_one', methods=['GET', 'POST'])
 def mode_one():
    #this mode controls the treads, flippers
-   if request.method == 'POST':
+   while request.method == 'POST':
 
-      endLife = request.form['shutdown']
+      dictionary = json.loads(request.POST.get('values'))
 
-      joystick1 = request.form['joystick1']
-      joystick2 = request.form['joystick2']
+      print(dictionary)
 
-      frontLeftFlipperUp = request.form['frontLeftFlipperUp']
-      frontLeftFlipperDown = request.form['frontLeftFlipperDown']
+      endLife = dictionary['shutdown']
 
-      frontRightFlipperUp = request.form['frontRightFlipperUp']
-      frontRightFlipperDown = request.form['frontRightFlipperDown']
+      joystick1 = dictionary['joystick1']
+      joystick2 = dictionary['joystick2']
 
-      backLeftFlipperUp = request.form['backLeftFlipperUp']
-      backLeftFlipperDown = request.form['backLeftFlipperDown']
+      frontLeftFlipperUp = dictionary['frontLeftFlipperUp']
+      frontLeftFlipperDown = dictionary['frontLeftFlipperDown']
 
-      backRightFlipperUp = request.form['backRightFlipperUp']
-      backRightFlipperDown = request.form['backRightFlipperDown']
+      frontRightFlipperUp = dictionary['frontRightFlipperUp']
+      frontRightFlipperDown = dictionary['frontRightFlipperDown']
+
+      backLeftFlipperUp = dictionary['backLeftFlipperUp']
+      backLeftFlipperDown = dictionary['backLeftFlipperDown']
+
+      backRightFlipperUp = dictionary['backRightFlipperUp']
+      backRightFlipperDown = dictionary['backRightFlipperDown']
 
 
       joystick1 = int((float(joystick1)*100)*powerP)
@@ -102,46 +107,49 @@ def mode_one():
          FrontRightFlipper.start(50)
       else:
          FrontRightFlipper.start(0)
-      '''
-      if valueConverter(backLeftFlipperUp):
-         BackLeftFlipper.start(50)
-      elif valueConverter(backLeftFlipperDown):
-         BackLeftFlipper.start(-50)
-      else:
-         BackLeftFlipper.start(0)
 
-      if valueConverter(backRightFlipperUp):
-         BackRightFlipper.start(50)
-      elif valueConverter(backRightFlipperDown):
-         BackRightFlipper.start(-50)
-      else:
-         BackRightFlipper.start(0)
-      '''
+      #if valueConverter(backLeftFlipperUp):
+         #BackLeftFlipper.start(50)
+      #elif valueConverter(backLeftFlipperDown):
+         #BackLeftFlipper.start(-50)
+      #else:
+         #BackLeftFlipper.start(0)
+
+      #if valueConverter(backRightFlipperUp):
+         #BackRightFlipper.start(50)
+      #elif valueConverter(backRightFlipperDown):
+         #BackRightFlipper.start(-50)
+      #else:
+         #BackRightFlipper.start(0)
       
-      #print("Tread Mode sending data")
+      return render_template('gamepad3.html')
+   else:
+      LeftTread.start(0)
+      RightTread.start(0)
+      FrontLeftFlipper.start(0)
+      FrontRightFlipper.start(0)
+      #BackLeftFlipper.start()
+      #BackRightFlipper.start()
+      return render_template('gamepad3.html')
 
-      return render_template('gamepad3.html')
-   if request.method == 'GET':
-      return render_template('gamepad3.html')
    
 @app.route('/mode_two', methods=['GET', 'POST'])
 def mode_two():
    #this mode controls the turret, shoulder, elbow, wrist, claw
-   if request.method == 'POST':
+   while request.method == 'POST':
 
-      endLife2 = request.form['shutdown2']
+      dictionary = json.loads(request.POST.get('values'))
 
-      turretControls = request.form['turretControls']
+      endLife2 = dictionary['shutdown']
 
-      shoulderControls = request.form['shoulderControls']
+      turretControls = dictionary['turretControls']
 
-      elbowControls = request.form['elbowControls']
+      shoulderControls = dictionary['shoulderControls']
 
-      wristControls = request.form['wristControls']
+      elbowControls = dictionary['elbowControls']
 
+      wristControls = dictionary['wristControls']
 
-      # DOUBLE CHECK THESE
-      #IDK IF VALUES FROM TRIGGERS ARE IN A 0-1 SCALE
       clawOpen = int(float(request.form['clawOpen'])*100)
       clawClose = int(float(request.form['clawClose'])*100)
 
@@ -162,23 +170,19 @@ def mode_two():
 
       Shoulder.start(-shoulder)
       
-
       Elbow.start(elbow)
 
       Wrist.start(-wrist)
-      
-      #if clawOpen == True:
-      #   Claw.start(25)
-      #if clawClose == True:
-      #   Claw.start(-25)
-      
 
-      #print(f"{clawOpen} power, {clawClose} power")
-
-      #print("Turret Mode sending data")
+      #Claw.start(clawOpen-clawClose)
       
       return render_template('gamepad3.html')
-   if request.method == 'GET':
+   else:
+      Turret.start(0)
+      Shoulder.start(0)
+      Elbow.start(0)
+      Wrist.start(0)
+      #Claw.start(0)
       return render_template('gamepad3.html')
 
 if __name__ == '__main__': 

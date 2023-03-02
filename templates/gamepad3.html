@@ -123,33 +123,32 @@
 
     backRightFlipperUp = gp.buttons[0].pressed;
     backRightFlipperDown = gp.buttons[3].pressed;
-    if(frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
+
     
+    var dict = {
+      'shutdown': shutdown,
+      'joystick1': joystick1,
+      'joystick2': joystick2,
+      'frontLeftFlipperUp': frontLeftFlipperUp,
+      'frontLeftFlipperDown': frontLeftFlipperDown,
+      'frontRightFlipperUp': frontRightFlipperUp,
+      'frontRightFlipperDown': frontRightFlipperDown,
+      'backLeftFlipperUp': backLeftFlipperUp,
+      'backLeftFlipperDown': backLeftFlipperDown,
+      'backRightFlipperUp': backRightFlipperUp,
+      'backRightFlipperDown': backRightFlipperDown
+    };
+
     $.ajax({
       url: "{{ url_for('mode_one') }}",
       type: 'POST',
-      data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
+      data: {'values': JSON.stringify(dict)},
       success: function(response) {
         console.log("Tread Mode Sent");
 
       }
-    });
-    switcher = true;
-    } 
-    if (switcher == true && frontLeftFlipperUp == false && frontLeftFlipperDown == false && frontRightFlipperUp == false && frontRightFlipperDown == false && backLeftFlipperUp == false && backLeftFlipperDown == false && backRightFlipperUp == false && backRightFlipperDown == false && joystick1 == 0 && joystick2 == 0 && shutdown == false) {
-      $.ajax({
-        url: "{{ url_for('mode_one') }}",
-        type: 'POST',
-        data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-        success: function(response) {
-          console.log("Tread Mode Sent");
-        }
-      });
-      
-      switcher = false;
-    }
-    }
-
+    });  
+  }
   function turret_mode() {
 
     gp = navigator.getGamepads()[0];
@@ -169,10 +168,20 @@
     clawOpen = gp.buttons[6].value;
     clawClose = gp.buttons[7].value;
 
+    var dict = {
+      'shutdown2': shutdown2,
+      'shoulderControls': shoulderControls,
+      'elbowControls': elbowControls,
+      'turretControls': turretControls,
+      'wristControls': wristControls,
+      'clawOpen': clawOpen,
+      'clawClose': clawClose
+    }
+
     $.ajax({
       url: "{{ url_for('mode_two') }}",
       type: 'POST',
-      data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
+      data: {'values': JSON.stringify(dict)},
       success: function(response) {
         console.log("Turret Mode Sent");
       }
@@ -180,9 +189,10 @@
     }
 
     function run() {
-        if (!toggle_mode) {
+        if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
         tread_mode();
-        } else {
+        } 
+        else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
         turret_mode();
         }
     }
