@@ -150,8 +150,8 @@ def mode_two():
 
       wristControls = dictionary['wristControls']
 
-      clawOpen = int(float(request.form['clawOpen'])*100)
-      clawClose = int(float(request.form['clawClose'])*100)
+      clawOpen = int(float(dictionary['clawOpen'])*100)
+      clawClose = int(float(dictionary['clawClose'])*100)
 
       turret = int((float(turretControls)*100)*powerP)
       shoulder = int((float(shoulderControls)*100)*powerP)
