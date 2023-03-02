@@ -94,35 +94,35 @@
 
   var gp = navigator.getGamepads()[0];
   //Tread definitions
-  let shutdown = gp.buttons[16].pressed;
+  var shutdown = gp.buttons[16].pressed;
 
-  let joystick1 = applyDeadzone(gp.axes[1], 0.15);
-  let joystick2 = applyDeadzone(gp.axes[3], 0.15);
+  var joystick1 = applyDeadzone(gp.axes[1], 0.15);
+  var joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-  let frontLeftFlipperUp = gp.buttons[4].pressed;
-  let frontLeftFlipperDown = gp.buttons[6].pressed;
+  var frontLeftFlipperUp = gp.buttons[4].pressed;
+  var frontLeftFlipperDown = gp.buttons[6].pressed;
 
-  let frontRightFlipperUp = gp.buttons[5].pressed;
-  let frontRightFlipperDown = gp.buttons[7].pressed;
+  var frontRightFlipperUp = gp.buttons[5].pressed;
+  var frontRightFlipperDown = gp.buttons[7].pressed;
 
-  let backLeftFlipperUp = gp.buttons[13].pressed;
-  let backLeftFlipperDown = gp.buttons[12].pressed;
+  var backLeftFlipperUp = gp.buttons[13].pressed;
+  var backLeftFlipperDown = gp.buttons[12].pressed;
 
-  let backRightFlipperUp = gp.buttons[0].pressed;
-  let backRightFlipperDown = gp.buttons[3].pressed;
+  var backRightFlipperUp = gp.buttons[0].pressed;
+  var backRightFlipperDown = gp.buttons[3].pressed;
   //End of Tread Defs
 
   //Arm definitions
-  let shutdown2 = gp.buttons[16].pressed;
+  var shutdown2 = gp.buttons[16].pressed;
 
-  let shoulderControls = applyDeadzone(gp.axes[1], 0.25);
-  let elbowControls = applyDeadzone(gp.axes[3], 0.25);
+  var shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+  var elbowControls = applyDeadzone(gp.axes[3], 0.25);
 
-  let turretControls = applyDeadzone(gp.axes[0], 0.25);
-  let wristControls = applyDeadzone(gp.axes[2], 0.25);
+  var turretControls = applyDeadzone(gp.axes[0], 0.25);
+  var wristControls = applyDeadzone(gp.axes[2], 0.25);
 
-  let clawOpen = gp.buttons[6].value;
-  let clawClose = gp.buttons[7].value;
+  var clawOpen = gp.buttons[6].value;
+  var clawClose = gp.buttons[7].value;
   //End of Arm Defs
 
   function toggle() {
