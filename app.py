@@ -55,7 +55,7 @@ def valueConverter(value):
 @app.route('/mode_one', methods=['GET', 'POST'])
 def mode_one():
    #this mode controls the treads, flippers
-   if request.method == 'POST':
+   while request.method == 'POST':
 
       dictionary = json.loads(request.POST.get('values'))
 

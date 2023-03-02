@@ -200,6 +200,9 @@
     else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
     turret_mode();
     }
+    else {
+      console.log("No Input");
+    }
   }
   setInterval(run, 200);
 </script>
