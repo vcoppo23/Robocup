@@ -95,27 +95,38 @@
   var switcher = false;
   let toggle_mode = false;
 
-  //Motor definitions
-  var joystick1;
-  var joystick2;
-  var frontLeftFlipperUp;
-  var frontLeftFlipperDown;
-  var frontRightFlipperUp;
-  var frontRightFlipperDown;
-  var backLeftFlipperUp;
-  var backLeftFlipperDown;
-  var backRightFlipperUp;
-  var backRightFlipperDown;
-  var shutdown;
+  gp = navigator.getGamepads()[0];
+  //Tread definitions
+  shutdown = gp.buttons[16].pressed;
 
-  var shutdown2;
-  var turretControls;
-  var shoulderControls;
-  var elbowControls;
-  var wristControls;
-  var clawOpen;
-  var clawClose;
+  joystick1 = applyDeadzone(gp.axes[1], 0.15);
+  joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
+  frontLeftFlipperUp = gp.buttons[4].pressed;
+  frontLeftFlipperDown = gp.buttons[6].pressed;
+
+  frontRightFlipperUp = gp.buttons[5].pressed;
+  frontRightFlipperDown = gp.buttons[7].pressed;
+
+  backLeftFlipperUp = gp.buttons[13].pressed;
+  backLeftFlipperDown = gp.buttons[12].pressed;
+
+  backRightFlipperUp = gp.buttons[0].pressed;
+  backRightFlipperDown = gp.buttons[3].pressed;
+  //End of Tread Defs
+
+  //Arm definitions
+  shutdown2 = gp.buttons[16].pressed;
+
+  shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+  elbowControls = applyDeadzone(gp.axes[3], 0.25);
+
+  turretControls = applyDeadzone(gp.axes[0], 0.25);
+  wristControls = applyDeadzone(gp.axes[2], 0.25);
+
+  clawOpen = gp.buttons[6].value;
+  clawClose = gp.buttons[7].value;
+  //End of Arm Defs
 
   function toggle() {
     toggle_mode = !toggle_mode;
@@ -129,24 +140,6 @@
       toggle();
     }
 
-    shutdown = gp.buttons[16].pressed;
-
-    joystick1 = applyDeadzone(gp.axes[1], 0.15);
-    joystick2 = applyDeadzone(gp.axes[3], 0.15);
-
-    frontLeftFlipperUp = gp.buttons[4].pressed;
-    frontLeftFlipperDown = gp.buttons[6].pressed;
-
-    frontRightFlipperUp = gp.buttons[5].pressed;
-    frontRightFlipperDown = gp.buttons[7].pressed;
-
-    backLeftFlipperUp = gp.buttons[13].pressed;
-    backLeftFlipperDown = gp.buttons[12].pressed;
-
-    backRightFlipperUp = gp.buttons[0].pressed;
-    backRightFlipperDown = gp.buttons[3].pressed;
-
-    
     var dict = {
       'shutdown': shutdown,
       'joystick1': joystick1,
@@ -179,17 +172,6 @@
     if (gp.buttons[14].pressed) {
       toggle();
     }
-
-    shutdown2 = gp.buttons[16].pressed;
-
-    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
-    elbowControls = applyDeadzone(gp.axes[3], 0.25);
-
-    turretControls = applyDeadzone(gp.axes[0], 0.25);
-    wristControls = applyDeadzone(gp.axes[2], 0.25);
-
-    clawOpen = gp.buttons[6].value;
-    clawClose = gp.buttons[7].value;
 
     var dict = {
       'shutdown2': shutdown2,
