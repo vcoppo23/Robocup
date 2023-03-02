@@ -94,7 +94,6 @@
 
   var gp = navigator.getGamepads()[0];
 
-  console.log("Start of defs")
   window.addEventListener("gamepadconnected", function(e) {
 
   //Tread definitions
@@ -128,8 +127,9 @@
   var clawOpen = gp.buttons[6].value;
   var clawClose = gp.buttons[7].value;
   //End of Arm Defs
+
+  console.log("Variables Set")
 });
-  console.log("end of defs")
 
   function toggle() {
     toggle_mode = !toggle_mode;
@@ -204,7 +204,6 @@
     }
   }
   console.log("Starting Up...");
-  sleep(1000);
   setInterval(run, 200);
 </script>
 </html>
