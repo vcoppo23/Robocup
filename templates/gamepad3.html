@@ -149,15 +149,15 @@
       'backRightFlipperDown': backRightFlipperDown
     };
 
-      $.ajax({
-        url: "{{ url_for('mode_one') }}",
-        type: 'POST',
-        data: {'values': JSON.stringify(dict)},
-        success: function(response) {
-          console.log("Tread Mode Sent");
+    $.ajax({
+      url: "{{ url_for('mode_one') }}",
+      type: 'POST',
+      data: {'values': JSON.stringify(dict)},
+      success: function(response) {
+        console.log("Tread Mode Sent");
 
-        }
-      });  
+      }
+    });  
   }
 
   function turret_mode() {
@@ -187,7 +187,7 @@
   }
 
   function run() {
-    if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+    if (!toggle_mode && frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
     tread_mode();
     } 
     else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
@@ -197,7 +197,7 @@
       console.log("No Input");
     }
   }
-  console.log("Running")
+  console.log("Running");
   setInterval(run, 200);
 </script>
 </html>
