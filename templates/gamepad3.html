@@ -124,6 +124,7 @@
   var clawOpen = gp.buttons[6].value;
   var clawClose = gp.buttons[7].value;
   //End of Arm Defs
+  console.log("end of defs")
 
   function toggle() {
     toggle_mode = !toggle_mode;
@@ -187,7 +188,7 @@
   }
 
   function run() {
-    if (!toggle_mode && frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
+    if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
     tread_mode();
     } 
     else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
