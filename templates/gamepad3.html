@@ -95,6 +95,28 @@
   var switcher = false;
   let toggle_mode = false;
 
+  //Motor definitions
+  var joystick1;
+  var joystick2;
+  var frontLeftFlipperUp;
+  var frontLeftFlipperDown;
+  var frontRightFlipperUp;
+  var frontRightFlipperDown;
+  var backLeftFlipperUp;
+  var backLeftFlipperDown;
+  var backRightFlipperUp;
+  var backRightFlipperDown;
+  var shutdown;
+
+  var shutdown2;
+  var turretControls;
+  var shoulderControls;
+  var elbowControls;
+  var wristControls;
+  var clawOpen;
+  var clawClose;
+
+
   function toggle() {
     toggle_mode = !toggle_mode;
   }
@@ -139,16 +161,17 @@
       'backRightFlipperDown': backRightFlipperDown
     };
 
-    $.ajax({
-      url: "{{ url_for('mode_one') }}",
-      type: 'POST',
-      data: {'values': JSON.stringify(dict)},
-      success: function(response) {
-        console.log("Tread Mode Sent");
+      $.ajax({
+        url: "{{ url_for('mode_one') }}",
+        type: 'POST',
+        data: {'values': JSON.stringify(dict)},
+        success: function(response) {
+          console.log("Tread Mode Sent");
 
-      }
-    });  
+        }
+      });  
   }
+
   function turret_mode() {
 
     gp = navigator.getGamepads()[0];
@@ -186,17 +209,16 @@
         console.log("Turret Mode Sent");
       }
     });
-    }
+  }
 
-    function run() {
-        if (!toggle_mode && frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
-        tread_mode();
-        } 
-        else if (toggle_mode && frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown) {
-        turret_mode();
-        }
+  function run() {
+    if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+    tread_mode();
+    } 
+    else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+    turret_mode();
     }
-    setInterval(run, 200);
+  }
+  setInterval(run, 200);
 </script>
-
 </html>
