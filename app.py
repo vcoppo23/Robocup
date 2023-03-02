@@ -55,7 +55,7 @@ def valueConverter(value):
 @app.route('/mode_one', methods=['GET', 'POST'])
 def mode_one():
    #this mode controls the treads, flippers
-   while request.method == 'POST':
+   if request.method == 'POST':
 
       dictionary = json.loads(request.POST.get('values'))
 
@@ -123,7 +123,7 @@ def mode_one():
          #BackRightFlipper.start(0)
       
       return render_template('gamepad3.html')
-   else:
+   if request.method == 'GET':
       LeftTread.start(0)
       RightTread.start(0)
       FrontLeftFlipper.start(0)
