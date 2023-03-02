@@ -95,6 +95,7 @@
   var gp = navigator.getGamepads()[0];
 
   console.log("Start of defs")
+  window.addEventListener("gamepadconnected", function(e) {
 
   //Tread definitions
   var shutdown = gp.buttons[16].pressed;
@@ -127,6 +128,7 @@
   var clawOpen = gp.buttons[6].value;
   var clawClose = gp.buttons[7].value;
   //End of Arm Defs
+});
   console.log("end of defs")
 
   function toggle() {
