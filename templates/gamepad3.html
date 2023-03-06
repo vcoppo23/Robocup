@@ -91,7 +91,7 @@
       'backRightFlipperDown': backRightFlipperDown
     };
     
-    var socket = io();
+    const socket = io();
     socket.emit('dic1', {message: JSON.stringify(dict)});
 
   }
@@ -112,7 +112,7 @@
       'clawClose': clawClose
     };
 
-    var socket = io();
+    const socket = io();
     socket.emit('dict2', {message: JSON.stringify(dict2)});
 
   }
@@ -154,7 +154,7 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        var socket = io();
+        const socket = io();
         socket.emit('dictZero', {message: JSON.stringify(dictZero)});
       }
     }
