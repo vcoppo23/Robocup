@@ -14,26 +14,6 @@
 <script>
   //connect gamepad from window
   window.addEventListener("gamepadconnected", function(e) {
-    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-      e.gamepad.index, e.gamepad.id,
-      e.gamepad.buttons.length, e.gamepad.axes.length);
-  });
-  //disconnect gamepad from window
-  window.addEventListener("gamepaddisconnected", function(e) {
-    console.log("Gamepad disconnected from index %d: %s",
-      e.gamepad.index, e.gamepad.id);
-  });
-  //apply Deadzone so no motor running when at rest
-  var applyDeadzone = function(number, threshold){
-    percentage = (Math.abs(number) - threshold) / (1 - threshold);
-    if(percentage < 0)
-      percentage = 0;
-    return percentage * (number > 0 ? 1 : -1);
-  }
-  function Variables() {
-    var switcher = false;
-    let toggle_mode = false;
-
     gp = navigator.getGamepads()[0];
     //Tread definitions
     shutdown = gp.buttons[16].pressed;
@@ -66,6 +46,27 @@
     let clawOpen = gp.buttons[6].value;
     let clawClose = gp.buttons[7].value;
     //End of Arm Defs
+    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      e.gamepad.index, e.gamepad.id,
+      e.gamepad.buttons.length, e.gamepad.axes.length);
+  });
+  //disconnect gamepad from window
+  window.addEventListener("gamepaddisconnected", function(e) {
+    console.log("Gamepad disconnected from index %d: %s",
+      e.gamepad.index, e.gamepad.id);
+  });
+  //apply Deadzone so no motor running when at rest
+  var applyDeadzone = function(number, threshold){
+    percentage = (Math.abs(number) - threshold) / (1 - threshold);
+    if(percentage < 0)
+      percentage = 0;
+    return percentage * (number > 0 ? 1 : -1);
+  }
+  function Variables() {
+    var switcher = false;
+    let toggle_mode = false;
+
+    
 
     console.log("Variables Set")
   }
