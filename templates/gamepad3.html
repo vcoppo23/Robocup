@@ -4,6 +4,7 @@
   <title>Robocup Cams</title>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   
@@ -90,7 +91,7 @@
       'backRightFlipperDown': backRightFlipperDown
     };
     
-    var socket = io.connect('http://192.168.20.12:5000');
+    var socket = io();
     socket.emit('dic1', {message: JSON.stringify(dict)});
 
   }
@@ -111,7 +112,7 @@
       'clawClose': clawClose
     };
 
-    var socket = io.connect('http://192.168.20.12:5000');
+    var socket = io();
     socket.emit('dict2', {message: JSON.stringify(dict2)});
 
   }
@@ -153,7 +154,7 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        var socket = io.connect('http://192.168.20.12:5000');
+        var socket = io();
         socket.emit('dictZero', {message: JSON.stringify(dictZero)});
       }
     }
