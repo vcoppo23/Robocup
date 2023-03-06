@@ -130,7 +130,7 @@
       }
       else {
         console.log("No Input");
-        
+
         var dictZero = {
           'shutdown': shutdown,
           'joystick1': joystick1,
@@ -166,14 +166,8 @@
     }
     
   }
-  console.log("Starting Up...");
-  if (!navigator.getGamepads()[0]) {
-    console.log("Waiting for Gamepad...");
-  }
-  else {
-    console.log("Gamepad Detected");
-    Variables();
-    setInterval(run, 150);
-  }
+  console.log("Starting Up...");;
+  Variables();
+  setInterval(run, 150);
 </script>
 </html>
