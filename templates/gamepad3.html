@@ -18,33 +18,33 @@
     //Tread definitions
     shutdown = gp.buttons[16].pressed;
 
-    let joystick1 = applyDeadzone(gp.axes[1], 0.15);
-    let joystick2 = applyDeadzone(gp.axes[3], 0.15);
+    joystick1 = applyDeadzone(gp.axes[1], 0.15);
+    joystick2 = applyDeadzone(gp.axes[3], 0.15);
 
-    let frontLeftFlipperUp = gp.buttons[4].pressed;
-    let frontLeftFlipperDown = gp.buttons[6].pressed;
+    frontLeftFlipperUp = gp.buttons[4].pressed;
+    frontLeftFlipperDown = gp.buttons[6].pressed;
 
-    let frontRightFlipperUp = gp.buttons[5].pressed;
-    let frontRightFlipperDown = gp.buttons[7].pressed;
+    frontRightFlipperUp = gp.buttons[5].pressed;
+    frontRightFlipperDown = gp.buttons[7].pressed;
 
-    let backLeftFlipperUp = gp.buttons[13].pressed;
-    let backLeftFlipperDown = gp.buttons[12].pressed;
+    backLeftFlipperUp = gp.buttons[13].pressed;
+    backLeftFlipperDown = gp.buttons[12].pressed;
 
-    let backRightFlipperUp = gp.buttons[0].pressed;
-    let backRightFlipperDown = gp.buttons[3].pressed;
+    backRightFlipperUp = gp.buttons[0].pressed;
+    backRightFlipperDown = gp.buttons[3].pressed;
     //End of Tread Defs
 
     //Arm definitions
-    let shutdown2 = gp.buttons[16].pressed;
+    shutdown2 = gp.buttons[16].pressed;
 
-    let shoulderControls = applyDeadzone(gp.axes[1], 0.25);
-    let elbowControls = applyDeadzone(gp.axes[3], 0.25);
+    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+    elbowControls = applyDeadzone(gp.axes[3], 0.25);
 
-    let turretControls = applyDeadzone(gp.axes[0], 0.25);
-    let wristControls = applyDeadzone(gp.axes[2], 0.25);
+    turretControls = applyDeadzone(gp.axes[0], 0.25);
+    wristControls = applyDeadzone(gp.axes[2], 0.25);
 
-    let clawOpen = gp.buttons[6].value;
-    let clawClose = gp.buttons[7].value;
+    clawOpen = gp.buttons[6].value;
+    clawClose = gp.buttons[7].value;
     //End of Arm Defs
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
       e.gamepad.index, e.gamepad.id,
@@ -62,14 +62,9 @@
       percentage = 0;
     return percentage * (number > 0 ? 1 : -1);
   }
-  function Variables() {
-    var switcher = false;
-    let toggle_mode = false;
 
-    
-
-    console.log("Variables Set")
-  }
+  var switcher = false;
+  let toggle_mode = false;
 
   function toggle() {
     toggle_mode = !toggle_mode;
