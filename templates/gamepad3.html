@@ -91,7 +91,7 @@
     };
     
     const socket = io();
-    socket.volatile.emit('dic1', {message: dict});
+    socket.volatile.emit(dict);
 
   }
 
@@ -112,7 +112,7 @@
     };
 
     const socket = io();
-    socket.volatile.emit('dict2', {message: dict2});
+    socket.volatile.emit(dict2);
 
   }
 
