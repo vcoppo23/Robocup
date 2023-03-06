@@ -91,7 +91,7 @@
     };
     
     const socket = io();
-    socket.emit('dic1', {message: JSON.stringify(dict)});
+    socket.volatile.emit('dic1', {message: dict});
 
   }
 
@@ -112,7 +112,7 @@
     };
 
     const socket = io();
-    socket.emit('dict2', {message: JSON.stringify(dict2)});
+    socket.volatile.emit('dict2', {message: dict2});
 
   }
 
@@ -154,7 +154,7 @@
         backRightFlipperDown = false;
 
         const socket = io();
-        socket.emit('dictZero', {message: JSON.stringify(dictZero)});
+        socket.volatile.emit(dictZero);
       }
     }
     catch(err) {
