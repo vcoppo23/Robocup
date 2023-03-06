@@ -90,7 +90,7 @@
       'backRightFlipperDown': backRightFlipperDown
     };
     
-    var socket = io();
+    var socket = io.connect('http://192.168.20.12:5000');
     socket.emit('dic1', {message: JSON.stringify(dict)});
 
   }
@@ -111,7 +111,7 @@
       'clawClose': clawClose
     };
 
-    var socket = io();
+    var socket = io.connect('http://192.168.20.12:5000');
     socket.emit('dict2', {message: JSON.stringify(dict2)});
 
   }
@@ -153,7 +153,7 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        var socket = io();
+        var socket = io.connect('http://192.168.20.12:5000');
         socket.emit('dictZero', {message: JSON.stringify(dictZero)});
       }
     }
