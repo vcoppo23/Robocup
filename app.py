@@ -10,9 +10,9 @@ socketio = SocketIO(app)
 def index():
     return render_template('gamepad3.html')
 
-@socketio.event
+@socketio.on('info')
 def my_event(message):
-    emit('dict', JSON.decode(message), broadcast=True)
+    print('dict' + message)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0')
