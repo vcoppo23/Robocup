@@ -34,9 +34,9 @@
     var switcher = false;
     let toggle_mode = false;
 
-    gp = navigator.getGamepads()[0];
+    var gp = navigator.getGamepads()[0];
     //Tread definitions
-    let shutdown = gp.buttons[16].pressed;
+    var shutdown = gp.buttons[16].pressed;
 
     let joystick1 = applyDeadzone(gp.axes[1], 0.15);
     let joystick2 = applyDeadzone(gp.axes[3], 0.15);
