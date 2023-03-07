@@ -174,33 +174,57 @@
           console.log("toggled");
         }
 
-        let dictZero = {
-          'shutdown': shutdown,
-          'joystick1': joystick1,
-          'joystick2': joystick2,
-          'frontLeftFlipperUp': frontLeftFlipperUp,
-          'frontLeftFlipperDown': frontLeftFlipperDown,
-          'frontRightFlipperUp': frontRightFlipperUp,
-          'frontRightFlipperDown': frontRightFlipperDown,
-          'backLeftFlipperUp': backLeftFlipperUp,
-          'backLeftFlipperDown': backLeftFlipperDown,
-          'backRightFlipperUp': backRightFlipperUp,
-          'backRightFlipperDown': backRightFlipperDown
-        };
+        if (!toggle_mode) {
+          let dictZeroTread = {
+            'shutdown': shutdown,
+            'joystick1': joystick1,
+            'joystick2': joystick2,
+            'frontLeftFlipperUp': frontLeftFlipperUp,
+            'frontLeftFlipperDown': frontLeftFlipperDown,
+            'frontRightFlipperUp': frontRightFlipperUp,
+            'frontRightFlipperDown': frontRightFlipperDown,
+            'backLeftFlipperUp': backLeftFlipperUp,
+            'backLeftFlipperDown': backLeftFlipperDown,
+            'backRightFlipperUp': backRightFlipperUp,
+            'backRightFlipperDown': backRightFlipperDown
+          };
 
-        shutdown = false;
-        joystick1 = 0;
-        joystick2 = 0;
-        frontLeftFlipperUp = false;
-        frontLeftFlipperDown = false;
-        frontRightFlipperUp = false;
-        frontRightFlipperDown = false;
-        backLeftFlipperUp = false;
-        backLeftFlipperDown = false;
-        backRightFlipperUp = false;
-        backRightFlipperDown = false;
+          shutdown = false;
+          joystick1 = 0;
+          joystick2 = 0;
+          frontLeftFlipperUp = false;
+          frontLeftFlipperDown = false;
+          frontRightFlipperUp = false;
+          frontRightFlipperDown = false;
+          backLeftFlipperUp = false;
+          backLeftFlipperDown = false;
+          backRightFlipperUp = false;
+          backRightFlipperDown = false;
 
-        socket.volatile.emit('info', dictZero);
+          socket.volatile.emit('info', dictZeroTread);
+        } 
+        else if (toggle_mode) {
+          dictZeroTurret = {
+            'shutdown2': shutdown2,
+            'shoulderControls': shoulderControls,
+            'elbowControls': elbowControls,
+            'turretControls': turretControls,
+            'wristControls': wristControls,
+            'clawOpen': clawOpen,
+            'clawClose': clawClose
+          };
+
+          shutdown2 = false;
+          shoulderControls = 0;
+          elbowControls = 0;
+          turretControls = 0;
+          wristControls = 0;
+          clawOpen = 0;
+          clawClose = 0;
+
+          socket.volatile.emit('info', dictZeroTurret);
+        }
+        
       }
     }
     catch(err) {
