@@ -169,6 +169,11 @@
       else {
         console.log("No Input");
 
+        if (gp.buttons[14].pressed) {
+          toggle();
+          console.log("toggled");
+        }
+
         var dictZero = {
           'shutdown': shutdown,
           'joystick1': joystick1,

@@ -17,10 +17,10 @@ def test_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
-    
+
 @socketio.on('info')
 def my_event(message):
-    print('dict' + message)
+    print(message)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0')
