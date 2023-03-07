@@ -10,6 +10,14 @@ socketio = SocketIO(app)
 def index():
     return render_template('gamepad3.html')
 
+@socketio.on('connect')
+def test_connect():
+    print('Client connected')
+
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
+    
 @socketio.on('info')
 def my_event(message):
     print('dict' + message)
