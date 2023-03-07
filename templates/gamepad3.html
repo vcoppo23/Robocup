@@ -81,7 +81,7 @@
     };
 
     var socket = io();
-    socket.volatile.emit(dict);
+    socket.volatile.emit({'info': dict});
 
   }
 
@@ -118,7 +118,7 @@
     };
     
     var socket = io();
-    socket.volatile.emit(dict2);
+    socket.volatile.emit({'info': dict2});
 
   }
 
@@ -197,7 +197,7 @@
         backRightFlipperDown = false;
 
         var socket = io();
-        socket.volatile.emit(dictZero);
+        socket.volatile.emit({'info': dictZero});
       }
     }
     catch(err) {
