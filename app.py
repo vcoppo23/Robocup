@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, emit
 import json as JSON
     
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+
 socketio = SocketIO(app)
 
 @app.route('/')
