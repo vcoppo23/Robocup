@@ -34,6 +34,7 @@
 
   var switcher = false;
   var toggle_mode = false;
+  const socket = io();
 
   function toggle() {
     toggle_mode = !toggle_mode;
@@ -80,7 +81,6 @@
       'backRightFlipperDown': backRightFlipperDown
     };
 
-    var socket = io();
     socket.volatile.emit({'info': dict});
 
   }
@@ -117,7 +117,6 @@
       'clawClose': clawClose
     };
     
-    var socket = io();
     socket.volatile.emit({'info': dict2});
 
   }
@@ -196,7 +195,6 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        var socket = io();
         socket.volatile.emit({'info': dictZero});
       }
     }
