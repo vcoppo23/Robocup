@@ -81,7 +81,7 @@
       'backRightFlipperDown': backRightFlipperDown
     };*/
 
-    socket.volatile.emit({'message': "HOLA"});
+    socket.volatile.emit({'json': "HOLA"});
 
   }
 
@@ -117,7 +117,7 @@
       'clawClose': clawClose
     };*/
     
-    socket.volatile.emit({'message': "HOLAAA"});
+    socket.volatile.emit({'json': "HOLAAA"});
 
   }
 
@@ -200,7 +200,7 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        socket.volatile.emit({'message': "HOLA AMIGOS"});
+        socket.volatile.emit({'json': "HOLA AMIGOS"});
       }
     }
     catch(err) {
