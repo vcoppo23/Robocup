@@ -20,7 +20,7 @@ def test_disconnect():
 
 @socketio.on('message')
 def my_event(message):
-    print(str(message))
+    print(message)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0')
