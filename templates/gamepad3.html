@@ -41,6 +41,8 @@
     toggle_mode = !toggle_mode;
   }
 
+  const socket = io();
+
   function tread_mode() {
 
     //Tread definitions
@@ -80,7 +82,6 @@
       'backRightFlipperDown': backRightFlipperDown
     };
     
-    const socket = io();
     socket.volatile.emit(dict);
 
   }
@@ -114,14 +115,12 @@
       'clawClose': clawClose
     };
 
-    const socket = io();
     socket.volatile.emit(dict2);
 
   }
 
   function run() {
 
-    gp = navigator.getGamepads()[0];
     //Tread definitions
     shutdown = gp.buttons[16].pressed;
 
@@ -192,7 +191,6 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        const socket = io();
         socket.volatile.emit(dictZero);
       }
     }
