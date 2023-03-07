@@ -66,7 +66,7 @@
     if (gp.buttons[14].pressed) {
       toggle();
     }
-/*
+
     let dict = {
       'shutdown': shutdown,
       'joystick1': joystick1,
@@ -79,9 +79,9 @@
       'backLeftFlipperDown': backLeftFlipperDown,
       'backRightFlipperUp': backRightFlipperUp,
       'backRightFlipperDown': backRightFlipperDown
-    };*/
+    };
 
-    socket.volatile.emit('info', {'data': "TrEaDs"});
+    socket.volatile.emit('info', dict);
 
   }
 
@@ -106,7 +106,7 @@
       toggle();
       console.log("toggled");
     }
-/*
+
     let dict2 = {
       'shutdown2': shutdown2,
       'shoulderControls': shoulderControls,
@@ -115,9 +115,9 @@
       'wristControls': wristControls,
       'clawOpen': clawOpen,
       'clawClose': clawClose
-    };*/
+    };
     
-    socket.volatile.emit('info', {'data': "TuRrEt"});
+    socket.volatile.emit('info', dict2);
 
   }
 
@@ -173,7 +173,7 @@
           toggle();
           console.log("toggled");
         }
-/*
+
         let dictZero = {
           'shutdown': shutdown,
           'joystick1': joystick1,
@@ -186,7 +186,7 @@
           'backLeftFlipperDown': backLeftFlipperDown,
           'backRightFlipperUp': backRightFlipperUp,
           'backRightFlipperDown': backRightFlipperDown
-        };*/
+        };
 
         shutdown = false;
         joystick1 = 0;
@@ -200,7 +200,7 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
-        socket.volatile.emit('info', {message: "No Input"});
+        socket.volatile.emit('info', dictZero);
       }
     }
     catch(err) {
