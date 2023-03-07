@@ -18,7 +18,7 @@ def test_connect():
 def test_disconnect():
     print('Client disconnected')
 
-@socketio.on('json')
+@socketio.on('info')
 def my_event(message):
     print(str(message))
 
