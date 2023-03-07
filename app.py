@@ -13,15 +13,15 @@ def index():
 
 @socketio.on('connect')
 def test_connect():
-    print(Fore.GREEN + 'Client connected')
+    print(Fore.GREEN + 'Client connected' + Fore.RESET)
 @socketio.on('disconnect')
 def test_disconnect():
-    print(Fore.RED + 'Client disconnected')
+    print(Fore.RED + 'Client disconnected' + Fore.RESET)
 
 @socketio.on('info')
 def my_event(message):
     print(str(message))
 
 if __name__ == '__main__':
-    print(Fore.RED + 'Server started')
+    print(Fore.RED + 'Server started' + Fore.RESET)
     socketio.run(app, debug=False, host='0.0.0.0')
