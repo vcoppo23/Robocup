@@ -19,8 +19,6 @@
       e.gamepad.buttons.length, e.gamepad.axes.length);
   });
 
-  const gp = navigator.getGamepads()[0];
-
   //disconnect gamepad from window
   window.addEventListener("gamepaddisconnected", function(e) {
     console.log("Gamepad disconnected from index %d: %s",
@@ -41,9 +39,9 @@
     toggle_mode = !toggle_mode;
   }
 
-  const socket = io();
-
   function tread_mode() {
+
+    gp = navigator.getGamepads()[0];
 
     //Tread definitions
     shutdown = gp.buttons[16].pressed;
@@ -81,12 +79,15 @@
       'backRightFlipperUp': backRightFlipperUp,
       'backRightFlipperDown': backRightFlipperDown
     };
-    
+
+    var socket = io();
     socket.volatile.emit(dict);
 
   }
 
   function turret_mode() {
+
+    gp = navigator.getGamepads()[0];
 
     //Arm definitions
     shutdown2 = gp.buttons[16].pressed;
@@ -114,12 +115,15 @@
       'clawOpen': clawOpen,
       'clawClose': clawClose
     };
-
+    
+    var socket = io();
     socket.volatile.emit(dict2);
 
   }
 
   function run() {
+
+    gp = navigator.getGamepads()[0];
 
     //Tread definitions
     shutdown = gp.buttons[16].pressed;
@@ -191,6 +195,7 @@
         backRightFlipperUp = false;
         backRightFlipperDown = false;
 
+        var socket = io();
         socket.volatile.emit(dictZero);
       }
     }
