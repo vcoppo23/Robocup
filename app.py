@@ -83,7 +83,7 @@ def my_event(message):
     #print(str(message))
 
     #Checks for shutdown
-    shutdown = message['shutdown1']
+    shutdown = message['shutdown']
     Shutdown(shutdown)
 
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
