@@ -116,6 +116,8 @@ def my_event(message):
     else:
         BackRightFlipper.start(0)'''
     
+    print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
+    
 
 @socketio.on('turret')
 def my_event(message):
