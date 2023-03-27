@@ -270,8 +270,8 @@
   }
 
   function swap(){
-      document.getElementById("front_left").src="{{ url_for('video_feed2') }}";
-      document.getElementById("front_right").src="{{ url_for('video_feed1') }}";
+      document.getElementById("front_left").src="http://192.168.20.156/video_feed2";
+      document.getElementById("front_right").src="http://192.168.20.156/video_feed1";
       $.ajax({
 				url: 'http://192.168.20.156/swap',
 				type: 'POST',
@@ -284,8 +284,8 @@
 			});
     }
     function unswap(){
-      document.getElementById("front_left").src="{{ url_for('video_feed1') }}";
-      document.getElementById("front_right").src="{{ url_for('video_feed2') }}";
+      document.getElementById("front_left").src="http://192.168.20.156/video_feed1";
+      document.getElementById("front_right").src="http://192.168.20.156/video_feed2";
       $.ajax({
 				url: 'http://192.168.20.156/unswap',
 				type: 'POST',
