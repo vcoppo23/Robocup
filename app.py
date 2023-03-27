@@ -1,189 +1,142 @@
-import json
-from flask import Flask, render_template, Response, request
-from threading import Thread
-from time import sleep
-from motorlib import motor, objectlist, stopall, shutdown
-from subprocess import call
-
+from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
+import json as JSON
+from colorama import Fore
+import os
+from motorlib import *
 import RPi.GPIO as GPIO
+
+#Setup Flask and SocketIO
+app = Flask(__name__)
+socketio = SocketIO(app)
+
+#Setup GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-powerP = 0.6
-
-#hi gabe -tommy
-#Setup for Right tank tread
+#Setup Motors
 RightTread = motor("io1", 1, 9)
 FrontRightFlipper = motor("io1", 5, 11)
-#BackRightFlipper = motor("io1", 0, 0)
+BackRightFlipper = motor("io1", 1, 9)
 
-#Setup for Left tank tread
 LeftTread = motor("io1", 2, 10)
 FrontLeftFlipper = motor("io1", 6, 12)
-#BackLeftFlipper = motor("io2", 0, 0)
+BackLeftFlipper = motor("io2", 1, 9)
 
-#Setup for Turret
 Turret = motor("io2", 2, 10)
 
-#Setup for Shoulder
 Shoulder = motor("io2", 1, 9)
 
-
-#Setup for Elbow
 Elbow = motor("io2", 5, 11)
 
-#Setup for Wrist
 Wrist = motor("io2", 6, 12)
 
-#Setup for Claw
-#Claw = motor("pi", 0, 0)
+Claw = motor("pi", 1, 9)
 
-#app setup
-app = Flask(__name__) 
+#Setup Power Variables
+powerP = 0.6
+powerT = 0.6
 
-@app.route('/')
-@app.route('/home', methods=['GET', 'POST'])
-def index():  
-   return render_template('gamepad3.html')
+def Shutdown(message):
+    if message == "true":
+        #Sets all motors to 0
+        RightTread.start(0)
+        FrontRightFlipper.start(0)
+        BackRightFlipper.start(0)
+        LeftTread.start(0)
+        FrontLeftFlipper.start(0)
+        BackLeftFlipper.start(0)
+        Turret.start(0)
+        Shoulder.start(0)
+        Elbow.start(0)
+        Wrist.start(0)
+        Claw.start(0)
+    elif message == "false":
+        pass
 
 def valueConverter(value):
    if value == 'true':
       return True
    else:
-      return False
-
-@app.route('/mode_one', methods=['GET', 'POST'])
-def mode_one():
-   #this mode controls the treads, flippers
-   while request.method == 'POST':
-
-      dictionary = json.loads(request.POST.get('values'))
-
-      print(dictionary)
-
-      endLife = dictionary['shutdown']
-
-      joystick1 = dictionary['joystick1']
-      joystick2 = dictionary['joystick2']
-
-      frontLeftFlipperUp = dictionary['frontLeftFlipperUp']
-      frontLeftFlipperDown = dictionary['frontLeftFlipperDown']
-
-      frontRightFlipperUp = dictionary['frontRightFlipperUp']
-      frontRightFlipperDown = dictionary['frontRightFlipperDown']
-
-      backLeftFlipperUp = dictionary['backLeftFlipperUp']
-      backLeftFlipperDown = dictionary['backLeftFlipperDown']
-
-      backRightFlipperUp = dictionary['backRightFlipperUp']
-      backRightFlipperDown = dictionary['backRightFlipperDown']
+      return False  
 
 
-      joystick1 = int((float(joystick1)*100)*powerP)
-      joystick2 = int((float(joystick2)*100)*powerP)
+@app.route('/')
+def index():
+    return render_template('gamepad3.html')
 
-      if endLife  == 'true': ##shutsdown all motors and turns the pi off
-         while True:
-            LeftTread.start(0)
-            RightTread.start(0)
-            FrontLeftFlipper.start(0)
-            FrontRightFlipper.start(0)
-            #BackLeftFlipper.stop()
-            #BackRightFlipper.stop()
+@socketio.on('connect')
+def test_connect():
+    print(Fore.GREEN + 'Client connected' + Fore.RESET)
 
-      LeftTread.start(joystick1)
-      RightTread.start(-joystick2)
-      
-      if valueConverter(frontLeftFlipperUp):
+@socketio.on('disconnect')
+def test_disconnect():
+    print(Fore.RED + 'Client disconnected' + Fore.RESET)
+
+    #Stops all motors incase of disconnect
+    shutdown = "true"
+    Shutdown(shutdown)
+
+@socketio.on('treads')
+def my_event(message):
+    #os.system('clear')
+    #print(str(message))
+
+    #Checks for shutdown
+    shutdown = message['shutdown']
+    Shutdown(shutdown)
+
+    LeftTread.start(int((float(message['joystick1'])*100)*powerP))
+    RightTread.start(int((float(message['joystick2'])*100)*powerP))
+
+    if valueConverter(message['frontLeftFlipperUp']):
          FrontLeftFlipper.start(50)
-      elif valueConverter(frontLeftFlipperDown):
-         FrontLeftFlipper.start(-50)  
-      else:
-         FrontLeftFlipper.start(0)
+    elif valueConverter(message['frontLeftFlipperDown']):
+        FrontLeftFlipper.start(-50)  
+    else:
+        FrontLeftFlipper.start(0)
 
-      if valueConverter(frontRightFlipperUp):
-         FrontRightFlipper.start(-50)
-      elif valueConverter(frontRightFlipperDown):
-         FrontRightFlipper.start(50)
-      else:
-         FrontRightFlipper.start(0)
+    if valueConverter(message['frontRightFlipperUp']):
+        FrontRightFlipper.start(-50)
+    elif valueConverter(message['frontRightFlipperDown']):
+        FrontRightFlipper.start(50)
+    else:
+        FrontRightFlipper.start(0)
+    '''
+    if valueConverter(message['backLeftFlipperUp']):
+        BackLeftFlipper.start(50)
+    elif valueConverter(message['backLeftFlipperDown']):
+        BackLeftFlipper.start(-50)
+    else:
+        BackLeftFlipper.start(0)
+    if valueConverter(message['backRightFlipperUp']):
+        BackRightFlipper.start(50)
+    elif valueConverter(message['backRightFlipperDown']):
+        BackRightFlipper.start(-50)
+    else:
+        BackRightFlipper.start(0)'''
+    
+    print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
+    
 
-      #if valueConverter(backLeftFlipperUp):
-         #BackLeftFlipper.start(50)
-      #elif valueConverter(backLeftFlipperDown):
-         #BackLeftFlipper.start(-50)
-      #else:
-         #BackLeftFlipper.start(0)
+@socketio.on('turret')
+def my_event(message):
+    #os.system('clear')
+    #print(str(message))
 
-      #if valueConverter(backRightFlipperUp):
-         #BackRightFlipper.start(50)
-      #elif valueConverter(backRightFlipperDown):
-         #BackRightFlipper.start(-50)
-      #else:
-         #BackRightFlipper.start(0)
-      
-      return render_template('gamepad3.html')
-   else:
-      LeftTread.start(0)
-      RightTread.start(0)
-      FrontLeftFlipper.start(0)
-      FrontRightFlipper.start(0)
-      #BackLeftFlipper.start()
-      #BackRightFlipper.start()
-      return render_template('gamepad3.html')
+    #Checks for shutdown
+    shutdown = message['shutdown2']
+    Shutdown(shutdown)
 
-   
-@app.route('/mode_two', methods=['GET', 'POST'])
-def mode_two():
-   #this mode controls the turret, shoulder, elbow, wrist, claw
-   while request.method == 'POST':
+    Turret.start(int((float(message['turretControls'])*100)*0.3))
+    Shoulder.start(int((float(message['shoulderControls'])*100)*powerT))
+    Elbow.start(int((float(message['elbowControls'])*100)*powerT))
+    Wrist.start(int((float(message['wristControls'])*100)*powerT))
 
-      dictionary = json.loads(request.POST.get('values'))
+    clawOpen = int(float(message['clawOpen'])*100)
+    clawClose = int(float(message['clawClose'])*100)
+    Claw.start(clawOpen - clawClose)
 
-      endLife2 = dictionary['shutdown']
-
-      turretControls = dictionary['turretControls']
-
-      shoulderControls = dictionary['shoulderControls']
-
-      elbowControls = dictionary['elbowControls']
-
-      wristControls = dictionary['wristControls']
-
-      clawOpen = int(float(dictionary['clawOpen'])*100)
-      clawClose = int(float(dictionary['clawClose'])*100)
-
-      turret = int((float(turretControls)*100)*powerP)
-      shoulder = int((float(shoulderControls)*100)*powerP)
-      elbow = int((float(elbowControls)*100)*powerP)
-      wrist = int((float(wristControls)*100)*powerP)
-      
-      if endLife2 == 'true':  ##shutsdown all motors and turns the pi off 
-         while True:
-            Turret.start(0)
-            Shoulder.start(0)
-            Elbow.start(0)
-            Wrist.start(0)
-            #Claw.start(0)
-      
-      Turret.start(turret)
-
-      Shoulder.start(-shoulder)
-      
-      Elbow.start(elbow)
-
-      Wrist.start(-wrist)
-
-      #Claw.start(clawOpen-clawClose)
-      
-      return render_template('gamepad3.html')
-   else:
-      Turret.start(0)
-      Shoulder.start(0)
-      Elbow.start(0)
-      Wrist.start(0)
-      #Claw.start(0)
-      return render_template('gamepad3.html')
-
-if __name__ == '__main__': 
-	app.run(host='0.0.0.0', debug=True, threaded=True)
+if __name__ == '__main__':
+    print(Fore.RED + 'Server started' + Fore.RESET)
+    socketio.run(app, debug=False, host='0.0.0.0')

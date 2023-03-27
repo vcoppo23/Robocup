@@ -3,82 +3,21 @@
 <head>
   <title>Robocup Cams</title>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-  <style>
-    #circle {
-      width: 200px;
-      height: 200px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      border: black;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 50px;
-      font-family: "Comic Sans MS";
-      cursor: pointer;
-      /* position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); */
-    }
-    body {
-      margin: 10px;
-    }
-    h1 {
-      font-size: 25px;
-      font-family: sans-serif;
-    }
-    .parent {
-      display: grid;
-      grid-gap: 5px;
-      grid-template-columns: repeat(3, 320px);
-      grid-template-rows: repeat(3, 240px);
-    }
-    .parent > div {
-      padding: 0px;
-      background-color: #e0e0e0;
-      color: white;
-      border-radius: 3px;
-      display: grid;
-      place-items: center;
-    }
-
-    .parent > div {
-      font-family: sans-serif;
-      font-size: 24px;
-      font-weight: bold;
-    }
-  </style>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
 </head>
 <body>
   
   <h1>Robocup Camera Stream '23</h1>
-  <div class="parent">
-    <div><img src="http://192.168.20.156/video_feed1" title="Front Left"></div>
-    <div><button id="circle" onclick="console.log()">Stop</button></div>
-    <div><img src="http://192.168.20.156/video_feed2" title="Front Right"></div>
-    <div>4</div>
-    <div><img src="http://192.168.20.156/video_feed0" title="Arm"></div>
-    <div>6</div>
-    <div>7</div>
-    <div><img src="http://192.168.20.156/video_feed3" title="Center Rear"></div>
-    <div>9</div>
-  </div>
-  
 </body>
 
 <script>
   //connect gamepad from window
-  
   window.addEventListener("gamepadconnected", function(e) {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
       e.gamepad.index, e.gamepad.id,
       e.gamepad.buttons.length, e.gamepad.axes.length);
   });
-  //set controller as gp
-  var gp = navigator.getGamepads()[0];
+
   //disconnect gamepad from window
   window.addEventListener("gamepaddisconnected", function(e) {
     console.log("Gamepad disconnected from index %d: %s",
@@ -91,22 +30,20 @@
       percentage = 0;
     return percentage * (number > 0 ? 1 : -1);
   }
-  //runs python script in app.py
+
   var switcher = false;
-  let toggle_mode = false;
+  var toggle_mode = false;
+  const socket = io();
 
   function toggle() {
     toggle_mode = !toggle_mode;
   }
 
   function tread_mode() {
-   
+
     gp = navigator.getGamepads()[0];
 
-    if (gp.buttons[14].pressed) {
-      toggle();
-    }
-
+    //Tread definitions
     shutdown = gp.buttons[16].pressed;
 
     joystick1 = applyDeadzone(gp.axes[1], 0.15);
@@ -123,9 +60,13 @@
 
     backRightFlipperUp = gp.buttons[0].pressed;
     backRightFlipperDown = gp.buttons[3].pressed;
+    //End of Tread Defs
 
-    
-    var dict = {
+    if (gp.buttons[14].pressed) {
+      toggle();
+    }
+
+    let dict = {
       'shutdown': shutdown,
       'joystick1': joystick1,
       'joystick2': joystick2,
@@ -139,24 +80,15 @@
       'backRightFlipperDown': backRightFlipperDown
     };
 
-    $.ajax({
-      url: "{{ url_for('mode_one') }}",
-      type: 'POST',
-      data: {'values': JSON.stringify(dict)},
-      success: function(response) {
-        console.log("Tread Mode Sent");
+    socket.volatile.emit('treads', dict);
 
-      }
-    });  
   }
+
   function turret_mode() {
 
     gp = navigator.getGamepads()[0];
 
-    if (gp.buttons[14].pressed) {
-      toggle();
-    }
-
+    //Arm definitions
     shutdown2 = gp.buttons[16].pressed;
 
     shoulderControls = applyDeadzone(gp.axes[1], 0.25);
@@ -167,8 +99,14 @@
 
     clawOpen = gp.buttons[6].value;
     clawClose = gp.buttons[7].value;
+    //End of Arm Defs
 
-    var dict = {
+    if (gp.buttons[14].pressed) {
+      toggle();
+      console.log("toggled");
+    }
+
+    let dict2 = {
       'shutdown2': shutdown2,
       'shoulderControls': shoulderControls,
       'elbowControls': elbowControls,
@@ -176,56 +114,124 @@
       'wristControls': wristControls,
       'clawOpen': clawOpen,
       'clawClose': clawClose
-    }
+    };
+    
+    socket.volatile.emit('turret', dict2);
 
-    $.ajax({
-      url: "{{ url_for('mode_two') }}",
-      type: 'POST',
-      data: {'values': JSON.stringify(dict)},
-      success: function(response) {
-        console.log("Turret Mode Sent");
-      }
-    });
-    }
+  }
 
-    function run() {
-        if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+  function run() {
+
+    gp = navigator.getGamepads()[0];
+
+    //Tread definitions
+    shutdown = gp.buttons[16].pressed;
+
+    joystick1 = applyDeadzone(gp.axes[1], 0.15);
+    joystick2 = applyDeadzone(gp.axes[3], 0.15);
+
+    frontLeftFlipperUp = gp.buttons[4].pressed;
+    frontLeftFlipperDown = gp.buttons[6].pressed;
+
+    frontRightFlipperUp = gp.buttons[5].pressed;
+    frontRightFlipperDown = gp.buttons[7].pressed;
+
+    backLeftFlipperUp = gp.buttons[13].pressed;
+    backLeftFlipperDown = gp.buttons[12].pressed;
+
+    backRightFlipperUp = gp.buttons[0].pressed;
+    backRightFlipperDown = gp.buttons[3].pressed;
+    //End of Tread Defs
+
+    //Arm definitions
+    shutdown2 = gp.buttons[16].pressed;
+
+    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+    elbowControls = applyDeadzone(gp.axes[3], 0.25);
+
+    turretControls = applyDeadzone(gp.axes[0], 0.25);
+    wristControls = applyDeadzone(gp.axes[2], 0.25);
+
+    clawOpen = gp.buttons[6].value;
+    clawClose = gp.buttons[7].value;
+    //End of Arm Defs
+
+    try {
+      if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
         tread_mode();
-        } 
-        else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+        console.log("Tread Mode");
+      } 
+      else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
         turret_mode();
+        console.log("Turret Mode");
+      }
+      else {
+        console.log("No Input");
+
+        if (gp.buttons[14].pressed) {
+          toggle();
+          console.log("toggled");
         }
-    }
-    setInterval(run, 200);
 
-    function swap(){
-      document.getElementById("front_left").src="{{ url_for('video_feed2') }}";
-      document.getElementById("front_right").src="{{ url_for('video_feed1') }}";
-      $.ajax({
-				url: 'http://192.168.20.156/swap',
-				type: 'POST',
-				success: function(response) {
-					console.log(response);
-				},
-				error: function(error) {
-					console.log(error);
-				}
-			});
+        if (!toggle_mode) {
+          let dictZeroTread = {
+            'shutdown': shutdown,
+            'joystick1': joystick1,
+            'joystick2': joystick2,
+            'frontLeftFlipperUp': frontLeftFlipperUp,
+            'frontLeftFlipperDown': frontLeftFlipperDown,
+            'frontRightFlipperUp': frontRightFlipperUp,
+            'frontRightFlipperDown': frontRightFlipperDown,
+            'backLeftFlipperUp': backLeftFlipperUp,
+            'backLeftFlipperDown': backLeftFlipperDown,
+            'backRightFlipperUp': backRightFlipperUp,
+            'backRightFlipperDown': backRightFlipperDown
+          };
+
+          shutdown = true;
+          joystick1 = 0;
+          joystick2 = 0;
+          frontLeftFlipperUp = false;
+          frontLeftFlipperDown = false;
+          frontRightFlipperUp = false;
+          frontRightFlipperDown = false;
+          backLeftFlipperUp = false;
+          backLeftFlipperDown = false;
+          backRightFlipperUp = false;
+          backRightFlipperDown = false;
+
+          socket.volatile.emit('treads', dictZeroTread);
+        } 
+        else if (toggle_mode) {
+          dictZeroTurret = {
+            'shutdown2': shutdown2,
+            'shoulderControls': shoulderControls,
+            'elbowControls': elbowControls,
+            'turretControls': turretControls,
+            'wristControls': wristControls,
+            'clawOpen': clawOpen,
+            'clawClose': clawClose
+          };
+
+          shutdown2 = true;
+          shoulderControls = 0;
+          elbowControls = 0;
+          turretControls = 0;
+          wristControls = 0;
+          clawOpen = 0;
+          clawClose = 0;
+
+          socket.volatile.emit('turret', dictZeroTurret);
+        }
+        
+      }
     }
-    function unswap(){
-      document.getElementById("front_left").src="{{ url_for('video_feed1') }}";
-      document.getElementById("front_right").src="{{ url_for('video_feed2') }}";
-      $.ajax({
-				url: 'http://192.168.20.156/unswap',
-				type: 'POST',
-				success: function(response) {
-					console.log(response);
-				},
-				error: function(error) {
-					console.log(error);
-				}
-			});
+    catch(err) {
+      console.log("Error: " + err.message + "");
     }
+    
+  }
+  console.log("Starting Up...");
+  setInterval(run, 150);
 </script>
-
 </html>
