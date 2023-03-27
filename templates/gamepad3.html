@@ -56,14 +56,14 @@
   
   <h1>Robocup Camera Stream '23</h1>
   <div class="parent">
-    <div><img src="http://192.168.20.144/video_feed1" title="Front Left"></div>
+    <div><img src="http://192.168.20.156/video_feed1" title="Front Left"></div>
     <div><button id="circle" onclick="console.log()">Stop</button></div>
-    <div><img src="http://192.168.20.144/video_feed2" title="Front Right"></div>
+    <div><img src="http://192.168.20.156/video_feed2" title="Front Right"></div>
     <div>4</div>
-    <div><img src="http://192.168.20.144/video_feed0" title="Arm"></div>
+    <div><img src="http://192.168.20.156/video_feed0" title="Arm"></div>
     <div>6</div>
     <div>7</div>
-    <div><img src="http://192.168.20.144/video_feed3" title="Center Rear"></div>
+    <div><img src="http://192.168.20.156/video_feed3" title="Center Rear"></div>
     <div>9</div>
   </div>
   
@@ -197,6 +197,35 @@
         }
     }
     setInterval(run, 200);
+
+    function swap(){
+      document.getElementById("front_left").src="{{ url_for('video_feed2') }}";
+      document.getElementById("front_right").src="{{ url_for('video_feed1') }}";
+      $.ajax({
+				url: 'http://192.168.20.156/swap',
+				type: 'POST',
+				success: function(response) {
+					console.log(response);
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
+    }
+    function unswap(){
+      document.getElementById("front_left").src="{{ url_for('video_feed1') }}";
+      document.getElementById("front_right").src="{{ url_for('video_feed2') }}";
+      $.ajax({
+				url: 'http://192.168.20.156/unswap',
+				type: 'POST',
+				success: function(response) {
+					console.log(response);
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
+    }
 </script>
 
 </html>
