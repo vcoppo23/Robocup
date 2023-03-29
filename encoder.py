@@ -64,4 +64,4 @@ class Encoder:
         self.state = newState
 
     def getValue(self):
-        return self.
+        return self.value
