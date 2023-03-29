@@ -139,4 +139,4 @@ def my_event(message):
 
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
-    socketio.run(app, debug=False, host='0.0.0.0')
+    socketio.run(app, debug=False, host='192.168.20.14')
