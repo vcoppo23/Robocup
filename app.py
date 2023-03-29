@@ -5,6 +5,7 @@ from colorama import Fore
 import os
 from motorlib import *
 import RPi.GPIO as GPIO
+from encoder import Encoder
 
 #Setup Flask and SocketIO
 app = Flask(__name__)
@@ -16,6 +17,7 @@ GPIO.setwarnings(False)
 
 #Setup Motors
 RightTread = motor("io1", 1, 9)
+RightTreadEncoder = Encoder(26, 19)
 FrontRightFlipper = motor("io1", 5, 11)
 BackRightFlipper = motor("io1", 1, 9)
 
@@ -88,6 +90,7 @@ def my_event(message):
 
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
+    print(RightTreadEncoder.getValue())
 
     if valueConverter(message['frontLeftFlipperUp']):
          FrontLeftFlipper.start(50)
