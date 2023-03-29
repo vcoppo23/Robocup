@@ -5,7 +5,7 @@ from colorama import Fore
 import os
 from motorlib import *
 import RPi.GPIO as GPIO
-from encoder import Encoder
+from encoder.py import Encoder
 
 #Setup Flask and SocketIO
 app = Flask(__name__)
