@@ -3,50 +3,12 @@
 <head>
   <title>Robocup Cams</title>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-  <style>
-    body {
-      margin: 10px;
-    }
-    h1 {
-      font-size: 25px;
-      font-family: sans-serif;
-    }
-    .parent {
-      display: grid;
-      grid-gap: 5px;
-      grid-template-columns: repeat(3, 320px);
-      grid-template-rows: repeat(3, 240px);
-    }
-    .parent > div {
-      padding: 0px;
-      background-color: #e0e0e0;
-      color: white;
-      border-radius: 3px;
-      display: grid;
-      place-items: center;
-    }
-
-    .parent > div {
-      font-family: sans-serif;
-      font-size: 24px;
-      font-weight: bold;
-    }
-  </style>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
 </head>
 <body>
+  
   <h1>Robocup Camera Stream '23</h1>
-  <div class="parent">
-    <div><img src="http://192.168.20.144/video_feed1" title="Front Left"></div>
-    <div>2</div>
-    <div><img src="http://192.168.20.144/video_feed2" title="Front Right"></div>
-    <div>4</div>
-    <div><img src="http://192.168.20.144/video_feed0" title="Arm"></div>
-    <div>6</div>
-    <div>7</div>
-    <div><img src="http://192.168.20.144/video_feed3" title="Center Rear"></div>
-    <div>9</div>
-  </div>
+
 </body>
 
 <script>
@@ -56,8 +18,7 @@
       e.gamepad.index, e.gamepad.id,
       e.gamepad.buttons.length, e.gamepad.axes.length);
   });
-  //set controller as gp
-  var gp = navigator.getGamepads()[0];
+
   //disconnect gamepad from window
   window.addEventListener("gamepaddisconnected", function(e) {
     console.log("Gamepad disconnected from index %d: %s",
@@ -70,45 +31,39 @@
       percentage = 0;
     return percentage * (number > 0 ? 1 : -1);
   }
-  //var xaxis = applyDeadzone(gp.axes[0], 0.25);
-  //var yaxis = applyDeadzone(gp.axes[1], 0.25);
-  //console log controller axis positions
-  function logController() {
-    gp = navigator.getGamepads()[0];
-    console.log(gp.axes[1]);
-    console.log(gp.axes[3]);
-  }
-  //setInterval(logController, 100)
-  //runs python script in app.py
+
+  var switcher = false;
+  var toggle_mode = false;
+  const socket = io();
+
+
+  socket.on('connect', function() {
+    console.log("Connected to server");
+  });
+  
+  let dict = {
+    'shutdown': true,
+    'joystick1': 0.5,
+    'joystick2': 0.5,
+    'frontLeftFlipperUp': true,
+    'frontLeftFlipperDown': true,
+    'frontRightFlipperUp': true,
+    'frontRightFlipperDown': true,
+    'backLeftFlipperUp': true,
+    'backLeftFlipperDown': true,
+    'backRightFlipperUp': true,
+    'backRightFlipperDown': true
+  };
+
+  socket.volatile.emit("treads", dict);
 
 
 
-  function controls() {
-    controlMode = false;
 
-    gp = navigator.getGamepads()[0];
 
-    shutdown2 = gp.buttons[14].pressed;
+  socket.on('disconnect', function() {
+    console.log("Disconnected from server");
+  });
 
-    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
-    elbowControls = applyDeadzone(gp.axes[3], 0.25);
-
-    turretControls = applyDeadzone(gp.axes[0], 0.25);
-    wristControls = applyDeadzone(gp.axes[2], 0.25);
-
-    clawOpen = gp.buttons[6].value;
-    clawClose = gp.buttons[7].value;
-
-    $.ajax({
-      url: "{{ url_for('mode_two') }}",
-      type: 'POST',
-      data: {'shutdown2': shutdown2,'shoulderControls': shoulderControls, 'elbowControls': elbowControls, 'turretControls': turretControls, 'wristControls': wristControls, 'clawOpen': clawOpen, 'clawClose': clawClose},
-      success: function(response) {
-        console.log("Turret Mode Sent");
-      }
-    });
-  }
-  setInterval(controls, 100);
 </script>
-
 </html>
