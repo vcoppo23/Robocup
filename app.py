@@ -17,7 +17,7 @@ GPIO.setwarnings(False)
 
 #Setup Motors
 RightTread = motor("io1", 1, 9)
-RightTreadEncoder = Encoder(26, 19)
+RightTreadEncoder = Encoder(18, 23)
 FrontRightFlipper = motor("io1", 5, 11)
 BackRightFlipper = motor("io1", 1, 9)
 
