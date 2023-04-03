@@ -48,12 +48,14 @@ You can connect a ps4 controller via a wire or wirelessly to your laptop to run 
 
 To make sure it is sending the controls right click onto the Google page and click "inspect", in the pop up that appears to the right go to the top right and click on "Console" (It may be throwing a lot of errors if you haven't moved the controller on the page yet, just click the "X" button and message saying along the lines of a controller being connected will appear) 
 
-Control Description:
+#### Control Description:
 "No Input": No controller inputs are being read
+
 "Tread Mode": Controller is reading inputs in tread mode
+
 "Turret Mode": Controller is reading inputs in turret mode
 
-Switch Mode:
+#### Switch Mode:
 Click on Left D-Pad button (Leftmost button on controller), if it registers the input, "toggled" will appear
 
 
