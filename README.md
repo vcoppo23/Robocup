@@ -7,14 +7,9 @@ Clone the repo into your Raspberry Pi with
 git clone https://github.com/vcoppo23/Robocup.git
 ```
 
-install Flask on the Raspberry Pis with
+install requirements.txt on the Raspberry Pis with
 ```bash
-pip3 install flask
-```
-
-install the ioexpander library
-```bash
-pip3 install pimoroni-ioexpaner
+pip3 install -r requirements.txt
 ```
 If it gives you an error, try using sudo pip3 install ... 
 
@@ -38,9 +33,9 @@ ls
 ```
 You should see a file name "app.py" and a file named "motorlib.py" with 3/4 other folders
 
-Start the flask server on the Raspberry Pi that controls the motors with
+Start the flask_socketIO server on the Raspberry Pi that controls the motors with
 ```bash
-python3 -m flask run --host=0.0.0.0
+python3 app.py
 ```
 A bunch of lines with pop up into the terminal with a few URLs, go to *pi's ip*:5000 in Google and you should see the page,
 Then start the cameras on the other Pi
@@ -53,28 +48,31 @@ You can connect a ps4 controller via a wire or wirelessly to your laptop to run 
 
 To make sure it is sending the controls right click onto the Google page and click "inspect", in the pop up that appears to the right go to the top right and click on "Console" (It may be throwing a lot of errors if you haven't moved the controller on the page yet, just click the "X" button and message saying along the lines of a controller being connected will appear) 
 
-If you see the "Tread mode sent" line, you can move the the treads/flippers. To switch modes, click on the Left button on the D-Pad (the leftmost button on the controller) and a new line will appear in the Console page with "Turret Mode Sent," now you can move the turret/arm (it may take a few tries to switch, it is very finicky, your current mode is the one with the increasting number to the left of it)
+### Emergency Shutdown:
+When giving no input to the controller, all motors are set to 0% power. 
 
-### INCASE SOMETHING GOES WRONG HIT THE PS BUTTON:
-That is the Stop All button, it puts the motors into a constant state of 0% power, if the motors start to jitter back and forth/stop it means it is working, this gives you time to unplug the batteries.
-
-To get out of Stop All mode, just stop the flask servers and restart them
-
-To stop a flask server hit "Control+C" at the same time on your keyboard while in the pi terminal
+Closing out of the google page will submit a "Disconnect" message to server which turns on shutdown mode and sets motors to 0% power
 
 ### Controls:
-While in Tread Mode:
+#### Tread Mode:
 Up/Down on joysticks move treads forward/backward respectivly, the bumper/trigger move the flippers up/down respectivly
 
-While in Turret Mode:
+#### Turret Mode:
+On Left Joystick: Left/Right moves Turret Clockwise/Counterclockwise, Up/Down moves shoulder up/down
 
-On Left Joystick:
-Left/Right moves Turret Clockwise/Counterclockwise, Up/Down moves shoulder up/down
-
-On Right Joystick:
-Left/Right moves the wrist, Up/Down moves the elbow
+On Right Joystick: Left/Right moves the wrist, Up/Down moves the elbow
 
 Other wrist/Claw not implemented yet
+
+#### Control Description:
+"No Input": No controller inputs are being read
+
+"Tread Mode": Controller is reading inputs in tread mode
+
+"Turret Mode": Controller is reading inputs in turret mode
+
+#### Switch Mode:
+Click on Left D-Pad button (Leftmost button on controller), if it registers the input, "toggled" will appear
 
 ### Credits:
 Benilde-St. Margarets Robotics Team
