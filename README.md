@@ -62,7 +62,7 @@ Click on Left D-Pad button (Leftmost button on controller), if it registers the 
 ### Emergency Shutdown:
 When giving no input to the controller, all motors are set to 0% power. 
 
-Close out of the google page will submit a "Dissconnect" message to server which turns on shutdown mode and sets motors to 0% power
+Closing out of the google page will submit a "Disconnect" message to server which turns on shutdown mode and sets motors to 0% power
 
 ### Controls:
 While in Tread Mode:
