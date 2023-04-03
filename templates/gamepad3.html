@@ -59,6 +59,35 @@
   window.addEventListener("gamepaddisconnected", function(e) {
     console.log("Gamepad disconnected from index %d: %s",
       e.gamepad.index, e.gamepad.id);
+
+    //create new dictionary to send to server
+    let treadDict = {
+      'shutdown': true,
+      'joystick1': 0,
+      'joystick2': 0,
+      'frontLeftFlipperUp': false,
+      'frontLeftFlipperDown': false,
+      'frontRightFlipperUp': false,
+      'frontRightFlipperDown': false,
+      'backLeftFlipperUp': false,
+      'backLeftFlipperDown': false,
+      'backRightFlipperUp': false,
+      'backRightFlipperDown': false
+    };
+    //turret dictionary
+    let turretDict = {
+      'shutdown2': true,
+      'shoulderControls': 0,
+      'elbowControls': 0,
+      'turretControls': 0,
+      'wristControls': 0,
+      'clawOpen': 0,
+      'clawClose': 0
+    };
+
+    //send dictionary to server
+    socket.volatile.emit('treads', treadDict);
+    socket.volatile.emit('turret', turretDict);
   });
   //apply Deadzone so no motor running when at rest
   var applyDeadzone = function(number, threshold){
