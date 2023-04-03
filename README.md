@@ -54,19 +54,13 @@ When giving no input to the controller, all motors are set to 0% power.
 Closing out of the google page will submit a "Disconnect" message to server which turns on shutdown mode and sets motors to 0% power
 
 ### Controls:
-While in Tread Mode:
-
+#### Tread Mode:
 Up/Down on joysticks move treads forward/backward respectivly, the bumper/trigger move the flippers up/down respectivly
 
-While in Turret Mode:
+#### Turret Mode:
+On Left Joystick: Left/Right moves Turret Clockwise/Counterclockwise, Up/Down moves shoulder up/down
 
-On Left Joystick:
-
-Left/Right moves Turret Clockwise/Counterclockwise, Up/Down moves shoulder up/down
-
-On Right Joystick:
-
-Left/Right moves the wrist, Up/Down moves the elbow
+On Right Joystick: Left/Right moves the wrist, Up/Down moves the elbow
 
 Other wrist/Claw not implemented yet
 
