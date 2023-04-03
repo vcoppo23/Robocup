@@ -7,14 +7,9 @@ Clone the repo into your Raspberry Pi with
 git clone https://github.com/vcoppo23/Robocup.git
 ```
 
-install Flask on the Raspberry Pis with
+install requirements.txt on the Raspberry Pis with
 ```bash
-pip3 install flask
-```
-
-install the ioexpander library
-```bash
-pip3 install pimoroni-ioexpaner
+pip3 install -r requirements.txt
 ```
 If it gives you an error, try using sudo pip3 install ... 
 
