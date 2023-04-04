@@ -51,7 +51,9 @@ To make sure it is sending the controls right click onto the Google page and cli
 ### Emergency Shutdown:
 When giving no input to the controller, all motors are set to 0% power. 
 
-Closing out of the google page will submit a "Disconnect" message to server which turns on shutdown mode and sets motors to 0% power
+Closing out of the google page will submit a "Disconnect" message to server which turns on shutdown mode and sets motors to 0% power.
+
+If the controller disconnects, motor power is set to 0%.
 
 ### Controls:
 #### Tread Mode:
