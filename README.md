@@ -57,7 +57,7 @@ If the controller disconnects, motor power is set to 0%.
 
 ### Controls:
 #### Tread Mode:
-Up/Down on joysticks move treads forward/backward respectivly, the bumper/trigger move the flippers up/down respectivly
+Up/Down on joysticks move treads forward/backward, the bumpers/triggers move the flippers up/down
 
 #### Turret Mode:
 On Left Joystick: Left/Right moves Turret Clockwise/Counterclockwise, Up/Down moves shoulder up/down
