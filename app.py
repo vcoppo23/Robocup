@@ -36,7 +36,7 @@ powerP = 0.6
 powerT = 0.6
 
 def Shutdown(message):
-    if message == "true":
+    while message == "true":
         #Sets all motors to 0
         RightTread.start(0)
         FrontRightFlipper.start(0)
@@ -49,8 +49,7 @@ def Shutdown(message):
         Elbow.start(0)
         Wrist.start(0)
         Claw.start(0)
-    elif message == "false":
-        pass
+        print(Fore.RED + 'Shutdown' + Fore.RESET)
 
 def valueConverter(value):
    if value == 'true':
