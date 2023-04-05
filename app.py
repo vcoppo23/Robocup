@@ -91,7 +91,7 @@ def my_event(message):
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
     
-    print(((RightTreadEncoder.getValue())/0.0194)*360)
+    print(((RightTreadEncoder.getValue())*0.0194)/360)
 
     if valueConverter(message['frontLeftFlipperUp']):
          FrontLeftFlipper.start(50)
