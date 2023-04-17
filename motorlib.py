@@ -15,7 +15,7 @@ GPIO.setwarnings(False)
 frequency = 1000 ##This is the frequency of the pwm signal for the expander boards
 div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
-
+encoder_tune = 7 ##This is a tuning factor for the encoders, experimental derived value
 objectlist = [] ##This is a list of all the motors that are created
 
 class board(): ##Creates a board class
@@ -32,15 +32,23 @@ class board(): ##Creates a board class
 
 class motor:
 
-    def __init__(self,board, pins = None, encoder = None): ## Create a motor by giving it a board, pwm pin, and direction pin
+    def __init__(self,board, pins = None, encoder = None, gear_ratio = None): ## Create a motor by giving it a board, pwm pin, and direction pin
         self.board = board ## The Board options are "pi", "io1", and "io2"
+
         if pins.length != 2:
-            print ("pins must be a list of two pins")
+            print ("motor needs 2 pins")
             return
+        
         pwm = pins[0] ## pwm pin, controls motor speed
         DIR = pins[1] ##direction pin, capatilized to avoid conflict with the dir() function
         self.lastspeed = 0  ##This is used to track the most recent speed of the motor for the stepper function
-        self.encdoder_pins = encoder ##This is the encoder object that is attatched to the motor
+        self.gear_ratio = gear_ratio ##This is the gear ratio of the motor
+        if encoder != None:
+            if encoder.length != 2:
+                print ("encoder needs 2 pins")
+                return
+        
+        self.encdoder = Encoder(encoder[0],encoder[1]) ##This is the encoder object that is attatched to the motor
         objectlist.append(self) ##This adds the motor to the list of motor objects
         
 
@@ -96,6 +104,7 @@ class motor:
                 board.address.set_pwm_period(period)
                 board.address.output(self.DIR,0)
                 board.address.output(self.pwm,-scaled_speed)
+    
         
     def stop(self):
         self.lastspeed = 0 ##This sets the last known speed to 0 
@@ -105,6 +114,13 @@ class motor:
 
             board.address.output(self.pwm,0)
             board.address.output(self.DIR,0)
+
+
+    def get_angle(self):
+        if self.encoder != None:
+            return (self.encoder.getValue()*360)/(encoder_tune * self.gear_ratio)
+        else:
+            print ("This motor does not have an encoder attatched")
         
 def stopall():
     for i in objectlist:
