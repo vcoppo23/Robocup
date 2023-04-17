@@ -90,7 +90,7 @@ class motor:
             if speed == 0:
                 board.get_address().set_pwm_control(divider=div) 
                 board.get_address().set_pwm_period(period)
-                board.get_address()s.output(self.pwm,0)
+                board.get_address().output(self.pwm,0)
                 board.get_address().output(self.DIR,0)
 
             elif speed > 0:
