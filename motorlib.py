@@ -45,10 +45,11 @@ class motor:
             GPIO.setup(DIR,GPIO.OUT)
             self.object = GPIO.PWM(pwm,100)
 
-        if board.type == "expander": ##This sets up the motor if it is attatched to io expander 1
+        elif board.type == "expander": ##This sets up the motor if it is attatched to io expander 1
             board.address.set_mode(pwm, io.PWM)
             board.address.set_mode(DIR, io.PIN_MODE_PP)
-            
+        else:
+            print ("Board not found")
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
         scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
