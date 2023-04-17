@@ -88,24 +88,24 @@ class motor:
         if self.board.get_type() == "expander": 
             if speed == 0:
                 self.board.address.set_pwm_control(divider=div) 
-                board.get_address().set_pwm_period(period)
-                board.get_address().output(self.pwm,0)
-                board.get_address().output(self.DIR,0)
+                self.board.address.set_pwm_period(period)
+                self.board.address.output(self.pwm,0)
+                self.board.address.output(self.DIR,0)
 
             elif speed > 0:
                 ## The following two lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
                 ## This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
                 ## It is necessary to set the pwm period and divider for the expander boards when starting the motor for unknown reasons
-                board.get_address().set_pwm_control(divider=div) 
-                board.get_address().set_pwm_period(period)
-                board.get_address().output(self.DIR,1)
-                board.get_address().output(self.pwm,scaled_speed)
+                self.board.address.set_pwm_control(divider=div) 
+                self.board.address.set_pwm_period(period)
+                self.board.address.output(self.DIR,1)
+                self.board.address.output(self.pwm,scaled_speed)
 
             elif speed < 0:
-                board.get_address().set_pwm_control(divider=div) 
-                board.get_address().set_pwm_period(period)
-                board.get_address().output(self.DIR,0)
-                board.get_address().output(self.pwm,-scaled_speed)
+                self.board.address.set_pwm_control(divider=div) 
+                self.board.address.set_pwm_period(period)
+                self.board.address.output(self.DIR,0)
+                self.board.address.output(self.pwm,-scaled_speed)
     
         
     def stop(self):
@@ -114,8 +114,8 @@ class motor:
             self.object.stop()
         if self.board.type == "expander":
 
-            board.get_address().output(self.pwm,0)
-            board.get_address().output(self.DIR,0)
+            self.board.address.output(self.pwm,0)
+            self.board.address.output(self.DIR,0)
 
 
     def get_angle(self):
