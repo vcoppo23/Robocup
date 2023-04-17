@@ -27,8 +27,7 @@ class board(): ##Creates a board class
         print (self.board_type)
 
     def get_address(self):
-        print ("The current address of this board is: " + self.hex_address)
-
+        return self.address
 
 class motor:
 
