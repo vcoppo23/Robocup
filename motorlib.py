@@ -42,13 +42,16 @@ class motor:
         pwm = pins[0] ## pwm pin, controls motor speed
         DIR = pins[1] ##direction pin, capatilized to avoid conflict with the dir() function
         self.lastspeed = 0  ##This is used to track the most recent speed of the motor for the stepper function
+        self.encoder = encoder
         self.gear_ratio = gear_ratio ##This is the gear ratio of the motor
         if encoder != None:
             if len(encoder) != 2:
                 print ("encoder needs 2 pins")
                 return
+            else:
+                self.encdoder = Encoder(encoder[0],encoder[1])
         
-        self.encdoder = Encoder(encoder[0],encoder[1]) ##This is the encoder object that is attatched to the motor
+         ##This is the encoder object that is attatched to the motor
         objectlist.append(self) ##This adds the motor to the list of motor objects
         
 
