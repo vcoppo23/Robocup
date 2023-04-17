@@ -19,11 +19,12 @@ GPIO.setwarnings(False)
 pi = 'pi'
 io1 = board(0x18)
 io2 = board(0x19)
+gear_ratio = int(input("Enter the gear ratio of the right tread: "))
 
 #Setup Motors
-RightTread = motor(io1, pins = [1, 9])
-RightTreadEncoder = Encoder(18, 23)
-gear_ratio = int(input("Enter the gear ratio of the right tread: "))
+RightTread = motor(io1, pins = [1, 9],encoder = [18,23], gear_ratio = gear_ratio)
+#RightTreadEncoder = Encoder(18, 23)
+
 FrontRightFlipper = motor(io1, pins = [5, 11])
 BackRightFlipper = motor(io1, pins = [1, 9])
 
@@ -97,7 +98,7 @@ def my_event(message):
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
     
-    print(((RightTreadEncoder.getValue()*360)/(7 * gear_ratio)))
+    print(((RightTread.get_angle())))
 
     if valueConverter(message['frontLeftFlipperUp']):
          FrontLeftFlipper.start(50)
