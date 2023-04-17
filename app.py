@@ -15,6 +15,10 @@ socketio = SocketIO(app)
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+#Setup Expander Boards
+io1 = board(0x18)
+io2 = board(0x19)
+
 #Setup Motors
 RightTread = motor("io1", 1, 9)
 RightTreadEncoder = Encoder(18, 23)
