@@ -1,11 +1,10 @@
 import ioexpander as io ## install with $ pip3 install pimoroni-ioexpander
 import RPi.GPIO as GPIO
 import time
+from encoder import Encoder
 from subprocess import call
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
-io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
 ####
 # To change an expander board's address, use the following command:
 # open a python3 shell while using the pi and the board is plugged in with $ python3
@@ -18,6 +17,18 @@ div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
 
 objectlist = [] ##This is a list of all the motors that are created
+
+class board(): ##Creates a board class
+
+    def __init__(self, hex_address, type = "expander"): ##This is a function to set up the expander boards
+        self.address = io.IOE(i2c_addr=hex_address) 
+        self.type = type ##This is the type of board, either "pi" or "expander"
+    def get_board_type(self):
+        print (self.board_type)
+
+    def get_address(self):
+        print ("The current address of this board is: " + self.hex_address)
+
 
 class motor:
 
@@ -34,13 +45,10 @@ class motor:
             GPIO.setup(DIR,GPIO.OUT)
             self.object = GPIO.PWM(pwm,100)
 
-        if board == "io1": ##This sets up the motor if it is attatched to io expander 1
-            io1.set_mode(pwm, io.PWM)
-            io1.set_mode(DIR, io.PIN_MODE_PP)
+        if board.type == "expander": ##This sets up the motor if it is attatched to io expander 1
+            board.address.set_mode(pwm, io.PWM)
+            board.address.set_mode(DIR, io.PIN_MODE_PP)
             
-        if board == "io2": ##This sets up the motor if it is attatched to io expander 2
-            io2.set_mode(pwm, io.PWM)
-            io2.set_mode(DIR, io.PIN_MODE_PP)
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
         scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
@@ -62,58 +70,36 @@ class motor:
                 GPIO.output(self.DIR,GPIO.LOW)
                 self.object.start(-speed)
 
-        if self.board == "io1": 
+        if self.board.type == "expander": 
             if speed == 0:
-                io1.set_pwm_control(divider=div) 
-                io1.set_pwm_period(period)
-                io1.output(self.pwm,0)
-                io1.output(self.DIR,0)
+                board.address.set_pwm_control(divider=div) 
+                board.address.set_pwm_period(period)
+                board.address.output(self.pwm,0)
+                board.address.output(self.DIR,0)
 
             elif speed > 0:
                 ## The following two lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
                 ## This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
                 ## It is necessary to set the pwm period and divider for the expander boards when starting the motor for unknown reasons
-                io1.set_pwm_control(divider=div) 
-                io1.set_pwm_period(period)
-                io1.output(self.DIR,1)
-                io1.output(self.pwm,scaled_speed)
+                board.address.set_pwm_control(divider=div) 
+                board.address.set_pwm_period(period)
+                board.address.output(self.DIR,1)
+                board.address.output(self.pwm,scaled_speed)
 
             elif speed < 0:
-                io1.set_pwm_control(divider=div) 
-                io1.set_pwm_period(period)
-                io1.output(self.DIR,0)
-                io1.output(self.pwm,-scaled_speed)
+                board.address.set_pwm_control(divider=div) 
+                board.address.set_pwm_period(period)
+                board.address.output(self.DIR,0)
+                board.address.output(self.pwm,-scaled_speed)
         
-        if self.board == "io2": 
-            if speed == 0:
-                io2.set_pwm_control(divider=div)
-                io2.set_pwm_period(period)
-                io2.output(self.pwm,0)
-                io2.output(self.DIR,0)
-
-            elif speed > 0:
-                io2.set_pwm_control(divider=div)
-                io2.set_pwm_period(period)
-                io2.output(self.DIR,1)
-                io2.output(self.pwm,scaled_speed)
-                
-            elif speed < 0:
-                io2.set_pwm_control(divider=div)
-                io2.set_pwm_period(period)
-                io2.output(self.DIR,0)
-                io2.output(self.pwm,-scaled_speed)
-
     def stop(self):
         self.lastspeed = 0 ##This sets the last known speed to 0 
         if self.board == "pi":
             self.object.stop()
-        if self.board == "io1":
+        if self.board.type == "expander":
 
-            io1.output(self.pwm,0)
-            io1.output(self.DIR,0)
-        if self.board == "io2":
-            io2.output(self.pwm,0)
-            io2.output(self.DIR,0)
+            board.address.output(self.pwm,0)
+            board.address.output(self.DIR,0)
         
 def stopall():
     for i in objectlist:
