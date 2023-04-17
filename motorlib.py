@@ -35,7 +35,7 @@ class motor:
     def __init__(self,board, pins = None, encoder = None, gear_ratio = None): ## Create a motor by giving it a board, pwm pin, and direction pin
         self.board = board ## The Board options are "pi", "io1", and "io2"
 
-        if pins.length != 2:
+        if len(pins) != 2:
             print ("motor needs 2 pins")
             return
         
@@ -44,7 +44,7 @@ class motor:
         self.lastspeed = 0  ##This is used to track the most recent speed of the motor for the stepper function
         self.gear_ratio = gear_ratio ##This is the gear ratio of the motor
         if encoder != None:
-            if encoder.length != 2:
+            if len(encoder) != 2:
                 print ("encoder needs 2 pins")
                 return
         
