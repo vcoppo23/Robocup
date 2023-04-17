@@ -61,8 +61,8 @@ class motor:
             self.object = GPIO.PWM(pwm,100)
 
         elif board.type == "expander": ##This sets up the motor if it is attatched to io expander 1
-            board.address.set_mode(pwm, io.PWM)
-            board.address.set_mode(DIR, io.PIN_MODE_PP)
+            board.get_address().set_mode(pwm, io.PWM)
+            board.get_address().set_mode(DIR, io.PIN_MODE_PP)
         else:
             print ("Board not found")
 
@@ -88,25 +88,25 @@ class motor:
 
         if self.board.type == "expander": 
             if speed == 0:
-                board.address.set_pwm_control(divider=div) 
-                board.address.set_pwm_period(period)
-                board.address.output(self.pwm,0)
-                board.address.output(self.DIR,0)
+                board.get_address().set_pwm_control(divider=div) 
+                board.get_address().set_pwm_period(period)
+                board.get_address()s.output(self.pwm,0)
+                board.get_address().output(self.DIR,0)
 
             elif speed > 0:
                 ## The following two lines dial in the frequency of the pwm signal to 1000hz, which reduces stutter and rumble
                 ## This needs to be further looked into as it drains the power faster than the default 100hz on the pi itself
                 ## It is necessary to set the pwm period and divider for the expander boards when starting the motor for unknown reasons
-                board.address.set_pwm_control(divider=div) 
-                board.address.set_pwm_period(period)
-                board.address.output(self.DIR,1)
-                board.address.output(self.pwm,scaled_speed)
+                board.get_address().set_pwm_control(divider=div) 
+                board.get_address().set_pwm_period(period)
+                board.get_address().output(self.DIR,1)
+                board.get_address().output(self.pwm,scaled_speed)
 
             elif speed < 0:
-                board.address.set_pwm_control(divider=div) 
-                board.address.set_pwm_period(period)
-                board.address.output(self.DIR,0)
-                board.address.output(self.pwm,-scaled_speed)
+                board.get_address().set_pwm_control(divider=div) 
+                board.get_address().set_pwm_period(period)
+                board.get_address().output(self.DIR,0)
+                board.get_address().output(self.pwm,-scaled_speed)
     
         
     def stop(self):
@@ -115,8 +115,8 @@ class motor:
             self.object.stop()
         if self.board.type == "expander":
 
-            board.address.output(self.pwm,0)
-            board.address.output(self.DIR,0)
+            board.get_address().output(self.pwm,0)
+            board.get_address().output(self.DIR,0)
 
 
     def get_angle(self):
