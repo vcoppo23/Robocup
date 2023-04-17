@@ -23,11 +23,11 @@ class board(): ##Creates a board class
     def __init__(self, hex_address, type = "expander"): ##This is a function to set up the expander boards
         self.address = io.IOE(i2c_addr=hex_address) 
         self.type = type ##This is the type of board, either "pi" or "expander"
-    def get_board_type(self):
-        print (self.board_type)
 
-    def get_address(self):
+    def get_address(self): ##This is a function to get the address of the board
         return self.address
+    def get_type(self):
+        return self.type
 
 class motor:
 
@@ -59,7 +59,7 @@ class motor:
             GPIO.setup(DIR,GPIO.OUT)
             self.object = GPIO.PWM(pwm,100)
 
-        elif board.type == "expander": ##This sets up the motor if it is attatched to io expander 1
+        elif self.board.type() == "expander": ##This sets up the motor if it is attatched to io expander 1
             board.get_address().set_mode(pwm, io.PWM)
             board.get_address().set_mode(DIR, io.PIN_MODE_PP)
         else:
@@ -85,9 +85,9 @@ class motor:
                 GPIO.output(self.DIR,GPIO.LOW)
                 self.object.start(-speed)
 
-        if self.board.type == "expander": 
+        if self.board.get_type() == "expander": 
             if speed == 0:
-                board.get_address().set_pwm_control(divider=div) 
+                self.board.address.set_pwm_control(divider=div) 
                 board.get_address().set_pwm_period(period)
                 board.get_address().output(self.pwm,0)
                 board.get_address().output(self.DIR,0)
