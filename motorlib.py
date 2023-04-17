@@ -59,9 +59,9 @@ class motor:
             GPIO.setup(DIR,GPIO.OUT)
             self.object = GPIO.PWM(pwm,100)
 
-        elif self.board.type() == "expander": ##This sets up the motor if it is attatched to io expander 1
-            board.get_address().set_mode(pwm, io.PWM)
-            board.get_address().set_mode(DIR, io.PIN_MODE_PP)
+        elif self.board.type == "expander": ##This sets up the motor if it is attatched to io expander 1
+            self.board.address.set_mode(pwm, io.PWM)
+            self.board.address.set_mode(DIR, io.PIN_MODE_PP)
         else:
             print ("Board not found")
 
