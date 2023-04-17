@@ -20,23 +20,23 @@ io1 = board(0x18)
 io2 = board(0x19)
 
 #Setup Motors
-RightTread = motor("io1", 1, 9)
+RightTread = motor(io1, 1, 9)
 RightTreadEncoder = Encoder(18, 23)
 gear_ratio = int(input("Enter the gear ratio of the right tread: "))
-FrontRightFlipper = motor("io1", 5, 11)
-BackRightFlipper = motor("io1", 1, 9)
+FrontRightFlipper = motor(io1, 5, 11)
+BackRightFlipper = motor(io1, 1, 9)
 
-LeftTread = motor("io1", 2, 10)
-FrontLeftFlipper = motor("io1", 6, 12)
-BackLeftFlipper = motor("io2", 1, 9)
+LeftTread = motor(io1, 2, 10)
+FrontLeftFlipper = motor(io1, 6, 12)
+BackLeftFlipper = motor(io2, 1, 9)
 
-Turret = motor("io2", 2, 10)
+Turret = motor(io2, 2, 10)
 
-Shoulder = motor("io2", 1, 9)
+Shoulder = motor(io2, 1, 9)
 
-Elbow = motor("io2", 5, 11)
+Elbow = motor(io2, 5, 11)
 
-Wrist = motor("io2", 6, 12)
+Wrist = motor(io2, 6, 12)
 
 Claw = motor("pi", 1, 9)
 
