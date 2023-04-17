@@ -32,11 +32,15 @@ class board(): ##Creates a board class
 
 class motor:
 
-    def __init__(self,board, pwm, DIR): ## Create a motor by giving it a board, pwm pin, and direction pin
+    def __init__(self,board, pins = None, encoder = None): ## Create a motor by giving it a board, pwm pin, and direction pin
         self.board = board ## The Board options are "pi", "io1", and "io2"
-        self.pwm = pwm ## pwm pin, controls motor speed
-        self.DIR = DIR ##direction pin, capatilized to avoid conflict with the dir() function
+        if pins.length != 2:
+            print ("pins must be a list of two pins")
+            return
+        pwm = pins[0] ## pwm pin, controls motor speed
+        DIR = pins[1] ##direction pin, capatilized to avoid conflict with the dir() function
         self.lastspeed = 0  ##This is used to track the most recent speed of the motor for the stepper function
+        self.encdoder_pins = encoder ##This is the encoder object that is attatched to the motor
         objectlist.append(self) ##This adds the motor to the list of motor objects
         
 
