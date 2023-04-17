@@ -16,6 +16,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 #Setup Expander Boards
+pi = 'pi'
 io1 = board(0x18)
 io2 = board(0x19)
 
@@ -38,7 +39,7 @@ Elbow = motor(io2, pins =[5, 11])
 
 Wrist = motor(io2, pins = [6, 12])
 
-Claw = motor("pi", pins = [1, 9])
+Claw = motor(pi, pins = [1, 9])
 
 #Setup Power Variables
 powerP = 0.6
