@@ -6,7 +6,7 @@ import os
 from motorlib import *
 import RPi.GPIO as GPIO
 from encoder import Encoder
-import tune_encoder
+from encoder_tuner import tune_encoder
 
 #Setup Flask and SocketIO
 app = Flask(__name__)
