@@ -4,7 +4,7 @@ import time
 slices = 10
 speedlist = []
 def tune_encoder(vroom):
-    print(vroom.pins)
+    print(vroom.pwm)
     if vroom.encoder == None:
         print ("This motor does not have an encoder attatched")
         return
