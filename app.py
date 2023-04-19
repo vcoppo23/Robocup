@@ -23,6 +23,8 @@ io2 = board(0x19)
 gear_ratio = int(input("Enter the gear ratio of the right tread: "))
 
 #Setup Motors
+
+
 RightTread = motor(io1, pins = [1, 9],encoder = [18,23], gear_ratio = gear_ratio)
 tune_encoder(RightTread)
 #RightTreadEncoder = Encoder(18, 23)
