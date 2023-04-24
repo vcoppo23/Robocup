@@ -41,7 +41,7 @@ class motor:
         self.pwm = pins[0] ## pwm pin, controls motor speed
         self.DIR = pins[1] ##direction pin, capatilized to avoid conflict with the dir() function
         self.lastspeed = 0  ##This is used to track the most recent speed of the motor for the stepper function
-        self.encoder = encoder
+        self.encoder = Encoder(encoder[0],encoder[1])
         self.gear_ratio = gear_ratio ##This is the gear ratio of the motor
         if encoder != None:
             if len(encoder) != 2:
