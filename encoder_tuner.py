@@ -1,5 +1,5 @@
 import keyboard 
-import motorlib
+from  motorlib import *
 import time
 slices = 10
 speedlist = []
