@@ -12,10 +12,14 @@ def tune_encoder(vroom):
     for i in range(0,slices):
 
         while keyboard.is_pressed('q') == False:
-            vroom.start(i*10)
-            angle = vroom.get_angle()
-            print (angle)
-        else:
+            try:
+                vroom.start(i*10)
+                angle = vroom.get_angle()
+                print (angle)
+            except:
+                print ("Encoder not working")
+                return
+        else:   
             vroom.stop()
             speedlist.append(angle)
             time.sleep(2)
