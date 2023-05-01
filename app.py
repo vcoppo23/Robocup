@@ -98,6 +98,7 @@ def my_event(message):
 
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
+    print (RightTread.get_angle())
     
     print(((RightTread.get_angle())))
 
