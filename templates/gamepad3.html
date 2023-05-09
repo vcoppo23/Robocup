@@ -210,7 +210,6 @@
     //End of Tread Defs
 
     //Arm definitions
-    shutdown2 = gp.buttons[9].pressed;
 
     shoulderControls = applyDeadzone(gp.axes[1], 0.25);
     elbowControls = applyDeadzone(gp.axes[3], 0.25);
@@ -223,13 +222,31 @@
     //End of Arm Defs
 
     try {
-      if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+      if (!toggle_mode && shutdown == false && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
         tread_mode();
         console.log("Tread Mode");
       } 
-      else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+      else if (toggle_mode && shutdown == false && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
         turret_mode();
         console.log("Turret Mode");
+      }
+      else if (shutdown == true) {
+        shoulderControls = 0;
+        elbowControls = 0;
+        turretControls = 0;
+        wristControls = 0;
+        clawOpen = 0;
+        clawClose = 0;
+        joystick1 = 0;
+        joystick2 = 0;
+        frontLeftFlipperUp = false;
+        frontLeftFlipperDown = false;
+        frontRightFlipperUp = false;
+        frontRightFlipperDown = false;
+        backLeftFlipperUp = false;
+        backLeftFlipperDown = false;
+        backRightFlipperUp = false;
+        backRightFlipperDown = false;
       }
       else {
         console.log("No Input");
