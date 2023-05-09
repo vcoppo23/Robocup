@@ -223,10 +223,48 @@
 
     try {
       if (!toggle_mode && shutdown == false && shutdown2 == false && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown|| shutdown2)) {
+        if (shutdown == true || shutdown2 == true) {
+          console.log("Shutdown");
+          shoulderControls = 0;
+          elbowControls = 0;
+          turretControls = 0;
+          wristControls = 0;
+          clawOpen = 0;
+          clawClose = 0;
+          joystick1 = 0;
+          joystick2 = 0;
+          frontLeftFlipperUp = false;
+          frontLeftFlipperDown = false;
+          frontRightFlipperUp = false;
+          frontRightFlipperDown = false;
+          backLeftFlipperUp = false;
+          backLeftFlipperDown = false;
+          backRightFlipperUp = false;
+          backRightFlipperDown = false;
+        }
         tread_mode();
         console.log("Tread Mode");
       } 
       else if (toggle_mode && shutdown == false && shutdown2 == false && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown || shutdown2)) {
+        if (shutdown == true || shutdown2 == true) {
+          console.log("Shutdown");
+          shoulderControls = 0;
+          elbowControls = 0;
+          turretControls = 0;
+          wristControls = 0;
+          clawOpen = 0;
+          clawClose = 0;
+          joystick1 = 0;
+          joystick2 = 0;
+          frontLeftFlipperUp = false;
+          frontLeftFlipperDown = false;
+          frontRightFlipperUp = false;
+          frontRightFlipperDown = false;
+          backLeftFlipperUp = false;
+          backLeftFlipperDown = false;
+          backRightFlipperUp = false;
+          backRightFlipperDown = false;
+        }
         turret_mode();
         console.log("Turret Mode");
       }
