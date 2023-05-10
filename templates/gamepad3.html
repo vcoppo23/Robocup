@@ -222,132 +222,65 @@
     //End of Arm Defs
 
     try {
-      if (!toggle_mode && shutdown == false && shutdown2 == false && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown|| shutdown2)) {
-        if (shutdown == true || shutdown2 == true) {
-          console.log("Shutdown");
-          shoulderControls = 0;
-          elbowControls = 0;
-          turretControls = 0;
-          wristControls = 0;
-          clawOpen = 0;
-          clawClose = 0;
-          joystick1 = 0;
-          joystick2 = 0;
-          frontLeftFlipperUp = false;
-          frontLeftFlipperDown = false;
-          frontRightFlipperUp = false;
-          frontRightFlipperDown = false;
-          backLeftFlipperUp = false;
-          backLeftFlipperDown = false;
-          backRightFlipperUp = false;
-          backRightFlipperDown = false;
-        }
-        tread_mode();
-        console.log("Tread Mode");
-      } 
-      else if (toggle_mode && shutdown == false && shutdown2 == false && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown || shutdown2)) {
-        if (shutdown == true || shutdown2 == true) {
-          console.log("Shutdown");
-          shoulderControls = 0;
-          elbowControls = 0;
-          turretControls = 0;
-          wristControls = 0;
-          clawOpen = 0;
-          clawClose = 0;
-          joystick1 = 0;
-          joystick2 = 0;
-          frontLeftFlipperUp = false;
-          frontLeftFlipperDown = false;
-          frontRightFlipperUp = false;
-          frontRightFlipperDown = false;
-          backLeftFlipperUp = false;
-          backLeftFlipperDown = false;
-          backRightFlipperUp = false;
-          backRightFlipperDown = false;
-        }
-        turret_mode();
-        console.log("Turret Mode");
-      }
-      else if (shutdown == true || shutdown2 == true) {
-        console.log("Shutdown");
-        shoulderControls = 0;
-        elbowControls = 0;
-        turretControls = 0;
-        wristControls = 0;
-        clawOpen = 0;
-        clawClose = 0;
-        joystick1 = 0;
-        joystick2 = 0;
-        frontLeftFlipperUp = false;
-        frontLeftFlipperDown = false;
-        frontRightFlipperUp = false;
-        frontRightFlipperDown = false;
-        backLeftFlipperUp = false;
-        backLeftFlipperDown = false;
-        backRightFlipperUp = false;
-        backRightFlipperDown = false;
+      while(!shutdown && !shutdown2) {
+      
+        if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
         
-      }
-      else {
-        console.log("No Input");
-
-        if (gp.buttons[14].pressed) {
-          toggle();
-          console.log("toggled");
+          tread_mode();
+          console.log("Tread Mode");
+        } 
+        else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
+          
+          turret_mode();
+          console.log("Turret Mode");
         }
+        else {
+          console.log("No Input");
 
-        if (!toggle_mode) {
-          let dictZeroTread = {
-            'shutdown': shutdown,
-            'joystick1': joystick1,
-            'joystick2': joystick2,
-            'frontLeftFlipperUp': frontLeftFlipperUp,
-            'frontLeftFlipperDown': frontLeftFlipperDown,
-            'frontRightFlipperUp': frontRightFlipperUp,
-            'frontRightFlipperDown': frontRightFlipperDown,
-            'backLeftFlipperUp': backLeftFlipperUp,
-            'backLeftFlipperDown': backLeftFlipperDown,
-            'backRightFlipperUp': backRightFlipperUp,
-            'backRightFlipperDown': backRightFlipperDown
-          };
+          if (gp.buttons[14].pressed) {
+            toggle();
+            console.log("toggled");
+          }
 
-          shutdown = false;
-          joystick1 = 0;
-          joystick2 = 0;
-          frontLeftFlipperUp = false;
-          frontLeftFlipperDown = false;
-          frontRightFlipperUp = false;
-          frontRightFlipperDown = false;
-          backLeftFlipperUp = false;
-          backLeftFlipperDown = false;
-          backRightFlipperUp = false;
-          backRightFlipperDown = false;
+          else if (!toggle_mode) {
+            let dictZeroTread = {
+              'shutdown': shutdown,
+              'joystick1': 0,
+              'joystick2': 0,
+              'frontLeftFlipperUp': false,
+              'frontLeftFlipperDown': false,
+              'frontRightFlipperUp': false,
+              'frontRightFlipperDown': false,
+              'backLeftFlipperUp': false,
+              'backLeftFlipperDown': false,
+              'backRightFlipperUp': false,
+              'backRightFlipperDown': false
+            };
+
+            socket.volatile.emit('treads', dictZeroTread);
+          } 
+          else if (toggle_mode) {
+            dictZeroTurret = {
+              'shutdown2': shutdown2,
+              'shoulderControls': 0,
+              'elbowControls': 0,
+              'turretControls': 0,
+              'wristControls': 0,
+              'clawOpen': 0,
+              'clawClose': 0
+            };
+
+            socket.volatile.emit('turret', dictZeroTurret);
+          }
+        }
+      }
+      while(shutdown || shutdown2) {
+          console.log("Shutdown");
 
           socket.volatile.emit('treads', dictZeroTread);
-        } 
-        else if (toggle_mode) {
-          dictZeroTurret = {
-            'shutdown2': shutdown2,
-            'shoulderControls': shoulderControls,
-            'elbowControls': elbowControls,
-            'turretControls': turretControls,
-            'wristControls': wristControls,
-            'clawOpen': clawOpen,
-            'clawClose': clawClose
-          };
-
-          shutdown2 = false;
-          shoulderControls = 0;
-          elbowControls = 0;
-          turretControls = 0;
-          wristControls = 0;
-          clawOpen = 0;
-          clawClose = 0;
-
           socket.volatile.emit('turret', dictZeroTurret);
-        }
-        
       }
+      
     }
     catch(err) {
       console.log("Error: " + err.message + "");
