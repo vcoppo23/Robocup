@@ -14,7 +14,7 @@ GPIO.setwarnings(False)
 
 #Setup Motors
 RightTread = motor("io1", 1, 9)
-FrontRightFlipper = motor("io1", 4, 11)
+FrontRightFlipper = motor("io1", 5, 11)
 BackRightFlipper = motor("io1", 4, 13)
 
 LeftTread = motor("io1", 2, 10)
@@ -25,9 +25,9 @@ Turret = motor("io2", 2, 10)
 
 Shoulder = motor("io2", 1, 9)
 
-Elbow = motor("io2", 5, 14)
+Elbow = motor("io2", 5, 11)
 
-Wrist = motor("io2", 6, 8)
+Wrist = motor("io2", 6, 12)
 
 Claw = motor("pi", 1, 9)
 
