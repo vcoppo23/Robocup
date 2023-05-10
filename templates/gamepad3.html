@@ -267,7 +267,7 @@
             socket.volatile.emit('treads', dictZeroTread);
           } 
           else if (toggle_mode) {
-            dictZeroTurret = {
+            let dictZeroTurret = {
               'shutdown2': shutdown2,
               'shoulderControls': 0,
               'elbowControls': 0,
@@ -283,6 +283,31 @@
       }
       while(shutdown || shutdown2) {
           console.log("Shutdown");
+
+          let dictZeroTread = {
+              'shutdown': shutdown,
+              'joystick1': 0,
+              'joystick2': 0,
+              'frontLeftFlipperUp': false,
+              'frontLeftFlipperDown': false,
+              'frontRightFlipperUp': false,
+              'frontRightFlipperDown': false,
+              'backLeftFlipperUp': false,
+              'backLeftFlipperDown': false,
+              'backRightFlipperUp': false,
+              'backRightFlipperDown': false
+            };
+
+            let dictZeroTurret = {
+              'shutdown2': shutdown2,
+              'shoulderControls': 0,
+              'elbowControls': 0,
+              'turretControls': 0,
+              'wristControls': 0,
+              'clawOpen': 0,
+              'clawClose': 0
+            };
+
 
           socket.volatile.emit('treads', dictZeroTread);
           socket.volatile.emit('turret', dictZeroTurret);
