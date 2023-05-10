@@ -15,11 +15,11 @@ GPIO.setwarnings(False)
 #Setup Motors
 RightTread = motor("io1", 1, 9)
 FrontRightFlipper = motor("io1", 5, 11)
-BackRightFlipper = motor("io1", 1, 9)
+BackRightFlipper = motor("io1", 4, 13)
 
 LeftTread = motor("io1", 2, 10)
 FrontLeftFlipper = motor("io1", 6, 12)
-BackLeftFlipper = motor("io2", 1, 9)
+BackLeftFlipper = motor("io2", 3, 14)
 
 Turret = motor("io2", 2, 10)
 
@@ -99,7 +99,7 @@ def my_event(message):
         FrontRightFlipper.start(50)
     else:
         FrontRightFlipper.start(0)
-    '''
+    
     if valueConverter(message['backLeftFlipperUp']):
         BackLeftFlipper.start(50)
     elif valueConverter(message['backLeftFlipperDown']):
@@ -111,7 +111,7 @@ def my_event(message):
     elif valueConverter(message['backRightFlipperDown']):
         BackRightFlipper.start(-50)
     else:
-        BackRightFlipper.start(0)'''
+        BackRightFlipper.start(0)
     
     print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
     
