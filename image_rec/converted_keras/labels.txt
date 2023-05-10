@@ -1,0 +1,9 @@
+0 Oxidizer
+1 Explosive
+2 Corrosive
+3 Inhalation Hazard
+4 Flammable Solid
+5 Flammable Liquid
+6 Flammable Gas
+7 Organic Peroxide
+8 Combustible
