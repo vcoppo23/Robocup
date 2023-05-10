@@ -19,7 +19,7 @@ BackRightFlipper = motor("io1", 4, 13)
 
 LeftTread = motor("io1", 2, 10)
 FrontLeftFlipper = motor("io1", 6, 12)
-BackLeftFlipper = motor("io2", 3, 14)
+BackLeftFlipper = motor("io1", 3, 14)
 
 Turret = motor("io2", 2, 10)
 
@@ -112,6 +112,7 @@ def my_event(message):
         BackRightFlipper.start(-50)
     else:
         BackRightFlipper.start(0)
+
     
     print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
     
