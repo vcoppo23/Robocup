@@ -21,9 +21,9 @@ LeftTread = motor("io1", 2, 10)
 FrontLeftFlipper = motor("io1", 6, 12)
 BackLeftFlipper = motor("io1", 3, 14)
 
-Turret = motor("io2", 2, 10)
+Turret = motor("io2", 3, 10)
 
-Shoulder = motor("io2", 1, 9)
+Shoulder = motor("io2", 4, 9)
 
 Elbow = motor("io2", 5, 11)
 
