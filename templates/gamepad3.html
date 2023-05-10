@@ -186,7 +186,11 @@
 
   }
 
-  function run() {
+  function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+
+  async function run() {
 
     gp = navigator.getGamepads()[0];
 
@@ -228,14 +232,17 @@
         
           tread_mode();
           console.log("Tread Mode");
+          await sleep(100);
         } 
         else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
           
           turret_mode();
           console.log("Turret Mode");
+          await sleep(100);
         }
         else {
           console.log("No Input");
+          await sleep(100);
 
           if (gp.buttons[14].pressed) {
             toggle();
@@ -279,6 +286,7 @@
 
           socket.volatile.emit('treads', dictZeroTread);
           socket.volatile.emit('turret', dictZeroTurret);
+          await sleep(100);
       }
       
     }
