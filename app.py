@@ -51,12 +51,6 @@ def Shutdown(message):
         Claw.start(0)
         print(Fore.RED + 'Shutdown' + Fore.RESET)
 
-def valueConverter(value):
-   if value == 'true':
-      return True
-   else:
-      return False  
-
 
 @app.route('/')
 def index():
@@ -86,32 +80,32 @@ def my_event(message):
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
 
-    if valueConverter(message['frontLeftFlipperUp']):
+    if (message['frontLeftFlipperUp'] == 'true'):
          FrontLeftFlipper.start(50)
-    elif valueConverter(message['frontLeftFlipperDown']):
+    elif (message['frontLeftFlipperDown'] == 'true'):
         FrontLeftFlipper.start(-50)  
     else:
         FrontLeftFlipper.start(0)
 
-    if valueConverter(message['frontRightFlipperUp']):
+    if (message['frontRightFlipperUp'] == 'true'):
         FrontRightFlipper.start(-50)
-    elif valueConverter(message['frontRightFlipperDown']):
+    elif (message['frontRightFlipperDown'] == 'true'):
         FrontRightFlipper.start(50)
     else:
         FrontRightFlipper.start(0)
-    '''
-    if valueConverter(message['backLeftFlipperUp']):
+    
+    if (message['backLeftFlipperUp'] == 'true'):
         BackLeftFlipper.start(50)
-    elif valueConverter(message['backLeftFlipperDown']):
+    elif (message['backLeftFlipperDown'] == 'true'):
         BackLeftFlipper.start(-50)
     else:
         BackLeftFlipper.start(0)
-    if valueConverter(message['backRightFlipperUp']):
+    if (message['backRightFlipperUp'] == 'true'):
         BackRightFlipper.start(50)
-    elif valueConverter(message['backRightFlipperDown']):
+    elif (message['backRightFlipperDown'] == 'true'):
         BackRightFlipper.start(-50)
     else:
-        BackRightFlipper.start(0)'''
+        BackRightFlipper.start(0)
     
     print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
     

@@ -223,11 +223,11 @@
     //End of Arm Defs
 
     try {
-      if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+      if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
         tread_mode();
         console.log("Tread Mode");
       } 
-      else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0 || shutdown)) {
+      else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
         turret_mode();
         console.log("Turret Mode");
       }
@@ -242,50 +242,34 @@
         if (!toggle_mode) {
           let dictZeroTread = {
             'shutdown': shutdown,
-            'joystick1': joystick1,
-            'joystick2': joystick2,
-            'frontLeftFlipperUp': frontLeftFlipperUp,
-            'frontLeftFlipperDown': frontLeftFlipperDown,
-            'frontRightFlipperUp': frontRightFlipperUp,
-            'frontRightFlipperDown': frontRightFlipperDown,
-            'backLeftFlipperUp': backLeftFlipperUp,
-            'backLeftFlipperDown': backLeftFlipperDown,
-            'backRightFlipperUp': backRightFlipperUp,
-            'backRightFlipperDown': backRightFlipperDown
+            'joystick1': 0,
+            'joystick2': 0,
+            'frontLeftFlipperUp': false,
+            'frontLeftFlipperDown': false,
+            'frontRightFlipperUp': false,
+            'frontRightFlipperDown': false,
+            'backLeftFlipperUp': false,
+            'backLeftFlipperDown': false,
+            'backRightFlipperUp': false,
+            'backRightFlipperDown': false
           };
 
           shutdown = false;
-          joystick1 = 0;
-          joystick2 = 0;
-          frontLeftFlipperUp = false;
-          frontLeftFlipperDown = false;
-          frontRightFlipperUp = false;
-          frontRightFlipperDown = false;
-          backLeftFlipperUp = false;
-          backLeftFlipperDown = false;
-          backRightFlipperUp = false;
-          backRightFlipperDown = false;
 
           socket.volatile.emit('treads', dictZeroTread);
         } 
         else if (toggle_mode) {
           dictZeroTurret = {
             'shutdown2': shutdown2,
-            'shoulderControls': shoulderControls,
-            'elbowControls': elbowControls,
-            'turretControls': turretControls,
-            'wristControls': wristControls,
-            'clawOpen': clawOpen,
-            'clawClose': clawClose
+            'shoulderControls': 0,
+            'elbowControls': 0,
+            'turretControls': 0,
+            'wristControls': 0,
+            'clawOpen': 0,
+            'clawClose': 0
           };
 
           shutdown2 = false;
-          shoulderControls = 0;
-          elbowControls = 0;
-          turretControls = 0;
-          wristControls = 0;
-          clawOpen = 0;
-          clawClose = 0;
 
           socket.volatile.emit('turret', dictZeroTurret);
         }
