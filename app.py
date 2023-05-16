@@ -13,21 +13,21 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 #Setup Motors
-RightTread = motor("io1", 1, 9)
-FrontRightFlipper = motor("io2", 3, 11)
-BackRightFlipper = motor("io1", 4, 13)
+RightTread = motor("pi", 1, 9)
+FrontRightFlipper = motor("pi", 3, 11)
+BackRightFlipper = motor("pi", 4, 13)
 
-LeftTread = motor("io1", 2, 10)
-FrontLeftFlipper = motor("io2", 5, 12)
-BackLeftFlipper = motor("io1", 3, 14)
+LeftTread = motor("pi", 2, 10)
+FrontLeftFlipper = motor("pi", 5, 12)
+BackLeftFlipper = motor("pi", 3, 14)
 
-Turret = motor("io2", 1, 10)
+Turret = motor("pi", 1, 10)
 
-Shoulder = motor("io2", 2, 9)
+Shoulder = motor("pi", 2, 9)
 
-Elbow = motor("io2", 6, 13)
+Elbow = motor("pi", 6, 13)
 
-Wrist = motor("io2", 4, 14)
+Wrist = motor("pi", 4, 14)
 
 Claw = motor("pi", 1, 9)
 
