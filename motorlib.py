@@ -1,11 +1,11 @@
 import ioexpander as io ## install with $ pip3 install pimoroni-ioexpander
-import RPi.GPIO as GPIO
+import RP64.GPIO as GPIO
 import time
 from subprocess import call
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
-io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
+#io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
+#io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
 ####
 # To change an expander board's address, use the following command:
 # open a python3 shell while using the pi and the board is plugged in with $ python3

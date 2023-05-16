@@ -2,7 +2,7 @@ from flask import Flask, render_template, Response
 from flask_socketio import SocketIO, emit
 from colorama import Fore
 from motorlib import *
-import RPi.GPIO as GPIO
+import RP64.GPIO as GPIO
 import cv2
 
 
@@ -133,7 +133,6 @@ def my_event(message):
 claw_cam = 0
 front_left = 1
 front_right = 2
-back = 3
 
 def get_frame(cam_num, claw):
     #set video capture device with device number, variables above
@@ -177,11 +176,6 @@ def video_feed1():
 @app.route('/video_feed2')
 def video_feed2():
     return Response(get_frame(front_right, False), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-#Route to back camera
-@app.route('/video_feed3')
-def video_feed3():
-    return Response(get_frame(back, False), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
