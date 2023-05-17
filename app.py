@@ -1,8 +1,13 @@
-from flask import Flask, render_template
+import eventlet
+eventlet.monkey_patch()
+
+from flask import Flask, render_template, Response
 from flask_socketio import SocketIO, emit
 from colorama import Fore
 from motorlib import *
-import RPi.GPIO as GPIO
+import RP64.GPIO as GPIO
+import cv2
+
 
 #Setup Flask and SocketIO
 app = Flask(__name__)
@@ -13,21 +18,21 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 #Setup Motors
-RightTread = motor("io1", 1, 9)
-FrontRightFlipper = motor("io2", 3, 11)
-BackRightFlipper = motor("io1", 4, 13)
+RightTread = motor("pi", 1, 9)
+FrontRightFlipper = motor("pi", 3, 11)
+BackRightFlipper = motor("pi", 4, 13)
 
-LeftTread = motor("io1", 2, 10)
-FrontLeftFlipper = motor("io2", 5, 12)
-BackLeftFlipper = motor("io1", 3, 14)
+LeftTread = motor("pi", 2, 10)
+FrontLeftFlipper = motor("pi", 5, 12)
+BackLeftFlipper = motor("pi", 3, 14)
 
-Turret = motor("io2", 1, 10)
+Turret = motor("pi", 1, 10)
 
-Shoulder = motor("io2", 2, 9)
+Shoulder = motor("pi", 2, 9)
 
-Elbow = motor("io2", 6, 13)
+Elbow = motor("pi", 6, 13)
 
-Wrist = motor("io2", 4, 14)
+Wrist = motor("pi", 4, 14)
 
 Claw = motor("pi", 1, 9)
 
@@ -50,12 +55,6 @@ def Shutdown(message):
         Wrist.start(0)
         Claw.start(0)
         print(Fore.RED + 'Shutdown' + Fore.RESET)
-
-def valueConverter(value):
-   if value == 'true':
-      return True
-   else:
-      return False  
 
 
 @app.route('/')
@@ -86,33 +85,32 @@ def my_event(message):
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
 
-    if valueConverter(message['frontLeftFlipperUp']):
+    if (message['frontLeftFlipperUp'] == 'true'):
          FrontLeftFlipper.start(50)
-    elif valueConverter(message['frontLeftFlipperDown']):
+    elif (message['frontLeftFlipperDown'] == 'true'):
         FrontLeftFlipper.start(-50)  
     else:
         FrontLeftFlipper.start(0)
 
-    if valueConverter(message['frontRightFlipperUp']):
+    if (message['frontRightFlipperUp'] == 'true'):
         FrontRightFlipper.start(-50)
-    elif valueConverter(message['frontRightFlipperDown']):
+    elif (message['frontRightFlipperDown'] == 'true'):
         FrontRightFlipper.start(50)
     else:
         FrontRightFlipper.start(0)
     
-    if valueConverter(message['backLeftFlipperUp']):
+    if (message['backLeftFlipperUp'] == 'true'):
         BackLeftFlipper.start(50)
-    elif valueConverter(message['backLeftFlipperDown']):
+    elif (message['backLeftFlipperDown'] == 'true'):
         BackLeftFlipper.start(-50)
     else:
         BackLeftFlipper.start(0)
-    if valueConverter(message['backRightFlipperUp']):
+    if (message['backRightFlipperUp'] == 'true'):
         BackRightFlipper.start(50)
-    elif valueConverter(message['backRightFlipperDown']):
+    elif (message['backRightFlipperDown'] == 'true'):
         BackRightFlipper.start(-50)
     else:
         BackRightFlipper.start(0)
-
     
     print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
     
@@ -134,6 +132,47 @@ def my_event(message):
     clawOpen = int(float(message['clawOpen'])*100)
     clawClose = int(float(message['clawClose'])*100)
     Claw.start(clawOpen - clawClose)
+
+claw_cam = 1
+front_left = 7
+
+def get_frame(cam_num, claw):
+    #set video capture device with device number, variables above
+    camera = cv2.VideoCapture(cam_num)
+
+    #camera width
+    w=320
+    #camera height
+    h=240
+
+    camera.set(3,w)
+    camera.set(4,h)
+    camera.set(cv2.CAP_PROP_FPS, 20)
+
+
+    while True:
+        ret, frame = camera.read()
+        if not ret:
+            break
+        if not claw:
+            alpha = 30
+            beta = 1
+            #sets frame to black and white if not claw camera
+            newFrame = cv2.convertScaleAbs(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), alpha, beta)
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + cv2.imencode('.jpg', newFrame)[1].tobytes() + b'\r\n\r\n')
+        else:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + cv2.imencode('.jpg', frame)[1].tobytes() + b'\r\n\r\n')
+            
+@app.route('/video_feed0')
+def video_feed0():
+    return Response(get_frame(claw_cam, True), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed1')
+def video_feed1():
+    return Response(get_frame(front_left, False), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)

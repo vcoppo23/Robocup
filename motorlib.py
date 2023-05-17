@@ -1,11 +1,11 @@
 import ioexpander as io ## install with $ pip3 install pimoroni-ioexpander
-import RPi.GPIO as GPIO
+import RP64.GPIO as GPIO
 import time
 from subprocess import call
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
-io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
+#io1 = io.IOE(i2c_addr=0x18) ## This is the address of the first expander board
+#io2 = io.IOE(i2c_addr=0x19) ## This is the address of the second expander board
 ####
 # To change an expander board's address, use the following command:
 # open a python3 shell while using the pi and the board is plugged in with $ python3
@@ -34,13 +34,13 @@ class motor:
             GPIO.setup(DIR,GPIO.OUT)
             self.object = GPIO.PWM(pwm,100)
 
-        if board == "io1": ##This sets up the motor if it is attatched to io expander 1
+        '''if board == "io1": ##This sets up the motor if it is attatched to io expander 1
             io1.set_mode(pwm, io.PWM)
             io1.set_mode(DIR, io.PIN_MODE_PP)
             
         if board == "io2": ##This sets up the motor if it is attatched to io expander 2
             io2.set_mode(pwm, io.PWM)
-            io2.set_mode(DIR, io.PIN_MODE_PP)
+            io2.set_mode(DIR, io.PIN_MODE_PP)'''
 
     def start(self,speed): ##Start the motor by giving it a speed, direction is determined by the sign of the speed (range from -100 to 100)
         scaled_speed = int((period/100)*speed) ##This scales the speed to the period of the pwm signal 
@@ -62,7 +62,7 @@ class motor:
                 GPIO.output(self.DIR,GPIO.LOW)
                 self.object.start(-speed)
 
-        if self.board == "io1": 
+        '''if self.board == "io1": 
             if speed == 0:
                 io1.set_pwm_control(divider=div) 
                 io1.set_pwm_period(period)
@@ -101,19 +101,19 @@ class motor:
                 io2.set_pwm_control(divider=div)
                 io2.set_pwm_period(period)
                 io2.output(self.DIR,0)
-                io2.output(self.pwm,-scaled_speed)
+                io2.output(self.pwm,-scaled_speed)'''
 
     def stop(self):
         self.lastspeed = 0 ##This sets the last known speed to 0 
         if self.board == "pi":
             self.object.stop()
-        if self.board == "io1":
+        '''if self.board == "io1":
 
             io1.output(self.pwm,0)
             io1.output(self.DIR,0)
         if self.board == "io2":
             io2.output(self.pwm,0)
-            io2.output(self.DIR,0)
+            io2.output(self.DIR,0)'''
         
 def stopall():
     for i in objectlist:
