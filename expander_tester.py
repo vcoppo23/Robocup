@@ -15,8 +15,10 @@ for pin in range(1,14):
         io1.set_pwm_period(period)
         io1.output(pin,int((period/100)*100))
         time.sleep(5)
+        io1.output(pin,0)
     else:
         io1.set_mode(pin, io.PIN_MODE_PP)
         io1.output(pin,1)
         time.sleep(5)
+        io1.output(pin,0)
     
