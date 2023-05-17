@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-io1 = io.IOE(i2c_addr=0x18)
+io1 = io.IOE(i2c_addr=0x19)
 frequency = 1000 ##This is the frequency of the pwm signal for the expander boards
 div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
