@@ -1,3 +1,6 @@
+import eventlet
+eventlet.monkey_patch()
+
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO, emit
 from colorama import Fore
