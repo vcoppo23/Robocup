@@ -7,7 +7,7 @@ io1 = io.IOE(i2c_addr=0x18)
 frequency = 1000 ##This is the frequency of the pwm signal for the expander boards
 div = 128 ##This is the divider for the pwm signal for the expander boards
 period = int(24000000/div/frequency)
-for pin in range(1,14):
+for pin in range(1,15):
     print(pin)
     if pin < 6:
         io1.set_mode(pin, io.PWM)
