@@ -7,7 +7,6 @@ from colorama import Fore
 from motorlib import *
 import RP64.GPIO as GPIO
 import cv2
-import psutil
 
 
 #Setup Flask and SocketIO
@@ -65,7 +64,6 @@ def index():
 @socketio.on('connect')
 def test_connect():
     print(Fore.GREEN + 'Client connected' + Fore.RESET)
-    print("CPU Usage: " + str(psutil.cpu_percent(30)) + "%")
 
 @socketio.on('disconnect')
 def test_disconnect():
