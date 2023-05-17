@@ -130,9 +130,8 @@ def my_event(message):
     clawClose = int(float(message['clawClose'])*100)
     Claw.start(clawOpen - clawClose)
 
-claw_cam = 0
-front_left = 1
-front_right = 2
+claw_cam = 1
+front_left = 7
 
 def get_frame(cam_num, claw):
     #set video capture device with device number, variables above
@@ -167,15 +166,10 @@ def get_frame(cam_num, claw):
 def video_feed0():
     return Response(get_frame(claw_cam, True), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-#Route to front left camera
 @app.route('/video_feed1')
 def video_feed1():
     return Response(get_frame(front_left, False), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-#Route to front right camera
-@app.route('/video_feed2')
-def video_feed2():
-    return Response(get_frame(front_right, False), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
