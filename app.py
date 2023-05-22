@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-## working ROLLOUT from trials
+
 powerP = 0.6
 powerT = 0.25
 
