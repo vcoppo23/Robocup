@@ -14,14 +14,14 @@ powerT = 0.25
 
 #hi gabe -tommy
 #Setup for Right tank tread
-RightTread = motor("io1", 1, 9)
-FrontRightFlipper = motor("io1", 5, 11)
-#BackRightFlipper = motor("io1", 0, 0)
+RightTread = motor("io1", 1, 11)
+FrontRightFlipper = motor("io1", 3, 9)
+BackRightFlipper = motor("io1", 5, 7)
 
 #Setup for Left tank tread
-LeftTread = motor("io1", 2, 10)
-FrontLeftFlipper = motor("io1", 6, 12)
-#BackLeftFlipper = motor("io2", 0, 0)
+LeftTread = motor("io1", 2, 12)
+FrontLeftFlipper = motor("io1", 4, 10)
+BackLeftFlipper = motor("io1", 6, 8)
 
 #Setup for Turret
 Turret = motor("io2", 2, 10)
@@ -37,7 +37,7 @@ Elbow = motor("io2", 5, 11)
 Wrist = motor("io2", 6, 12)
 
 #Setup for Claw
-#Claw = motor("pi", 0, 0)
+Claw = motor("pi", 18, 23)
 
 #app setup
 app = Flask(__name__) 
@@ -104,7 +104,7 @@ def mode_one():
          FrontRightFlipper.start(50)
       else:
          FrontRightFlipper.start(0)
-      '''
+      
       if valueConverter(backLeftFlipperUp):
          BackLeftFlipper.start(50)
       elif valueConverter(backLeftFlipperDown):
@@ -118,7 +118,7 @@ def mode_one():
          BackRightFlipper.start(-50)
       else:
          BackRightFlipper.start(0)
-      '''
+      
       
       #print("Tread Mode sending data")
 
