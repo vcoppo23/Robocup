@@ -126,7 +126,7 @@ def shutdown(): ## This function can be called as an emergency stop, it will sto
     
     call("sudo shutdown -h now", shell=True)
 
-
+##testing 6/14
 
 
 
