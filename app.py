@@ -86,10 +86,10 @@ def my_event(message):
     LeftTread.start(int((float(message['joystick1'])*100)*powerP))
     RightTread.start(int((float(message['joystick2'])*100)*powerP))
 
-    if bool(message['frontLeftFlipperUp']):
+    if (message['frontLeftFlipperUp']):
          print (message['frontLeftFlipperUp'])
          FrontLeftFlipper.start(50)
-    elif valueConverter(message['frontLeftFlipperDown']):
+    elif bool(message['frontLeftFlipperDown']):
         FrontLeftFlipper.start(-50)  
     else:
         FrontLeftFlipper.start(0)
