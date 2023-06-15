@@ -225,8 +225,10 @@
     clawClose = gp.buttons[7].value;
     //End of Arm Defs
 
+  
+    
     try {
-      while(!shutdown && !shutdown2) {
+      if(!shutdown && !shutdown2) {
       
         if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
         
@@ -282,7 +284,7 @@
           }
         }
       }
-      while(shutdown || shutdown2) {
+      if(shutdown || shutdown2) {
           console.log("Shutdown");
 
           let dictZeroTread = {
