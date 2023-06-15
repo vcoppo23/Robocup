@@ -50,14 +50,15 @@ def Shutdown(message):
         Wrist.start(0)
         Claw.start(0)
         print(Fore.RED + 'Shutdown' + Fore.RESET)
-
+"""
+Depricated
 def valueConverter(value):
    if value == 'true':
       return True
    else:
       return False  
 
-
+"""
 @app.route('/')
 def index():
     return render_template('gamepad3.html')
@@ -89,27 +90,27 @@ def my_event(message):
     if (message['frontLeftFlipperUp']):
          print (message['frontLeftFlipperUp'])
          FrontLeftFlipper.start(50)
-    elif bool(message['frontLeftFlipperDown']):
+    elif (message['frontLeftFlipperDown']):
         FrontLeftFlipper.start(-50)  
     else:
         FrontLeftFlipper.start(0)
 
-    if valueConverter(message['frontRightFlipperUp']):
+    if (message['frontRightFlipperUp']):
         FrontRightFlipper.start(-50)
-    elif valueConverter(message['frontRightFlipperDown']):
+    elif (message['frontRightFlipperDown']):
         FrontRightFlipper.start(50)
     else:
         FrontRightFlipper.start(0)
     
-    if valueConverter(message['backLeftFlipperUp']):
+    if (message['backLeftFlipperUp']):
         BackLeftFlipper.start(50)
-    elif valueConverter(message['backLeftFlipperDown']):
+    elif (message['backLeftFlipperDown']):
         BackLeftFlipper.start(-50)
     else:
         BackLeftFlipper.start(0)
-    if valueConverter(message['backRightFlipperUp']):
+    if (message['backRightFlipperUp']):
         BackRightFlipper.start(50)
-    elif valueConverter(message['backRightFlipperDown']):
+    elif (message['backRightFlipperDown']):
         BackRightFlipper.start(-50)
     else:
         BackRightFlipper.start(0)
