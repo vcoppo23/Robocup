@@ -33,7 +33,7 @@ Claw = motor("pi", 18, 23)
 
 #Setup Power Variables
 powerP = 0.6
-powerT = 0.6
+powerT = 0.25
 
 def Shutdown(message):
     while message == "true":
