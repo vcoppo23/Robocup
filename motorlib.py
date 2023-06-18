@@ -8,7 +8,8 @@ GPIO.setwarnings(False)
 ####
 # To change an expander board's address, use the following command:
 # open a python3 shell while using the pi and the board is plugged in with $ python3
-# then copy this $ "import ioexpander"
+# then copy this $ "import ioexpander as io"
+# then type in "io1 = io.IOE(i2c_addr=0x18)"
 # then $ "io1.set_i2c_addr(desired_address)" the desired address must be in the form of 0x## where # is the readout when you use the command i2cdetect -y 1
 # this will permantly change the address of the expander board until you change it again. It will not change even if it is powered off
 ####
