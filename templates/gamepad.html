@@ -3,7 +3,7 @@
 <head>
   <title>Robocup Cams</title>
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script> 
   <style>
     body {
       margin: 10px;
@@ -37,18 +37,16 @@
 <body>
   <h1>Robocup Camera Stream '23</h1>
   <div class="parent">
-    <div><img src="http://192.168.20.144/video_feed1" title="Front Left"></div>
+    <div><img src="http://192.168.20.156/video_feed1" title="Front Left" id="front_left"></div>
     <div>2</div>
-    <div><img src="http://192.168.20.144/video_feed2" title="Front Right"></div>
+    <div><img src="http://192.168.20.156/video_feed2" title="Front Right" id="front_right"></div>
     <div>4</div>
-    <div><img src="http://192.168.20.144/video_feed0" title="Arm"></div>
+    <div><img src="http://192.168.20.156/video_feed0" title="Claw" id="claw"></div>
     <div>6</div>
     <div>7</div>
-    <div><img src="http://192.168.20.144/video_feed3" title="Center Rear"></div>
+    <div><img src="http://192.168.20.156/video_feed3" title="Center Rear" id="rear"></div>
     <div>9</div>
   </div>
-</body>
-
 <script>
   //connect gamepad from window
   window.addEventListener("gamepadconnected", function(e) {
@@ -56,12 +54,40 @@
       e.gamepad.index, e.gamepad.id,
       e.gamepad.buttons.length, e.gamepad.axes.length);
   });
-  //set controller as gp
-  var gp = navigator.getGamepads()[0];
+
   //disconnect gamepad from window
   window.addEventListener("gamepaddisconnected", function(e) {
     console.log("Gamepad disconnected from index %d: %s",
       e.gamepad.index, e.gamepad.id);
+
+    //create new dictionary to send to server
+    let treadDict = {
+      'shutdown': false,
+      'joystick1': 0,
+      'joystick2': 0,
+      'frontLeftFlipperUp': false,
+      'frontLeftFlipperDown': false,
+      'frontRightFlipperUp': false,
+      'frontRightFlipperDown': false,
+      'backLeftFlipperUp': false,
+      'backLeftFlipperDown': false,
+      'backRightFlipperUp': false,
+      'backRightFlipperDown': false
+    };
+    //turret dictionary
+    let turretDict = {
+      'shutdown2': false,
+      'shoulderControls': 0,
+      'elbowControls': 0,
+      'turretControls': 0,
+      'wristControls': 0,
+      'clawOpen': 0,
+      'clawClose': 0
+    };
+
+    //send dictionary to server
+    socket.volatile.emit('treads', treadDict);
+    socket.volatile.emit('turret', turretDict);
   });
   //apply Deadzone so no motor running when at rest
   var applyDeadzone = function(number, threshold){
@@ -70,25 +96,21 @@
       percentage = 0;
     return percentage * (number > 0 ? 1 : -1);
   }
-  //var xaxis = applyDeadzone(gp.axes[0], 0.25);
-  //var yaxis = applyDeadzone(gp.axes[1], 0.25);
-  //console log controller axis positions
-  function logController() {
-    gp = navigator.getGamepads()[0];
-    console.log(gp.axes[1]);
-    console.log(gp.axes[3]);
+
+  var switcher = false;
+  var toggle_mode = false;
+  const socket = io();
+
+  function toggle() {
+    toggle_mode = !toggle_mode;
   }
-  //setInterval(logController, 100)
-  //runs python script in app.py
 
-
-
-  function controls() {
-    controlMode = false;
+  function tread_mode() {
 
     gp = navigator.getGamepads()[0];
 
-    shutdown = gp.buttons[14].pressed;
+    //Tread definitions
+    shutdown = gp.buttons[9].pressed;
 
     joystick1 = applyDeadzone(gp.axes[1], 0.15);
     joystick2 = applyDeadzone(gp.axes[3], 0.15);
@@ -104,17 +126,234 @@
 
     backRightFlipperUp = gp.buttons[0].pressed;
     backRightFlipperDown = gp.buttons[3].pressed;
+    //End of Tread Defs
 
-    $.ajax({
-      url: "{{ url_for('mode_one') }}",
-      type: 'POST',
-      data: {'shutdown': shutdown,'joystick1': joystick1, 'joystick2': joystick2, 'frontLeftFlipperUp': frontLeftFlipperUp, 'frontLeftFlipperDown': frontLeftFlipperDown, 'frontRightFlipperUp': frontRightFlipperUp, 'frontRightFlipperDown': frontRightFlipperDown, 'backLeftFlipperUp': backLeftFlipperUp, 'backLeftFlipperDown': backLeftFlipperDown, 'backRightFlipperUp': backRightFlipperUp, 'backRightFlipperDown': backRightFlipperDown},
-      success: function(response) {
-        console.log("Tread Mode Sent");
-      }
-    });
+    if (gp.buttons[14].pressed) {
+      toggle();
+    }
+
+    let dict = {
+      'shutdown': shutdown,
+      'joystick1': joystick1,
+      'joystick2': joystick2,
+      'frontLeftFlipperUp': frontLeftFlipperUp,
+      'frontLeftFlipperDown': frontLeftFlipperDown,
+      'frontRightFlipperUp': frontRightFlipperUp,
+      'frontRightFlipperDown': frontRightFlipperDown,
+      'backLeftFlipperUp': backLeftFlipperUp,
+      'backLeftFlipperDown': backLeftFlipperDown,
+      'backRightFlipperUp': backRightFlipperUp,
+      'backRightFlipperDown': backRightFlipperDown
+    };
+
+    socket.volatile.emit('treads', dict);
+
   }
-  setInterval(controls, 100);
-</script>
 
+  function turret_mode() {
+
+    gp = navigator.getGamepads()[0];
+
+    //Arm definitions
+    shutdown2 = gp.buttons[9].pressed;
+
+    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+    elbowControls = applyDeadzone(gp.axes[3], 0.25);
+
+    turretControls = applyDeadzone(gp.axes[0], 0.25);
+    wristControls = applyDeadzone(gp.axes[2], 0.25);
+
+    clawOpen = gp.buttons[6].value;
+    clawClose = gp.buttons[7].value;
+    //End of Arm Defs
+
+    if (gp.buttons[14].pressed) {
+      toggle();
+      console.log("toggled");
+    }
+
+    let dict2 = {
+      'shutdown2': shutdown2,
+      'shoulderControls': shoulderControls,
+      'elbowControls': elbowControls,
+      'turretControls': turretControls,
+      'wristControls': wristControls,
+      'clawOpen': clawOpen,
+      'clawClose': clawClose
+    };
+    
+    socket.volatile.emit('turret', dict2);
+
+  }
+
+  function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+
+  async function run() {
+
+    gp = navigator.getGamepads()[0];
+
+    //Tread definitions
+    shutdown = gp.buttons[9].pressed;
+
+    joystick1 = applyDeadzone(gp.axes[1], 0.15);
+    joystick2 = applyDeadzone(gp.axes[3], 0.15);
+
+    frontLeftFlipperUp = gp.buttons[4].pressed;
+    frontLeftFlipperDown = gp.buttons[6].pressed;
+
+    frontRightFlipperUp = gp.buttons[5].pressed;
+    frontRightFlipperDown = gp.buttons[7].pressed;
+
+    backLeftFlipperUp = gp.buttons[13].pressed;
+    backLeftFlipperDown = gp.buttons[12].pressed;
+
+    backRightFlipperUp = gp.buttons[0].pressed;
+    backRightFlipperDown = gp.buttons[3].pressed;
+    //End of Tread Defs
+
+    //Arm definitions
+    shutdown2 = gp.buttons[9].pressed;
+    shoulderControls = applyDeadzone(gp.axes[1], 0.25);
+    elbowControls = applyDeadzone(gp.axes[3], 0.25);
+
+    turretControls = applyDeadzone(gp.axes[0], 0.25);
+    wristControls = applyDeadzone(gp.axes[2], 0.25);
+
+    clawOpen = gp.buttons[6].value;
+    clawClose = gp.buttons[7].value;
+    //End of Arm Defs
+
+  
+    
+    try {
+      if(!shutdown && !shutdown2) {
+      
+        if (!toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
+        
+          tread_mode();
+          console.log("Tread Mode");
+          await sleep(100);
+        } 
+        else if (toggle_mode && (frontLeftFlipperUp || frontLeftFlipperDown || frontRightFlipperUp || frontRightFlipperDown || backLeftFlipperUp || backLeftFlipperDown || backRightFlipperUp || backRightFlipperDown || joystick1 != 0 || joystick2 != 0)) {
+          
+          turret_mode();
+          console.log("Turret Mode");
+          await sleep(100);
+        }
+        else {
+          console.log("No Input");
+          await sleep(100);
+
+          if (gp.buttons[14].pressed) {
+            toggle();
+            console.log("toggled");
+            await sleep(1000);
+          }
+
+          else if (!toggle_mode) {
+            let dictZeroTread = {
+              'shutdown': shutdown,
+              'joystick1': 0,
+              'joystick2': 0,
+              'frontLeftFlipperUp': false,
+              'frontLeftFlipperDown': false,
+              'frontRightFlipperUp': false,
+              'frontRightFlipperDown': false,
+              'backLeftFlipperUp': false,
+              'backLeftFlipperDown': false,
+              'backRightFlipperUp': false,
+              'backRightFlipperDown': false
+            };
+
+            socket.volatile.emit('treads', dictZeroTread);
+          } 
+          else if (toggle_mode) {
+            let dictZeroTurret = {
+              'shutdown2': shutdown2,
+              'shoulderControls': 0,
+              'elbowControls': 0,
+              'turretControls': 0,
+              'wristControls': 0,
+              'clawOpen': 0,
+              'clawClose': 0
+            };
+
+            socket.volatile.emit('turret', dictZeroTurret);
+          }
+        }
+      }
+      if(shutdown || shutdown2) {
+          console.log("Shutdown");
+
+          let dictZeroTread = {
+              'shutdown': shutdown,
+              'joystick1': 0,
+              'joystick2': 0,
+              'frontLeftFlipperUp': false,
+              'frontLeftFlipperDown': false,
+              'frontRightFlipperUp': false,
+              'frontRightFlipperDown': false,
+              'backLeftFlipperUp': false,
+              'backLeftFlipperDown': false,
+              'backRightFlipperUp': false,
+              'backRightFlipperDown': false
+            };
+
+            let dictZeroTurret = {
+              'shutdown2': shutdown2,
+              'shoulderControls': 0,
+              'elbowControls': 0,
+              'turretControls': 0,
+              'wristControls': 0,
+              'clawOpen': 0,
+              'clawClose': 0
+            };
+
+
+          socket.volatile.emit('treads', dictZeroTread);
+          socket.volatile.emit('turret', dictZeroTurret);
+          await sleep(100);
+      }
+      
+    }
+    catch(err) {
+      console.log("Error: " + err.message + "");
+    }
+    
+  }
+
+  function swap(){
+      document.getElementById("front_left").src="http://192.168.20.156/video_feed2";
+      document.getElementById("front_right").src="http://192.168.20.156/video_feed1";
+      $.ajax({
+				url: 'http://192.168.20.156/swap',
+				type: 'POST',
+				success: function(response) {
+					console.log(response);
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
+    }
+    function unswap(){
+      document.getElementById("front_left").src="http://192.168.20.156/video_feed1";
+      document.getElementById("front_right").src="http://192.168.20.156/video_feed2";
+      $.ajax({
+				url: 'http://192.168.20.156/unswap',
+				type: 'POST',
+				success: function(response) {
+					console.log(response);
+				},
+				error: function(error) {
+					console.log(error);
+				}
+			});
+    }
+
+  console.log("Starting Up...");
+  setInterval(run, 150);
+</script>
 </html>
