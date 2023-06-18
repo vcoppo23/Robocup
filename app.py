@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
-from colorama import Fore
+from flask_socketio import SocketIO, emit ## SocketIO is a python library that allows socket use for flask servers
+from colorama import Fore ## Just so messages are different colors
 from motorlib import *
 import RPi.GPIO as GPIO
 
@@ -13,7 +13,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 #Setup Motors
-RightTread = motor("io1", 1, 11)
+RightTread = motor("io1", 1, 11) ## In the order of (board, PWM pin, DIR pin)
 FrontRightFlipper = motor("io1", 3, 9)
 BackRightFlipper = motor("io1", 5, 7)
 
@@ -32,11 +32,12 @@ Wrist = motor("io2", 6, 12)
 Claw = motor("pi", 18, 23)
 
 #Setup Power Variables
-powerP = 0.6
-powerT = 0.25
+# This can be changed to scale the power of the motors for the specific subsystems
+powerDrive = 0.6
+powerTurret = 0.25
 
 def Shutdown(message):
-    while message == "true":
+    while message == "true": ## check later for correct functionality
         #Sets all motors to 0
         RightTread.start(0)
         FrontRightFlipper.start(0)
@@ -50,18 +51,10 @@ def Shutdown(message):
         Wrist.start(0)
         Claw.start(0)
         print(Fore.RED + 'Shutdown' + Fore.RESET)
-"""
-Depricated
-def valueConverter(value):
-   if value == 'true':
-      return True
-   else:
-      return False  
 
-"""
 @app.route('/')
 def index():
-    return render_template('gamepad3.html')
+    return render_template('gamepad.html')
 
 @socketio.on('connect')
 def test_connect():
@@ -72,7 +65,7 @@ def test_disconnect():
     print(Fore.RED + 'Client disconnected' + Fore.RESET)
 
     #Stops all motors incase of disconnect
-    shutdown = "true"
+    shutdown = "true" ## fix later
     Shutdown(shutdown)
 
 @socketio.on('treads')
@@ -84,8 +77,8 @@ def my_event(message):
     shutdown = message['shutdown']
     Shutdown(shutdown)
 
-    LeftTread.start(int((float(message['joystick1'])*100)*powerP))
-    RightTread.start(int((float(message['joystick2'])*100)*powerP))
+    LeftTread.start(int((float(message['joystick1'])*100)*powerDrive))
+    RightTread.start(int((float(message['joystick2'])*100)*powerDrive))
 
     if (message['frontLeftFlipperUp']):
          print (message['frontLeftFlipperUp'])
@@ -115,7 +108,7 @@ def my_event(message):
     else:
         BackRightFlipper.start(0)
     
-    print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerP)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerP)))
+    print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerDrive)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerDrive)))
     
 
 @socketio.on('turret')
@@ -128,9 +121,9 @@ def my_event(message):
     Shutdown(shutdown)
 
     Turret.start(int((float(message['turretControls'])*100)*0.3))
-    Shoulder.start(int((float(message['shoulderControls'])*100)*powerT))
-    Elbow.start(int((float(message['elbowControls'])*100)*powerT))
-    Wrist.start(int((float(message['wristControls'])*100)*powerT))
+    Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
+    Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
+    Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
 
     clawOpen = int(float(message['clawOpen'])*100)
     clawClose = int(float(message['clawClose'])*100)
