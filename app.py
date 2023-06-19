@@ -41,7 +41,7 @@ powerDrive = 0.6
 powerTurret = 0.25
 
 def Shutdown(message):
-    while message == "true": ## check later for correct functionality
+    if message: ## check later for correct functionality
         #Sets all motors to 0
         RightTread.start(0)
         FrontRightFlipper.start(0)
