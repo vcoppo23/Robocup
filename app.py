@@ -41,7 +41,7 @@ powerDrive = 0.6
 powerTurret = 0.25
 
 def Shutdown(message):
-    if message: ## check later for correct functionality
+    while message: ## check later for correct functionality
         #Sets all motors to 0
         RightTread.start(0)
         FrontRightFlipper.start(0)
@@ -69,8 +69,8 @@ def test_disconnect():
     print(Fore.RED + 'Client disconnected' + Fore.RESET)
 
     #Stops all motors incase of disconnect
-    shutdown = "true" ## fix later
-    Shutdown(shutdown)
+    ## fix later
+    #Shutdown(shutdown)
 
 @socketio.on('treads')
 def my_event(message):
