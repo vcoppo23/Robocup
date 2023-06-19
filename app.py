@@ -70,7 +70,7 @@ def test_disconnect():
 
     #Stops all motors incase of disconnect
     ## fix later
-    #Shutdown(shutdown)
+    Shutdown(shutdown)
 
 @socketio.on('treads')
 def my_event(message):
