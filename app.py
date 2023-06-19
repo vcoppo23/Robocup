@@ -65,20 +65,14 @@ def index():
 @socketio.on('connect')
 def test_connect():
     print(Fore.GREEN + 'Client connected' + Fore.RESET)
-    Shutdown(False)
     
+
 @socketio.on('disconnect')
 def test_disconnect():
     print(Fore.RED + 'Client disconnected' + Fore.RESET)
 
-    #Stops all motors incase of disconnect
-    ## fix later
-    Shutdown(True)
+    
 
-@socketio.on('reconnect')
-def test_reconnect():
-    print(Fore.BLUE + 'Client reconnected' + Fore.RESET)
-    Shutdown(False)
 
 @socketio.on('treads')
 def my_event(message):
