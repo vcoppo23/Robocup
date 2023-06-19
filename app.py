@@ -14,7 +14,7 @@ GPIO.setwarnings(False)
 
 #Setup Boards
 io1 = board(0x18)
-io2 = board(0x19)
+#io2 = board(0x19)
 
 #Setup Motors
 RightTread = motor(io1,pins = [1, 11]) ## In the order of (board, PWM pin, DIR pin)
@@ -24,7 +24,7 @@ BackRightFlipper = motor(io1, pins = [5, 7])
 LeftTread = motor(io1, pins = [2, 12])
 FrontLeftFlipper = motor(io1, pins = [4, 10])
 BackLeftFlipper = motor(io1, pins = [6, 8])
-
+"""
 Turret = motor(io2, pins = [2, 10])
 
 Shoulder = motor(io2, pins = [1, 9])
@@ -34,7 +34,7 @@ Elbow = motor(io2, pins = [5, 11])
 Wrist = motor(io2, pins =[ 6, 12])
 
 Claw = motor('pi', pins = [18, 23])
-
+"""
 #Setup Power Variables
 # This can be changed to scale the power of the motors for the specific subsystems
 powerDrive = 0.6
