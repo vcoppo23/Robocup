@@ -72,7 +72,12 @@ def test_disconnect():
 
     #Stops all motors incase of disconnect
     ## fix later
-    Shutdown(shutdown)
+    Shutdown(True)
+
+@socketio.on('reconnect')
+def test_reconnect():
+    print(Fore.BLUE + 'Client reconnected' + Fore.RESET)
+    Shutdown(False)
 
 @socketio.on('treads')
 def my_event(message):
