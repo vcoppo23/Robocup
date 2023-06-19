@@ -49,11 +49,13 @@ def Shutdown(message):
         LeftTread.start(0)
         FrontLeftFlipper.start(0)
         BackLeftFlipper.start(0)
+        """
         Turret.start(0)
         Shoulder.start(0)
         Elbow.start(0)
         Wrist.start(0)
         Claw.start(0)
+        """
         print(Fore.RED + 'Shutdown' + Fore.RESET)
 
 @app.route('/')
