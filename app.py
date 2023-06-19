@@ -65,7 +65,8 @@ def index():
 @socketio.on('connect')
 def test_connect():
     print(Fore.GREEN + 'Client connected' + Fore.RESET)
-
+    Shutdown(False)
+    
 @socketio.on('disconnect')
 def test_disconnect():
     print(Fore.RED + 'Client disconnected' + Fore.RESET)
