@@ -1,3 +1,7 @@
+# Robocup'23 - Motors
+# BSM Robotics
+# Val Coppo and Gabriel Mankowski
+
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from colorama import Fore
