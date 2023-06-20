@@ -1,3 +1,7 @@
+# Robocup'23 - Motor Library
+# BSM Robotics
+# Val Coppo
+
 import ioexpander as io ## install with $ pip3 install pimoroni-ioexpander
 import RPi.GPIO as GPIO
 import time
