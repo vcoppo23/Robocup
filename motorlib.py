@@ -26,8 +26,12 @@ objectlist = [] ##This is a list of all the motors that are created
 class board(): ##Creates a board class
 
     def __init__(self, hex_address, type = "expander"): ##This is a function to set up the expander boards
-        self.address = io.IOE(i2c_addr=hex_address) 
         self.type = type ##This is the type of board, either "pi" or "expander"
+
+        if hex_address != "pi": ##This sets up the board if it is attatched to the pi directly
+            self.address = io.IOE(i2c_addr=hex_address) 
+        else:
+            self.address = "pi"
 
     def get_address(self): ##This is a function to get the address of the board
         return self.address
@@ -38,7 +42,7 @@ class motor:
 
     def __init__(self,board, pins = None, encoder = None, gear_ratio = None): ## Create a motor by giving it a board, pwm pin, and direction pin
         self.board = board ## The Board options are "pi", "io1", and "io2"
-
+        self.pins = pins ## The pins are in the order of [pwm, dir]
         if len(pins) != 2:
             print ("motor needs 2 pins")
             return
@@ -58,7 +62,7 @@ class motor:
         objectlist.append(self) ##This adds the motor to the list of motor objects
         
 
-        if board == "pi": ##This sets up the motor if it is attatchd to the pi directly
+        if self.board.type == "pi": ##This sets up the motor if it is attatchd to the pi directly
             GPIO.setup(self.pwm,GPIO.OUT)
             GPIO.setup(self.DIR,GPIO.OUT)
             self.object = GPIO.PWM(self.pwm,100)
