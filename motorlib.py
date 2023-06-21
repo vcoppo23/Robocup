@@ -58,7 +58,7 @@ class motor:
         objectlist.append(self) ##This adds the motor to the list of motor objects
         
 
-        if board == "pi": ##This sets up the motor if it is attatchd to the pi directly
+        if self.board == "pi": ##This sets up the motor if it is attatchd to the pi directly
             GPIO.setup(self.pwm,GPIO.OUT)
             GPIO.setup(self.DIR,GPIO.OUT)
             self.object = GPIO.PWM(self.pwm,100)
