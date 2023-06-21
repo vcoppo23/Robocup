@@ -26,15 +26,17 @@ LeftTread = motor(pi, pins = [2, 12])
 #FrontLeftFlipper = motor(io1, pins = [4, 10])
 #BackLeftFlipper = motor(io1, pins = [6, 8])
 
-#Turret = motor(io2, pins = [2, 10])
+#Turret = motor(io2, pins = [2, 12])
 
-#Shoulder = motor(io2, pins = [1, 9])
+#Shoulder = motor(io2, pins = [1, 11])
 
-#Elbow = motor(io2, pins = [5, 11])
+#Elbow = motor(io2, pins = [3, 9])
 
-#Wrist = motor(io2, pins =[ 6, 12])
+#Wrist = motor(io2, pins =[ 4, 10])
 
-#Claw = motor('pi', pins = [18, 23])
+#Forearm = motor('io2', pins = [5, 7])
+
+#Claw = motor('pi', pins = [6, 8])
 
 #Setup Power Variables
 # This can be changed to scale the power of the motors for the specific subsystems
@@ -54,6 +56,7 @@ def Shutdown(message):
         #Shoulder.start(0)
         #Elbow.start(0)
         #Wrist.start(0)
+        #Forearm.start(0)
         #Claw.start(0)
         
         print(Fore.RED + 'Shutdown' + Fore.RESET)
@@ -131,9 +134,8 @@ def my_event(message):
     Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
     Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
     Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
-
-    clawOpen = int(float(message['clawOpen'])*100)
-    clawClose = int(float(message['clawClose'])*100)
+    Forearm.start(int((float(message['forearmControls'])*100)*powerTurret))
+    Claw.start(int((float(message['clawControls'])*100)*powerTurret))
 '''
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
