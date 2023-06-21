@@ -18,11 +18,11 @@ GPIO.setwarnings(False)
 pi = board('pi')
 
 #Setup Motors
-RightTread = motor('pi',pins = [1, 11]) ## In the order of (board, PWM pin, DIR pin)
+RightTread = motor(pi,pins = [1, 11]) ## In the order of (board, PWM pin, DIR pin)
 #FrontRightFlipper = motor(io1, pins = [3, 9])
 #BackRightFlipper = motor(io1, pins = [5, 7])
 
-LeftTread = motor('pi', pins = [2, 12])
+LeftTread = motor(pi, pins = [2, 12])
 #FrontLeftFlipper = motor(io1, pins = [4, 10])
 #BackLeftFlipper = motor(io1, pins = [6, 8])
 
