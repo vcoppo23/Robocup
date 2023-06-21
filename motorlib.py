@@ -38,7 +38,7 @@ class motor:
 
     def __init__(self,board, pins = None, encoder = None, gear_ratio = None): ## Create a motor by giving it a board, pwm pin, and direction pin
         self.board = board ## The Board options are "pi", "io1", and "io2"
-
+        self.pins = pins ## The pins are in the order of [pwm, dir]
         if len(pins) != 2:
             print ("motor needs 2 pins")
             return
