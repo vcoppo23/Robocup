@@ -15,7 +15,7 @@ GPIO.setwarnings(False)
 #Setup Boards
 #io1 = board(0x18)
 #io2 = board(0x19)
-pi = 'pi'
+pi = board('pi',type = "pi")
 
 #Setup Motors
 RightTread = motor(pi,pins = [1, 11]) ## In the order of (board, PWM pin, DIR pin)
