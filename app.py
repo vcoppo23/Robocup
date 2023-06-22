@@ -13,8 +13,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 #Setup Boards
-#io1 = board(0x18)
-io2 = board(0x19)
+io1 = board(0x18)
+#io2 = board(0x19)
 pi = board('pi',type = "pi")
 
 #Setup Motors
@@ -22,21 +22,21 @@ RightTread = motor(pi,pins = [1, 11]) ## In the order of (board, PWM pin, DIR pi
 #FrontRightFlipper = motor(io1, pins = [3, 9])
 #BackRightFlipper = motor(io1, pins = [5, 7])
 
-LeftTread = motor(pi, pins = [2, 12])
+LeftTread = motor(io1, pins = [2, 12])
 #FrontLeftFlipper = motor(io1, pins = [4, 10])
 #BackLeftFlipper = motor(io1, pins = [6, 8])
 
-Turret = motor(io2, pins = [2, 12])
+#Turret = motor(io2, pins = [2, 12])
 
-Shoulder = motor(io2, pins = [1, 11])
+#Shoulder = motor(io2, pins = [1, 11])
 
-Elbow = motor(io2, pins = [3, 9])
+#Elbow = motor(io2, pins = [3, 9])
 
-Wrist = motor(io2, pins =[ 4, 10])
+#Wrist = motor(io2, pins =[ 4, 10])
 
-Forearm = motor(io2, pins = [5, 7])
+#Forearm = motor(io2, pins = [5, 7])
 
-Claw = motor(io2, pins = [6, 8])
+#Claw = motor(io2, pins = [6, 8])
 
 #Setup Power Variables
 # This can be changed to scale the power of the motors for the specific subsystems
@@ -52,12 +52,12 @@ def Shutdown(message):
         LeftTread.start(0)
         #FrontLeftFlipper.start(0)
         #BackLeftFlipper.start(0)
-        Turret.start(0)
+        #Turret.start(0)
         #Shoulder.start(0)
         #Elbow.start(0)
         #Wrist.start(0)
-        Forearm.start(0)
-        Claw.start(0)
+        #Forearm.start(0)
+        #Claw.start(0)
         
         print(Fore.RED + 'Shutdown' + Fore.RESET)
 
