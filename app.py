@@ -139,7 +139,7 @@ def my_event(message):
     print(message['turretLeft'])
     print(message['turretRight'])
     print(print(message['clawOpen']))
-    print(message['Clawclose'])
+    print(message['clawClose'])
     if (message['turretLeft']):
          Turret.start(20)
     elif (message['turretRight']):
