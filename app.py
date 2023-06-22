@@ -122,7 +122,7 @@ def my_event(message):
     
 
 @socketio.on('turret')
-def my_event(message):
+def my_event1(message):
     #os.system('clear')
     #print(str(message))
 
