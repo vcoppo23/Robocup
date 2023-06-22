@@ -135,11 +135,11 @@ def my_event(message):
     #Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
     #Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
     Forearm.start(int((float(message['forearmControls'])*100)*powerTurret))
-    print('forearm' + message['forearmControls'])
-    print(message['left' +'turretLeft'])
-    print(message['right' +'turretRight'])
-    print(print(message['open'+'clawOpen']))
-    print(message['close'+'clawClose'])
+    print('forearm' , message['forearmControls'])
+    print(message['left' ,'turretLeft'])
+    print(message['right' ,'turretRight'])
+    print(print(message['open','clawOpen']))
+    print(message['close','clawClose'])
     if (message['turretLeft']):
          Turret.start(20)
     elif (message['turretRight']):
