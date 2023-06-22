@@ -14,7 +14,7 @@ GPIO.setwarnings(False)
 
 #Setup Boards
 #io1 = board(0x18)
-#io2 = board(0x19)
+io2 = board(0x19)
 pi = board('pi',type = "pi")
 
 #Setup Motors
@@ -26,7 +26,7 @@ LeftTread = motor(pi, pins = [2, 12])
 #FrontLeftFlipper = motor(io1, pins = [4, 10])
 #BackLeftFlipper = motor(io1, pins = [6, 8])
 
-#Turret = motor(io2, pins = [2, 12])
+Turret = motor(io2, pins = [2, 12])
 
 #Shoulder = motor(io2, pins = [1, 11])
 
@@ -34,9 +34,9 @@ LeftTread = motor(pi, pins = [2, 12])
 
 #Wrist = motor(io2, pins =[ 4, 10])
 
-#Forearm = motor('io2', pins = [5, 7])
+Forearm = motor(io2, pins = [5, 7])
 
-#Claw = motor('io2', pins = [6, 8])
+Claw = motor(io2, pins = [6, 8])
 
 #Setup Power Variables
 # This can be changed to scale the power of the motors for the specific subsystems
@@ -52,12 +52,12 @@ def Shutdown(message):
         LeftTread.start(0)
         #FrontLeftFlipper.start(0)
         #BackLeftFlipper.start(0)
-        #Turret.start(0)
+        Turret.start(0)
         #Shoulder.start(0)
         #Elbow.start(0)
         #Wrist.start(0)
-        #Forearm.start(0)
-        #Claw.start(0)
+        Forearm.start(0)
+        Claw.start(0)
         
         print(Fore.RED + 'Shutdown' + Fore.RESET)
 
@@ -120,7 +120,7 @@ def my_event(message):
     
     print("LeftPower: " + str(int((float(message['joystick1'])*100)*powerDrive)) + " RightPower: " + str(int((float(message['joystick2'])*100)*powerDrive)))
     
-'''
+
 @socketio.on('turret')
 def my_event(message):
     #os.system('clear')
@@ -131,9 +131,9 @@ def my_event(message):
     Shutdown(shutdown)
 
     
-    Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
-    Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
-    Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
+    #Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
+    #Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
+    #Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
     Forearm.start(int((float(message['forearmControls'])*100)*powerTurret))
 
     if (message['turretLeft']):
@@ -150,7 +150,7 @@ def my_event(message):
         Claw.start(-20)  
     else:
         Claw.start(0)
-'''
+
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
     socketio.run(app, debug=False, host='0.0.0.0')
