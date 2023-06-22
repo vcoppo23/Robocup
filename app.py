@@ -28,11 +28,11 @@ LeftTread = motor(pi, pins = [2, 12])
 
 Turret = motor(io2, pins = [2, 12])
 
-#Shoulder = motor(io2, pins = [1, 11])
+Shoulder = motor(io2, pins = [1, 11])
 
-#Elbow = motor(io2, pins = [3, 9])
+Elbow = motor(io2, pins = [3, 9])
 
-#Wrist = motor(io2, pins =[ 4, 10])
+Wrist = motor(io2, pins =[ 4, 10])
 
 Forearm = motor(io2, pins = [5, 7])
 
@@ -131,9 +131,9 @@ def my_event(message):
     Shutdown(shutdown)
 
     
-    #Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
-    #Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
-    #Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
+    Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
+    Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
+    Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
     Forearm.start(int((float(message['forearmControls'])*100)*powerTurret))
     print('forearm' , message['forearmControls'])
     print('left' ,message['turretLeft'])
