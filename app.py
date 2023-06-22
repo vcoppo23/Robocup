@@ -138,8 +138,8 @@ def my_event(message):
     print('forearm' , message['forearmControls'])
     print('left' ,message['turretLeft'])
     print('right' ,message['turretRight'])
-    print(print('open',message['clawOpen']))
-    print(message'close',['clawClose'])
+    print(('open',message['clawOpen']))
+    print('close',message['clawClose'])
     if (message['turretLeft']):
          Turret.start(20)
     elif (message['turretRight']):
