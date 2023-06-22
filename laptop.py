@@ -11,7 +11,7 @@ import struct
 
 # create socket
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serversocket.bind(('192.168.1.2', 8089))
+serversocket.bind(('192.168.1.1', 8089))
 serversocket.listen(10)  # become a server socket, maximum 5 connections
 
 # accept connections from outside
