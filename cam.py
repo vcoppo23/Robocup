@@ -45,6 +45,10 @@ def video_feed1():
 def video_feed2():
     return Response(get_frame(2), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/video_feed3')
+def video_feed3():
+    return Response(get_frame(3), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
     socketio.run(app, debug=False, host='0.0.0.0')
