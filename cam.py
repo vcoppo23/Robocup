@@ -1,3 +1,6 @@
+#Run from raspberry pi
+#Connect to website on Laptop
+
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO, emit ## SocketIO is a python library that allows socket use for flask servers
 from colorama import Fore ## Just so messages are different colors
