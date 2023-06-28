@@ -130,12 +130,24 @@ def my_event(message):
     shutdown = message['shutdown2']
     Shutdown(shutdown)
 
-    Turret.start(int((float(message['turretControls'])*100)*0.3))
     Shoulder.start(int((float(message['shoulderControls'])*100)*powerTurret))
     Elbow.start(int((float(message['elbowControls'])*100)*powerTurret))
     Wrist.start(int((float(message['wristControls'])*100)*powerTurret))
     Forearm.start(int((float(message['forearmControls'])*100)*powerTurret))
-    Claw.start(int((float(message['clawControls'])*100)*powerTurret))
+
+    if (message['turretLeft']):
+         Turret.start(20)
+    elif (message['turretRight']):
+        Turret.start(-20)  
+    else:
+        Turret.start(0)
+
+    if (message['clawOpen']):
+         Claw.start(20)
+    elif (message['clawClose']):
+        Claw.start(-20)  
+    else:
+        Claw.start(0)
 '''
 if __name__ == '__main__':
     print(Fore.RED + 'Server started' + Fore.RESET)
