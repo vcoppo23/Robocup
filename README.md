@@ -1,7 +1,13 @@
 # Robocup
 Creates a website that takes user inputs via a ps4 controller to control the robot
 
+Note: This is for when the raspberry pis are connected to an ethernet switch and then to the laptop
+
 ## Installation:
+# Laptop
+Download and install DHCP Server, and follow [This tutorial](https://youtu.be/oM2zVD9rL8I) to get things set up. (Note: When using DHCP with your raspberry pi's, they won't have internet, so download and install all required dependencies on them beforehand).
+
+# Motor Controller Pi
 Clone the repo into your Raspberry Pi with 
 ```bash
 git clone https://github.com/vcoppo23/Robocup.git
@@ -13,60 +19,49 @@ pip3 install -r requirements.txt
 ```
 If it gives you an error, try using sudo pip3 install ... 
 
-On the Raspberry Pi that is controlling the motors enable I2C, Run the command in the Raspberry Pi terminal
+There might also be other installs not listed in the requirements.txt file, just read the error code and install what it lists.
+
+Next, enable I2C, Run the command in the Raspberry Pi terminal
 ```bash
 sudo raspi-config
 ```
 Using the arrow keys, go down and select "Interfacing Options," then select "I2C" and enable it
-## Usage:
-SSH into both of the Raspberry Pis using "pi@*ip*" for the motor controlling Pi and "student@*ip*" for the camera controlling Pi (intert Pi's ip into the italicized ip)
 
-Then cd into the correct directory with 
-
-```bash
-cd Robocup
-```
-
-Then check to make sure you are in the correct directory with
-```bash
-ls
-```
-You should see a file name "app.py" and a file named "motorlib.py" with 3/4 other folders
-
-Start the flask_socketIO server on the Raspberry Pi that controls the motors with
-```bash
-python3 app.py
-```
-A bunch of lines with pop up into the terminal with a few URLs, go to *pi's ip*:5000 in Google and you should see the page,
-Then start the cameras on the other Pi
-
+# Camera Pi
 Visit [Camera Github](https://github.com/tmedina23/Robocup23-Cams) for more information on cameras
 
-Refresh the Google page and the cameras will load onto the page
+Clone the above Repo into the Pi, plug in your 4 cameras, and run with "sudo python app.py." You can visit the cameras by putting the pi's address into your web browser. 
 
-You can connect a ps4 controller via a wire or wirelessly to your laptop to run the robot, just make sure you are on the Google page (check by clicking onto the page) 
-
-To make sure it is sending the controls right click onto the Google page and click "inspect", in the pop up that appears to the right go to the top right and click on "Console" (It may be throwing a lot of errors if you haven't moved the controller on the page yet, just click the "X" button and message saying along the lines of a controller being connected will appear) 
+## Usage:
+Run the camera pi and the motor controlling pi. If everything is correct you will be able to visit the flask server created by the motor controlling pi (192.168.1.X if you followed the above tutorial) and see all 4 cameras. Next, inspect the page and view the console, when you connect your controller it will start reading inputs and will tell you which mode you are in. 
 
 ### Emergency Shutdown:
-When giving no input to the controller, all motors are set to 0% power. 
+There is a big red button, if you click it, it will send 0% power to motors (not recommended).
 
-Closing out of the google page will submit a "Disconnect" message to server which turns on shutdown mode and sets motors to 0% power.
-
-If the controller disconnects, motor power is set to 0%.
+Instead, it is recommended that you hold down the options button on the controller which sets all motor values in your current mode to 0% while held down. Use this button until the E-Stop is used or the batteries are unplugged and/or off. 
 
 ### Controls:
 #### Tread Mode:
-Up/Down on joysticks move treads forward/backward respectivly, the bumper/trigger move the flippers up/down respectivly
+Up/Down on joysticks move treads forward/backward.
+
+Bumpers/Triggers move front flippers up/down.
+
+Up D-pad and triangle/Down-Dpad and X move back flippers up/down.
 
 #### Turret Mode:
-On Left Joystick: Left/Right moves Turret Clockwise/Counterclockwise, Up/Down moves shoulder up/down
+Bumpers turn the turret
 
-On Right Joystick: Left/Right moves the wrist, Up/Down moves the elbow
+Up/Down On Left Joystick moves the shoulder
 
-Other wrist/Claw not implemented yet
+Up/Down On Right Joystick moves the elbow
 
-#### Control Description:
+Up/Down D-Pad moves the forearm
+
+Triangle/X move the wrist
+
+Triggers open/close the claw
+
+#### Inspect Console Description:
 "No Input": No controller inputs are being read
 
 "Tread Mode": Controller is reading inputs in tread mode
@@ -74,7 +69,9 @@ Other wrist/Claw not implemented yet
 "Turret Mode": Controller is reading inputs in turret mode
 
 #### Switch Mode:
-Click on Left D-Pad button (Leftmost button on controller), if it registers the input, "toggled" will appear
+Click on the Left D-Pad button, if it registers the input, "toggled" will appear.
+
+NOTE: Be careful not to fat finger the toggle button while giving inputs, as if you switch the motor will continue to run. To make it stop, just switch back.
 
 ### Credits:
 Benilde-St. Margarets Robotics Team
