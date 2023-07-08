@@ -40,15 +40,15 @@ There is a big red button, if you click it, it will send 0% power to motors (not
 
 Instead, it is recommended that you hold down the options button on the controller which sets all motor values in your current mode to 0% while held down. Use this button until the E-Stop is used or the batteries are unplugged and/or off. 
 
-### Controls:
-#### Tread Mode:
+## Controls:
+### Tread Mode:
 Up/Down on joysticks move treads forward/backward.
 
 Bumpers/Triggers move front flippers up/down.
 
 Up D-pad and triangle/Down-Dpad and X move back flippers up/down.
 
-#### Turret Mode:
+### Turret Mode:
 Bumpers turn the turret
 
 Up/Down On Left Joystick moves the shoulder
@@ -61,18 +61,18 @@ Triangle/X move the wrist
 
 Triggers open/close the claw
 
-#### Inspect Console Description:
+### Inspect Console Description:
 "No Input": No controller inputs are being read
 
 "Tread Mode": Controller is reading inputs in tread mode
 
 "Turret Mode": Controller is reading inputs in turret mode
 
-#### Switch Mode:
+### Switch Mode:
 Click on the Left D-Pad button, if it registers the input, "toggled" will appear.
 
 NOTE: Be careful not to fat finger the toggle button while giving inputs, as if you switch the motor will continue to run. To make it stop, just switch back.
 
-### Credits:
+## Credits:
 Benilde-St. Margarets Robotics Team
 2022-23
