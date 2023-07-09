@@ -64,9 +64,9 @@ Triggers open/close the claw
 ### Inspect Console Description:
 "No Input": No controller inputs are being read
 
-"Tread Mode": Controller is reading inputs in tread mode
+"Tread Mode": Sending tread mode inputs
 
-"Turret Mode": Controller is reading inputs in turret mode
+"Turret Mode": Sending turret mode inputs
 
 ### Switch Mode:
 Click on the Left D-Pad button, if it registers the input, "toggled" will appear.
