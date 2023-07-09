@@ -68,6 +68,8 @@ Triggers open/close the claw
 
 "Turret Mode": Sending turret mode inputs
 
+"toggled": Switched between the 2 modes
+
 ### Switch Mode:
 Click on the Left D-Pad button, if it registers the input, "toggled" will appear.
 
